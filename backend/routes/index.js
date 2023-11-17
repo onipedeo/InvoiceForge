@@ -1,3 +1,4 @@
+const BodyParser = require('body-parser');
 
 const express = require('express');
 const morgan = require('morgan');
@@ -10,6 +11,9 @@ const invoice = require('./invoiceRoutes');
 const address = require('./addressRoutes');
 
 const router = express.Router();
+
+router.use(BodyParser.urlencoded({ extended: false }));
+router.use(BodyParser.json());
 
 router.use(morgan('dev'));
 router.use('/user', user);
