@@ -12,7 +12,7 @@ export default function Footer (){
           <a href="#">About Us</a>
         </div>
       </div>
-      <p>&copy; 2023 InvoiceForge. All rights reserved.</p>
+      <p className="footer-company">&copy; 2023 InvoiceForge. All rights reserved.</p>
     </footer>
   );
 }
