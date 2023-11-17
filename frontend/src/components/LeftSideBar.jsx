@@ -3,34 +3,58 @@ import '../styles/leftSideBar.scss'
 
 const LeftSideBar = () => {
   return (
-    <div className='sidebar'>
-      {/* <h1>Hello left side bar</h1> */}
-      <table className='sidebar-list'>
+    <div className='container'>
+      <sidebar className='sidebar'>
+        {/* <h1>Hello left side bar</h1> */}
+
+        <div>
+          <h1>Weeks</h1>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        <div>
+          <p>Jan 20 - Jan 27</p>
+        </div>
+        {/* <table className='sidebar-list'>
        <tr>
-        <th>Weeks</th>
+       <th>Weeks</th>
        </tr>
        <tr>
-        <td>Jan 20 - Jan 27</td>
+       <td>Jan 20 - Jan 27</td>
        </tr>
        
        <tr>
-        <td>Jan 20 - Jan 27</td>
+       <td>Jan 20 - Jan 27</td>
        </tr>
        
        <tr>
-        <td>Jan 20 - Jan 27</td>
+       <td>Jan 20 - Jan 27</td>
        </tr>
-
+       
        <tr>
-        <td>Jan 20 - Jan 27</td>
+       <td>Jan 20 - Jan 27</td>
        </tr>
-
+       
        <tr>
-        <td>Jan 20 - Jan 27</td>
+       <td>Jan 20 - Jan 27</td>
        </tr>
+       
+      </table> */}
 
-      </table>
-
+      </sidebar>
     </div>
   );
 };
