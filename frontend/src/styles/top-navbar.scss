@@ -1,0 +1,68 @@
+.top-nav-bar {
+  display: flex;
+  margin-left: -10px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+  align-items: center;
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
+  box-shadow: 0 4px 6px -6px #222;
+  height: 72px;
+}
+
+.top-nav-bar__logo {
+  text-decoration: overline;
+  font-weight: 500;
+  font-size: 24px;
+  color: #111;
+  text-underline-position: auto;
+  margin-left: 24px;
+  font-family: 'YourLogoFont', sans-serif; 
+  letter-spacing: 2px; 
+}
+
+.top-nav-bar__list {
+  display: flex;
+  justify-content: space-between;
+  width: 45%;
+  align-items: center;
+  margin: 120px;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+
+  span {
+    display: inline-block; 
+    padding: 0.3px; 
+    transition: text-shadow 0.3s ease; 
+  }
+  
+  span:hover {
+    text-shadow: 2px 2px 5px rgba(4, 4, 4, 0.5); 
+    cursor: pointer; 
+  }
+}
+
+.top-nav-bar__authentication {
+  display: flex;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+
+  span {
+    padding: 2px;
+    transition: text-shadow 0.3s ease;
+
+    &:not(:last-child) {
+      padding-right: 8px;
+      margin-right: 8px; /* Add margin between spans */
+      border-right: 1px solid #111;; /* Add a border between spans */
+    }
+
+    &:hover {
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+  }
+}
