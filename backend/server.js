@@ -1,19 +1,19 @@
 const Express = require('express');
 require('dotenv').config()
-
+router = require('./routes/index')
 const App = Express();
 const BodyParser = require('body-parser');
 const PORT = process.env.PORT || 8080;
+
 
 // Express Configuration
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 App.use(Express.static('public'));
+App.use('/api', router)
 
-// Sample GET route
-App.get('/api/data', (req, res) => res.json({
-  message: "Seems to work!",
-}));
+
+
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console
