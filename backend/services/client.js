@@ -23,6 +23,14 @@ class ClientService {
     return clientDao.setAddress(clientId, addressId);
   }
 
+  getReviewedAppointments(clientId) {
+    return clientDao.getReviewedAppointments(clientId);
+  }
+
+  getUnreviewedAppointments(clientId) {
+    return clientDao.getUnreviewedAppointments(clientId);
+  }
+
 }
 
 module.exports = new ClientService();

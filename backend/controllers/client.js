@@ -50,5 +50,25 @@ class ClientController {
     }
   }
 
+  async getReviewedAppointments(req, res) {
+    try {
+      const appointments = await clientService.getReviewedAppointments(req.params.id);
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+      console.error(e);
+    }
+  }
+
+  async getUnreviewedAppointments(req, res) {
+    try {
+      const appointments = await clientService.getUnreviewedAppointments(req.params.id);
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+      console.error(e);
+    }
+  }
+
 }
 module.exports = new ClientController();

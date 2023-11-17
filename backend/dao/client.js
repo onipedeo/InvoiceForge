@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const { getUnreviewedAppointments } = require('../services/client');
 
 class ClientDao {
   async create(userId, name, companyName, email, phone, clientRateCents) {
@@ -32,6 +33,15 @@ class ClientDao {
     await db('clients').where({ id: clientId }).update({ address_id: addressId });
   }
 
+  async getReviewedAppointments(clientId) {
+    const appointments = await db('appointments').where({ client_id: clientId, invoiced: false, reviewed: true });
+    return appointments;
+  }
+
+  async getUnreviewedAppointments(clientId) {
+    const appointments = await db('appointments').where({ client_id: clientId, invoiced: false, reviewed: false });
+    return appointments;
+  }
 }
 
 module.exports = new ClientDao();
