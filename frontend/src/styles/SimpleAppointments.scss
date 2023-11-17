@@ -1,16 +1,48 @@
 .appointment-list {
-  list-style-type: none;
-  padding: 0;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px auto;
 }
 
 .appointment-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border: 1px solid #ccc;
   padding: 8px;
-  border-bottom: 1px solid #ccc;
+  margin-top: 20px;
 }
 
-.appointment-list-item input {
-  margin-left: 8px;
+.appointment-list-item td {
+  padding: 8px;
+}
+
+.appointment-details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.appointment-details span {
+  margin-right: 8px;
+}
+.appointment-list {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.appointment-list-item {
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-top: 20px;
+}
+
+.appointment-list-item td {
+  padding: 8px;
+}
+
+.appointment-details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.appointment-details span {
+  margin-right: 8px;
 }
