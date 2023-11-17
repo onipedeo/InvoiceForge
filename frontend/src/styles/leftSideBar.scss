@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  // margin: 0px;
+  // padding: 0px;
+  // border: 0px;
+}
+
+.sidebar {
+  display: inline-flex;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+
+}
