@@ -14,6 +14,11 @@
 ```sh
     npm install
 ```
+# Trouble Shooting
+-if you are have trouble with installing the dependancies, make sure that you are using node 18 or higher.  You can check your node version by running the following command:
+```sh
+    node -v
+```
 
 # Database Initialization
 1.  Ensure that your .env has the following:
@@ -44,3 +49,30 @@ Using environment: development
 Ran 3 seed files
 ```
 6.  You should now have a database with the correct tables and some seed data
+
+# Running Tests
+1.  Ensure that you are in the desired directory:
+```
+    # depending on which tests you want to run
+    cd frontend
+    cd backend
+```
+2.  Run the following command:
+```sh
+    npm test
+```
+3. cypress is a bit different Run the following command:
+```sh
+    npm run cypress
+```
+
+# Creating Jest Tests (backend)
+Follow the guide found here: https://jestjs.io/docs/en/getting-started
+
+# Creating Vitest Tests (frontend)
+
+Follow the guide found here: https://vitest.dev/guide/
+
+# Creating Cypress Tests (frontend)
+
+Follow the guide found here: https://docs.cypress.io/guides/overview/why-cypress
