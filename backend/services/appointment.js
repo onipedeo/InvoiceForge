@@ -19,11 +19,11 @@ class AppointmentService {
     return appointmentDao.delete(appointmentId);
   }
 
-  reviewedById(appointmentId) {
+  setReviewedById(appointmentId) {
     return appointmentDao.reviewedById(appointmentId);
   }
 
-  invoicedById(appointmentId) {
+  setInvoicedById(appointmentId) {
     return appointmentDao.invoicedById(appointmentId);
   }
 

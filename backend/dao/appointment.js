@@ -36,11 +36,11 @@ class appointmentDao {
     });
   }
 
-  async reviewedById(id) {
+  async setReviewedById(id) {
     return await db('appointments').where({ id }).update({ reviewed: true });
   }
 
-  async invoicedById(id) {
+  async setInvoicedById(id) {
     return await db('appointments').where({ id }).update({ invoiced: true });
   }
 
