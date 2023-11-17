@@ -10,13 +10,13 @@ const appointments = [
 ];
 
 const SimpleAppointments = () => {
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedAppointments, setCheckedAppointments] = useState([]);
 
-  const handleCheckboxChange = (id) => {
-    setCheckedItems((prevCheckedItems) =>
-      prevCheckedItems.includes(id)
-        ? prevCheckedItems.filter((item) => item !== id)
-        : [...prevCheckedItems, id]
+  const handleAppointmentCheck = (id) => {
+    setCheckedAppointments((checkedAppointments) =>
+      checkedAppointments.includes(id)
+        ? checkedAppointments.filter((item) => item !== id)
+        : [...checkedAppointments, id]
     );
   };
 
@@ -25,8 +25,8 @@ const SimpleAppointments = () => {
       {appointment.appointment}
       <input
         type="checkbox"
-        checked={checkedItems.includes(appointment.id)}
-        onChange={() => handleCheckboxChange(appointment.id)}
+        checked={checkedAppointments.includes(appointment.id)}
+        onChange={() => handleAppointmentCheck(appointment.id)}
       />
     </li>
   ));
@@ -35,5 +35,3 @@ const SimpleAppointments = () => {
 };
 
 export default SimpleAppointments;
-
-
