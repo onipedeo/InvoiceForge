@@ -63,7 +63,7 @@ exports.up = function(knex) {
       table.integer('appointment_rate_cents').nullable().defaultTo(null);
       table.text('notes').nullable();
       table.timestamps(true, true);
-    })
+    });
 };
 
 /**
@@ -76,5 +76,5 @@ exports.down = function(knex) {
     .dropTable('invoices')
     .dropTable('clients')
     .dropTable('users')
-    .dropTable('addresses')
+    .dropTable('addresses');
 };
