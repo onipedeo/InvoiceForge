@@ -3,12 +3,12 @@ import db from '../db/db';
 class InvoiceDao {
   async create(userId, clientId, dueDate, totalCents) {
     const invoiceNumber = await this._getNextInvoiceNumber(userId);
-    const [id, user_id] = await db('invoices').insert({
+    const [id] = await db('invoices').insert({
       user_id: userId,
       client_id: clientId,
       due_date: dueDate,
       total_cents: totalCents
-    }).returning('id', 'user_id');
+    }).returning('id');
 
     await db('users').where({ id: userId }).increment('next_invoice_number');
 
@@ -24,3 +24,5 @@ class InvoiceDao {
     return db('users').where({ id: userId }).returning('next_invoice_number');
   }
 }
+
+module.exports = new InvoiceDao();

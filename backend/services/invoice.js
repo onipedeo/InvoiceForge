@@ -1,3 +1,4 @@
+const invoiceDao = require('../dao/invoice');
 class InvoiceService {
   create(invoiceDto) {
     const { userId, clientId, dueDate, totalCents } = invoiceDto;
