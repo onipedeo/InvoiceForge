@@ -5,6 +5,7 @@
   "main": "server.js",
   "authors": "Nathan Wiles",
   "scripts": {
+    "test": "jest --watchAll",
     "db:rollback": "npx knex migrate:rollback --knexfile db/knexfile.js",
     "db:seed": "npx knex seed:run --knexfile db/knexfile.js",
     "db:migrate": "npx knex migrate:latest --knexfile db/knexfile.js",
