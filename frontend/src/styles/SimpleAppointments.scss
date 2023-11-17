@@ -1,0 +1,16 @@
+.appointment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.appointment-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.appointment-list-item input {
+  margin-left: 8px;
+}
