@@ -1,0 +1,23 @@
+.modal form {
+  display: inline-flex;
+  align-items: left;
+  justify-content: left;
+  height: 100vh;
+  flex-direction: column;
+  width: 40vw;
+
+  label {
+    align-content: left;
+    display: flex;
+  }
+}
+
+.close-modal {
+  display: flex;
+  align-self: flex-end;
+}
+
+button {
+  display: flex;
+  align-self: center
+}
