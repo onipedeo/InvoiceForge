@@ -9,6 +9,11 @@
 # Project Name
   - InvoiceForge
 
+# Dependancies
+- During development, make sure to frequently run the following command to ensure that you have the latest dependancies:
+```sh
+    npm install
+```
 
 # Database Initialization
 1.  Ensure that your .env has the following:
