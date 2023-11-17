@@ -6,6 +6,7 @@
   "author": "garrettgsb",
   "license": "MIT",
   "scripts": {
+    "migrate": "npx knex migrate:latest --knexfile db/knexfile.js",
     "go": "nodemon server.js"
   },
   "dependencies": {
