@@ -2,7 +2,7 @@ const db = require('../db/db');
 
 class ClientDao {
   async create(userId, name, companyName, email, phone, clientRateCents) {
-    const [id] = await db('clients').insert({
+    const id = await db('clients').insert({
       user_id: userId,
       name,
       company_name: companyName,
@@ -10,7 +10,8 @@ class ClientDao {
       phone,
       client_rate_cents: clientRateCents
     }).returning('id');
-    return clientId;
+
+    return id;
   }
 
   async getById(clientId) {

@@ -3,7 +3,8 @@ const clientDao = require('../daos/client');
 class ClientService {
   create(clientDto) {
     const { userId, name, companyName, email, phone, clientRateCents } = clientDto;
-    return clientDao.create(userId, name, companyName, email, phone, clientRateCents);
+    return clientDao.create(userId, name, companyName, email, phone, clientRateCents)
+    .catch((error) => { console.error(error); });
   }
 
   getById(clientId) {
