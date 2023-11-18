@@ -2,16 +2,22 @@ import { useState } from 'react';
 import './App.css';
 import LandingPage from './components/Landingpage';
 import SimpleAppointments from './components/SimpleAppointmets'
-// import InvoiceGeneratedModal from './components/InvoiceGeneratedModal'
+import InvoiceGeneratedModal from './components/InvoiceGeneratedModal'
+import InvoicePreview from './components/InvoicePreview';
+import { PDFViewer } from '@react-pdf/renderer';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <LandingPage />
-      {/* <InvoiceGeneratedModal/> */}
-      <SimpleAppointments/>
+    {/* <PDFViewer>
+      <InvoicePreview/>
+    </PDFViewer> */}
+      {/* <LandingPage /> */}
+      <InvoiceGeneratedModal/>
+
+      {/* <SimpleAppointments/> */}
+      
     </>
   )
 }
