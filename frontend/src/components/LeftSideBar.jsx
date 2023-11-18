@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/leftSideBar.scss'
 
-const LeftSideBar = () => {
+const LeftSideBar = (props) => {
   return (
     <div className='container'>
       <sidebar className='sidebar'>
