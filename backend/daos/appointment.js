@@ -39,17 +39,8 @@ class appointmentDao {
       notes
     });
   }
-
-  async setReviewedById(id) {
-    return await db('appointments').where({ id }).update({ reviewed: true });
-  }
-
-  async setInvoicedById(id) {
-    return await db('appointments').where({ id }).update({ invoiced: true });
-  }
-
   async confirmHours(id, confirmedHours) {
-    return await db('appointments').where({ id }).update({ confirmed_hours: confirmedHours });
+    return await db('appointments').where({ id }).update({ confirmed_hours: confirmedHours, reviewed: true });
   }
 }
 
