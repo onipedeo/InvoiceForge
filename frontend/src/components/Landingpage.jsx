@@ -1,14 +1,5 @@
 import "../styles/landing-page.scss"
 
-<<<<<<< HEAD
-
-export default function LandingPage(props) {
-  return (
-    <>
-    <h1>Hello InvoiceForge2</h1>
-    </>
-  )
-=======
 export default function LandingPage(props) {
   return (
     <div className="landing-container">
@@ -22,6 +13,5 @@ export default function LandingPage(props) {
     <img className="landing-image" src="/landing.jpg" alt="landing" />
   </div>
 )
->>>>>>> skeleton/landing-page
 };
 
