@@ -1,4 +1,4 @@
-import db from '../db/db';
+const db =  require('../db/db');
 
 class InvoiceDao {
   async create(userId, clientId, dueDate, totalCents) {
