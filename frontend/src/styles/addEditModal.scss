@@ -1,20 +1,29 @@
-.modal form {
+form {
   display: inline-flex;
-  align-items: left;
-  justify-content: left;
-  height: 100vh;
+  height: auto;
   flex-direction: column;
   width: 40vw;
+  color: black;
+
 
   label {
     align-content: left;
     display: flex;
+    font-weight: 500;
   }
+}
+
+.modal {
+  align-content: center;
+  background-color: rgba(255, 192, 203, 0.568);
+  color: black;
+  padding: 20px;
 }
 
 .close-modal {
   display: flex;
   align-self: flex-end;
+  cursor: pointer;
 }
 
 button {
