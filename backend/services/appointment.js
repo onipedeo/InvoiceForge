@@ -2,6 +2,7 @@ const appointmentDao = require('../daos/appointment');
 class AppointmentService {
 
   create(appointmentDto) {
+    console.log("appointmentDto", appointmentDto)
     const { date, startTime, endTime, clientId, userId, appointmentRateCents, notes } = appointmentDto;
     return appointmentDao.create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes);
   }

@@ -7,7 +7,7 @@ class AppointmentController {
       const [id] = await appointmentService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "appointmentService failing" });
     }
   }
 

@@ -2,18 +2,26 @@ const appointmentController = require('../controllers/appointment');
 const express = require('express');
 const router = express.Router();
 
+// For validating the request body
+const validateDto = require('../middleware/validate-dto');
+const appointmentDto = require('../dtos/appointment');
+
 // GET appointment by ID
 router.get('/:id', (req, res) => {
   appointmentController.getById(req, res);
 });
 
 // PUT edit appointment
-router.put('/:id', (req, res) => {
+router.put('/:id', validateDto(appointmentDto), (req, res) => {
+  try {
   appointmentController.edit(req, res);
+  } catch (e) {
+    console.error(e, "error in appointmentRoutes.js");
+  }
 });
 
 // POST create new appointment
-router.post('/', (req, res) => {
+router.post('/', validateDto(appointmentDto), (req, res) => {
   appointmentController.create(req, res);
 });
 
