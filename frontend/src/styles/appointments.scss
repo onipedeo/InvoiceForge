@@ -1,0 +1,10 @@
+div .appointment  {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+div .add-edit{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

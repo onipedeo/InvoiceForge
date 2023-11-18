@@ -11,7 +11,7 @@ const fakeAppiontments = [
 
 const appointmentList = fakeAppiontments.map((app) => {
   return (
-    <div key={app.id} className='add-edit'>
+    <div key={app.id} className='appointment'>
       <div className='add-edit'>
         <h2>{app.start_time}</h2>
         <div>
