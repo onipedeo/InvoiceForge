@@ -6,9 +6,9 @@ const AddEditModal = () => {
     <div className='modal'>
       {/* <h2>Hello Add/Edit Modal</h2> */}
       <div className="appointment-modal">
-        <h2>Book an Appointment</h2>
         <form >
-          <button type='submit'>X</button>
+          <h2>Book an Appointment</h2>
+          <button className="close-modal" type='submit'>❌</button>
           <label htmlFor="Title">
             Title:
           </label>
@@ -31,30 +31,10 @@ const AddEditModal = () => {
             name="endTime"
           />
           <label>
-            Confirmed Hours:
-          </label>
-          <input
-            type="number"
-            name="confirmedHours"
-          />
-          <label>
-            Reviewed:
-            <input
-              type="checkbox"
-              name="reviewed"
-            />
-          </label>
-          <label>
-            Invoiced:
-            <input
-              type="checkbox"
-              name="invoiced"
-            />
-          </label>
-          <label>
             Appointment Rate :
           </label>
           <select>
+            <option value=""></option>
             <option value="standard">Standard</option>
             <option value="pro">Pro</option>
             <option value="premium">Premium</option>
