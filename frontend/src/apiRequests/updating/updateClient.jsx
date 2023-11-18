@@ -1,5 +1,5 @@
-import create from '../helpers/create';
+import put from '../helpers/put';
 
-export const createClient = (clientData) => {
-  return create('/api/client', clientData);
+export const updateClient = (clientId) => {
+  return put(`/api/client/${clientId}`, clientData);
 };
