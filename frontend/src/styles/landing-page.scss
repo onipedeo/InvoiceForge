@@ -1,3 +1,31 @@
+<<<<<<< HEAD
 h1{
   color: green
 }
+=======
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px; 
+}
+
+.landing-text {
+  max-width: 50%; 
+  font-size: medium;
+  font-weight: 400;
+  margin-right: 50px;
+  padding: 20px; 
+  border: 2px solid #333; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+
+.landing-image {
+  max-width: 40%; 
+  border: 2px solid #ccc; 
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+>>>>>>> skeleton/landing-page
