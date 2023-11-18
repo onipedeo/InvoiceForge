@@ -15,7 +15,6 @@ class UserController {
       res.status(200).json(user);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error("ERROR: email must be in request body");
     }
   }
   async getById(req, res) {
