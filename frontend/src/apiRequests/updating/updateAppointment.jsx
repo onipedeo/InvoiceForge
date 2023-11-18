@@ -1,5 +1,6 @@
-import create from '../helpers/create';
+import put from '../helpers/put';
 
-export const createAppointment = (appointmentData) => {
-  return create('/api/appointment', appointmentData);
+export const updateAppointment = (appointmentData) => {
+  return put(`/api/appointment/${appointmentId}`, appointmentData);
 };
+
