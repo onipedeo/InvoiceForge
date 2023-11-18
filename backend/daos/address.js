@@ -2,17 +2,22 @@ const db = require('../db/db');
 
 class AddressDao {
   async create(line_1, line_2, city, province, country, postalCode) {
-   const [id] = await db('addresses').insert({
-      line_1,
-      line_2,
-      city,
-      province,
-      country,
-      postal_code: postalCode
-    })
-    .returning('id');
+    try {
+      const [id] = await db('addresses').insert({
+        line_1,
+        line_2,
+        city,
+        province,
+        country,
+        postal_code: postalCode
+      })
+        .returning('id');
 
-    return id;
+      return id;
+    } catch (e) {
+      console.error(e);
+    }
+
   }
   async getById(id) {
     return await db('addresses').select('*').where({ id });

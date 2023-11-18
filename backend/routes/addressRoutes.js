@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const addressController = require('../controllers/address');
+const addressDto = require('../dtos/address');
+const validateDto = require('../middleware/validate-dto');
 
 // GET address by ID
 router.get('/:id', (req, res) => {
@@ -9,7 +11,7 @@ router.get('/:id', (req, res) => {
 });
 
 // POST create new address
-router.post('/', (req, res) => {
+router.post('/', validateDto(addressDto), (req, res) => {
   addressController.create(req, res);
 });
 

@@ -12,7 +12,7 @@ class AddressController {
   }
   async create(req, res) {
     try {
-      const [id] = await addressService.create(req.body);
+      const id = await addressService.create(req.body);
       res.status(201).json(id);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
