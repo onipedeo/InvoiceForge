@@ -2,11 +2,11 @@ import React from 'react';
 import '../styles/appointments.scss';
 
 const fakeAppiontments = [
-  { id: 1, appointmentTitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut at voluptates dolorem dolorum, tenetur minus accusantium, debitis, mollitia amet voluptatum perspiciatis enim sit non cum est nulla! At, minus quasi", start_time: '09:00:00' },
-  { id: 2, appointmentTitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut at voluptates dolorem dolorum, tenetur minus accusantium, debitis, mollitia amet voluptatum perspiciatis enim sit non cum est nulla! At, minus quasi", start_time: '09:00:00' },
-  { id: 3, appointmentTitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut at voluptates dolorem dolorum, tenetur minus accusantium, debitis, mollitia amet voluptatum perspiciatis enim sit non cum est nulla! At, minus quasi", start_time: '09:00:00' },
-  { id: 4, appointmentTitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut at voluptates dolorem dolorum, tenetur minus accusantium, debitis, mollitia amet voluptatum perspiciatis enim sit non cum est nulla! At, minus quasi", start_time: '09:00:00' },
-  { id: 5, appointmentTitle: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut at voluptates dolorem dolorum, tenetur minus accusantium, debitis, mollitia amet voluptatum perspiciatis enim sit non cum est nulla! At, minus quasi", start_time: '09:00:00' }
+  { id: 1, appointmentTitle: "Lorem ipsum dolor sit amet is a very long ", start_time: '09:00:00' },
+  { id: 2, appointmentTitle: "Lorem ipsum dolor sit amet is a very long ", start_time: '09:00:00' },
+  { id: 3, appointmentTitle: "Lorem ipsum dolor sit amet is a very long ", start_time: '09:00:00' },
+  { id: 4, appointmentTitle: "Lorem ipsum dolor sit amet is a very long ", start_time: '09:00:00' },
+  { id: 5, appointmentTitle: "Lorem ipsum dolor sit amet is a very long ", start_time: '09:00:00' }
 ]
 
 const appointmentList = fakeAppiontments.map((app) => {
@@ -14,9 +14,9 @@ const appointmentList = fakeAppiontments.map((app) => {
     <div key={app.id} className='appointment'>
       <div className='add-edit'>
         <h2>{app.start_time}</h2>
-        <div>
-          <button type='submit'>❌</button>
-          <button>✏️</button>
+        <div className='button-container'>
+          <button type='button' className='delete-button'>❌</button>
+          <button type='button' className='edit-button'>✏️</button>
         </div>
       </div>
       <p>{app.appointmentTitle}</p>
@@ -25,7 +25,7 @@ const appointmentList = fakeAppiontments.map((app) => {
 })
 
 
-const Appointments = () => {
+const Appointments = (props) => {
   return (
     <div >
       {appointmentList}
