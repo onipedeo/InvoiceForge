@@ -60,9 +60,9 @@ class ClientController {
     }
   }
 
-  async getUnreviewedAppointments(req, res) {
+  async getAppointmentsInReview(req, res) {
     try {
-      const appointments = await clientService.getUnreviewedAppointments(req.params.id);
+      const appointments = await clientService.getAppointmentsInReview(req.params.id);
       res.status(200).json(appointments);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });

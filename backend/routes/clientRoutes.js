@@ -21,7 +21,7 @@ router.get('/:id/reviewed', (req, res) => {
 
 // Get /api/client/:id/unreviewed - serves array: client unreviewed appointments
 router.get('/:id/unreviewed', (req, res) => {
-  clientController.getUnreviewedAppointments(req, res);
+  clientController.getAppointmentsInReview(req, res);
 });
 
 // GET /api/client/:id/invoices - serves array: client invoices

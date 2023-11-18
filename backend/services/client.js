@@ -27,8 +27,8 @@ class ClientService {
     return clientDao.getReviewedAppointments(clientId);
   }
 
-  getUnreviewedAppointments(clientId) {
-    return clientDao.getUnreviewedAppointments(clientId);
+  getAppointmentsInReview(clientId) {
+    return clientDao.getAppointmentsInReview(clientId);
   }
 
 }
