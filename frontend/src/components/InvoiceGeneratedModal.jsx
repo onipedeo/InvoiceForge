@@ -11,7 +11,7 @@ const InvoiceGeneratedModal = () => {
 
   return (
     <div className="invoice-generated-modal">
-        <p>INVOICE CRAFTED!!!</p>
+        <p>INVOICE SENT!!!</p>
       <div className="modal-options">
         <button onClick={handleReturnToSchedule}>Return to Schedule</button>
         <button onClick={handleCreateAnotherInvoice}>
