@@ -4,6 +4,7 @@ class InvoiceDao {
   async create(userId, clientId, dueDate, totalCents) {
     const invoiceNumber = await this._getNextInvoiceNumber(userId);
     const [id] = await db('invoices').insert({
+      invoice_number: invoiceNumber,
       user_id: userId,
       client_id: clientId,
       due_date: dueDate,
@@ -20,8 +21,8 @@ class InvoiceDao {
   }
 
 
-  _getNextInvoiceNumber(userId) {
-    return db('users').where({ id: userId }).returning('next_invoice_number');
+  async _getNextInvoiceNumber(userId) {
+    return await db('users').where({ id: userId }).returning('next_invoice_number').first();
   }
 }
 
