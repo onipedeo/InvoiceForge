@@ -32,7 +32,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // PUT confirmed hours by ID
-router.put('/confirm-hours/:id', validateDto(confirmedHoursDto), (req, res) => {
+router.put('/:id/hours', validateDto(confirmedHoursDto), (req, res) => {
   appointmentController.confirmHours(req, res);
 });
 
