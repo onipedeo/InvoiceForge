@@ -73,23 +73,18 @@ const day = ["Sunday", "Monday", "Tuesday", "wednessday", "Thursday", "Friday", 
 const dayList = day.map((day, index) => {
 
   return (
-    <div key={index} className='day-container'>
-      <div className='day-housing'>
-        {/* <h4>Hello Day Component</h4> */}
-        <div className='single-day'>
-          <div className='days-bar'>
-            {day}
-          </div>
-          <Appointments />
-        </div>
+    <div key={index} className='day-housing'>
+      <div>
+        {day}
       </div>
+      <Appointments />
     </div>
   )
 })
 
 const Day = () => {
   return (
-    <div className='day-container'>
+    <>
       {dayList}
       {/* <div className='day-housing'>
        
