@@ -56,8 +56,8 @@
 
     &:not(:last-child) {
       padding-right: 8px;
-      margin-right: 8px; /* Add margin between spans */
-      border-right: 1px solid #111;; /* Add a border between spans */
+      margin-right: 8px; 
+      border-right: 1px solid #111;; 
     }
 
     &:hover {
