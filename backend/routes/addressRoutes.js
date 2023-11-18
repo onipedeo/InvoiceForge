@@ -21,7 +21,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // PUT edit address by ID
-router.put('/:id', validate(addressDto), (req, res) => {
+router.put('/:id', validateDto(addressDto), (req, res) => {
   addressController.edit(req, res);
 });
 

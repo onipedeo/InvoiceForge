@@ -3,8 +3,9 @@ const addressDao = require('../daos/address');
 class AddressService {
   create(addressDto) {
 
-    const { line_1, line_2, city, province, country, postalCode } = addressDto;
-    return addressDao.create(line_1, line_2, city, province, country, postalCode);
+    const { clientId, UserId, line_1, line_2, city, province, country, postalCode } = addressDto;
+    return addressDao.create(clientId, UserId, line_1, line_2, city, province, country, postalCode);
+
   }
 
   getById(id) {
