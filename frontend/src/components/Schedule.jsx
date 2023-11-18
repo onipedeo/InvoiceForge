@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/schedule.scss';
 import Day from './Day';
 
-const Schedule = () => {
+const Schedule = (props) => {
   return (
     <div className='full-scheduler'>
       <Day />

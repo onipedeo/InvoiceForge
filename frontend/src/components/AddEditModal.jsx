@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/addEditModal.scss';
 
-const AddEditModal = () => {
+const AddEditModal = (props) => {
   return (
     <div className='modal'>
       <h2>Book an Appointment</h2>
