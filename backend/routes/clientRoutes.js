@@ -30,7 +30,7 @@ router.get('/:id/invoices', (req, res) => {
   clientController.getInvoices(req, res);
 });
 
-// PUT /api/client/:id/address
+// PUT /api/client/:id/address - adds address_id to client
 router.put('/:id/address', (req, res) => {
   clientController.setAddress(req, res);
 });
