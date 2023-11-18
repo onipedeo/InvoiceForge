@@ -3,7 +3,7 @@ const db = require('../db/db');
 class appointmentDao {
   async create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes) {
     try {
-      const id = await db('appointments').insert({
+      const [id] = await db('appointments').insert({
         date,
         start_time: startTime,
         end_time: endTime,

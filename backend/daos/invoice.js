@@ -11,6 +11,10 @@ class InvoiceDao {
       total_cents: totalCents
     }).returning('id');
 
+    appointmentIds.map(async appointmentId => {
+      await db('appointments').where({ id: appointmentId }).update({ invoiced: true, invoice_id: id});
+    });
+
     await db('users').where({ id: userId }).increment('next_invoice_number', 1);
 
     return id;
