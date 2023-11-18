@@ -2,21 +2,26 @@ const userController = require('../controllers/user');
 const express = require('express');
 const router = express.Router();
 
-// POST /api/user/create - Create a new user
-router.post('/create', (req, res) => {
+// Validation middleware
+const validateDto = require('../middleware/validate-dto');
+const userDto = require('../dtos/user');
+
+
+// POST /api/user/ - Create a new user
+router.post('/', validateDto(userDto), (req, res) => {
   userController.create(req, res);
 });
 // GET /api/user/:email - Get user by email
-router.get('/:email', (req, res) => {
+router.get('/email', (req, res) => {
   userController.getByEmail(req, res);
 });
-// GET /api/user/:id - Get user by ID
+// GET /api/user/id/:id - Get user by ID
 router.get('/:id', (req, res) => {
   userController.getById(req, res);
 });
 
 // PUT /api/user/:id - Edit user by ID
-router.put('/:id', (req, res) => {
+router.put('/:id', validateDto(userDto), (req, res) => {
   userController.edit(req, res);
 });
 
