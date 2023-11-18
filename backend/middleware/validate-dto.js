@@ -5,7 +5,8 @@ function validateDto(schema) {
       req.body = validatedBody;
       next();
     } catch (error) {
-      res.status(422).json({ error });
+      console.error(error);
+      res.status(422).json(error.message);
     }
   };
 }
