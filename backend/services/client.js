@@ -1,4 +1,4 @@
-const clientDao = require('../dao/client');
+const clientDao = require('../daos/client');
 
 class ClientService {
   create(clientDto) {

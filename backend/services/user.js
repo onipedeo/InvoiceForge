@@ -1,4 +1,4 @@
-const userDao = require('../dao/user');
+const userDao = require('../daos/user');
 class UserService {
   create(userDto) {
     const { firstName, lastName, companyName, email, phone, password, passwordConfirmation, standardRateCents } = userDto;
