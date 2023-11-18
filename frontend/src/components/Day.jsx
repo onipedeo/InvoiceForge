@@ -82,7 +82,7 @@ const dayList = day.map((day, index) => {
   )
 })
 
-const Day = () => {
+const Day = (props) => {
   return (
     <>
       {dayList}
