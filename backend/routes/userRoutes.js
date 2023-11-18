@@ -5,6 +5,7 @@ const router = express.Router();
 // Validation middleware
 const validateDto = require('../middleware/validate-dto');
 const userDto = require('../dtos/user');
+const emailDto = require('../dtos/email');
 
 
 // POST /api/user/ - Create a new user
@@ -12,7 +13,7 @@ router.post('/', validateDto(userDto), (req, res) => {
   userController.create(req, res);
 });
 // GET /api/user/:email - Get user by email
-router.get('/email', (req, res) => {
+router.get('/email', validateDto(emailDto), (req, res) => {
   userController.getByEmail(req, res);
 });
 // GET /api/user/id/:id - Get user by ID

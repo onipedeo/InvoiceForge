@@ -5,6 +5,7 @@ const router = express.Router();
 // For validating the request body
 const validateDto = require('../middleware/validate-dto');
 const appointmentDto = require('../dtos/appointment');
+const confirmedHoursDto = require('../dtos/confirmedHours');
 
 // GET appointment by ID
 router.get('/:id', (req, res) => {
@@ -41,7 +42,7 @@ router.delete('/:id', (req, res) => {
 });
 
 // PUT confirmed hours by ID
-router.put('/confirm-hours/:id', (req, res) => {
+router.put('/confirm-hours/:id', validateDto(confirmedHoursDto), (req, res) => {
   appointmentController.confirmHours(req, res);
 });
 
