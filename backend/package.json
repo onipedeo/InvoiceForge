@@ -1,18 +1,26 @@
 {
-  "name": "express-back-end",
+  "name": "invoice-forge-backend",
   "version": "1.0.0",
-  "description": "Boilerplate for the Express backend in an Express-React project",
+  "description": "Express back end for InvoiceForge app",
   "main": "server.js",
-  "author": "garrettgsb",
-  "license": "MIT",
+  "authors": "Nathan Wiles",
   "scripts": {
-    "go": "nodemon server.js"
+    "test": "jest --watchAll",
+    "db:rollback": "npx knex migrate:rollback --knexfile db/knexfile.js",
+    "db:seed": "npx knex seed:run --knexfile db/knexfile.js",
+    "db:migrate": "npx knex migrate:latest --knexfile db/knexfile.js",
+    "server": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^16.3.1",
     "express": "^4.16.4",
+    "knex": "^3.0.1",
     "nodemon": "^1.18.7",
     "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "morgan": "^1.10.0"
   }
 }

@@ -3,13 +3,18 @@ import './App.css'
 import LandingPage from './components/Landingpage'
 import Page from './components/Page'
 
+import TopNavBar from './components/TopNavBar'
+import Footer from './components/footer'
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      {/* <LandingPage /> */}
-      <Page />
+     < TopNavBar/>
+      <LandingPage />
+      <Footer/>
+     
     </>
   )
 }
