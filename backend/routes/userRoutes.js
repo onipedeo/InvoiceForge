@@ -16,7 +16,7 @@ router.post('/', validateDto(userDto), (req, res) => {
 router.get('/email', validateDto(emailDto), (req, res) => {
   userController.getByEmail(req, res);
 });
-// GET /api/user/id/:id - Get user by ID
+// GET /api/user/:id - Get user by ID
 router.get('/:id', (req, res) => {
   userController.getById(req, res);
 });
@@ -26,27 +26,7 @@ router.put('/:id', validateDto(userDto), (req, res) => {
   userController.edit(req, res);
 });
 
-// GET /api/user/:id/clients - Get user's clients
-router.get('/:id/clients', (req, res) => {
-  userController.getClients(req, res);
-});
-
-// GET /api/user/:id/appointments - Get user's appointments
-router.get('/:id/appointments', (req, res) => {
-  userController.getAppointments(req, res);
-});
-
-// GET /api/user/:id/in-review - Get in-review appointments of a user
-router.get('/:id/in-review', (req, res) => {
-  userController.getAppointmentsInReview(req, res);
-});
-
-// GET /api/user/:id/invoices - Get user's invoices
-router.get('/:id/invoices', (req, res) => {
-  userController.getInvoices(req, res);
-});
-
-// GET /api/user/:id/invoice/:number - Get invoice by number for a user
+// GET /api/user/:id/invoice/:number - Get invoice by user_id and invoice_number.
 router.get('/:id/invoice/:number', (req, res) => {
   userController.getInvoiceByNumber(req, res);
 });

@@ -15,24 +15,8 @@ class UserService {
   }
 
   edit(id, userDto) {
-    const { firstName, lastName, companyName, email, phone, password, passwordConfirmation, standardRateCents } = userDto;
+    const { firstName, lastName, companyName, email, phone, password, standardRateCents } = userDto;
     return userDao.edit(id, firstName, lastName, companyName, email, phone, password, standardRateCents);
-  }
-
-  getClients(id) {
-    return userDao.getClients(id);
-  }
-
-  getAppointments(id) {
-    return userDao.getAppointments(id);
-  }
-
-  getAppointmentsInReview(id) {
-    return userDao.getAppointmentsInReview(id);
-  }
-
-  getAllInvoices(id) {
-    return userDao.getInvoices(id);
   }
 
   getInvoiceByNumber(id, number) {
