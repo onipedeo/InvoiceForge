@@ -1,5 +1,5 @@
 import put from '../helpers/put';
 
-export const updateClient = (clientId, clientData) => {
-  return put(`/api/client/${clientId}`, clientData);
+export const updateClient = async (clientId, clientData) => {
+  return await put(`/api/client/${clientId}`, clientData);
 };

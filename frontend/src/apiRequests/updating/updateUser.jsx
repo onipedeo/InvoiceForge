@@ -4,6 +4,6 @@ import put from '../helpers/put';
  * @param {obj} userData contains the form data for creating a new user
  * @returns promise to new userId
  */
-export const createUser = (userId, userData) => {
-  return put(`/api/user/${userId}`, userData);
+export const createUser = async (userId, userData) => {
+  return await put(`/api/user/${userId}`, userData);
 };

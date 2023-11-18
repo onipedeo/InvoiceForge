@@ -1,6 +1,5 @@
 import put from '../helpers/put';
 
-export const updateAppointment = (appointmentData) => {
-  return put(`/api/appointment/${appointmentId}`, appointmentData);
+export const updateAppointment = async (appointmentData) => {
+  return await put(`/api/appointment/${appointmentId}`, appointmentData);
 };
-
