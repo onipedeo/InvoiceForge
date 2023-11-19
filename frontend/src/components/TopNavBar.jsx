@@ -3,6 +3,8 @@ import "../styles/top-navbar.scss";
 import LoginModal from "./LoginModal";
 
 export default function TopNavBar(props) {
+  const { setUserData, userData } = props
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handleLoginClick = () => {
@@ -23,10 +25,10 @@ export default function TopNavBar(props) {
         <span>Forge Invoice</span>
       </div>
       <div className="top-nav-bar__authentication">
-        <span onClick={handleLoginClick}>Login</span>
+        {!userData && (<span onClick={handleLoginClick}>Login</span>)}
         <span>Sign Up</span>
       </div>
-      {isLoginModalOpen && <LoginModal onClose={handleModalClose} />}
+      {isLoginModalOpen && <LoginModal onClose={handleModalClose} setUserData={setUserData}/>}
     </nav>
   );
 }
