@@ -26,6 +26,7 @@ export default function TopNavBar(props) {
       </div>
       <div className="top-nav-bar__authentication">
         {!userData && (<span onClick={handleLoginClick}>Login</span>)}
+        {userData && (<span>Welcome, {userData.first_name}</span>)}
         <span>Sign Up</span>
       </div>
       {isLoginModalOpen && <LoginModal onClose={handleModalClose} setUserData={setUserData}/>}
