@@ -14,12 +14,11 @@ const LoginModal = (props) => {
       const response = await fetch(`/api/user/${email}`);
 
       if (response.ok) {
-        // Parse the response JSON
+     
         const data = await response.json();
 
-        // Handle the response
         const { userData } = data;
-        // Set token or user ID in your application state or context
+       
         setUserData(userData);
         
       } else {
