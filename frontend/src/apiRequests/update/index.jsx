@@ -1,6 +1,6 @@
 import { confirmAppointmentHours } from "./ConfirmAppointmentHours";
 import { updateAddress } from "./updateAddress";
-import { updateAppointment } from "./updateAppointment";
+import { updateAppointment } from "./appointment/updateAppointment";
 import { updateClient } from "./updateClient";
 import { updateUser } from "./updateUser";
 import { setInvoicePaid } from "./setInvoicePaid";
