@@ -29,8 +29,8 @@ const LoginModal = (props) => {
   return (
     <div className="login-container">
       <div className="modal" id="loginModal">
+      <span className="close" onClick={props.onClose}>&times;</span>
         <div className="modal-content">
-          <span className="close" onClick={props.onClose}>&times;</span>
           <h2>Login</h2>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
