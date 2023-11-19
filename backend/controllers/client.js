@@ -3,7 +3,7 @@ const clientService = require('../services/client');
 class ClientController {
   async create(req, res) {
     try {
-      const [id] = await clientService.create(req.body);
+      const id = await clientService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });

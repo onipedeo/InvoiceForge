@@ -1,4 +1,4 @@
-const userDao = require('../dao/user');
+const userDao = require('../daos/user');
 class UserService {
   create(userDto) {
     const { firstName, lastName, companyName, email, phone, password, passwordConfirmation, standardRateCents } = userDto;
@@ -31,18 +31,13 @@ class UserService {
     return userDao.getAppointmentsInReview(id);
   }
 
-  getInvoices(id) {
+  getAllInvoices(id) {
     return userDao.getInvoices(id);
   }
 
   getInvoiceByNumber(id, number) {
     return userDao.getInvoiceByNumber(id, number);
   }
-
-
-
-
-
 
 }
 

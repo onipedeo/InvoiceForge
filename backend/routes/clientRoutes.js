@@ -1,7 +1,8 @@
 const clientController = require('../controllers/client');
 const express = require('express');
-const { client } = require('../db/db');
 const router = express.Router();
+const validateDto = require('../middleware/validate-dto');
+const clientDto = require('../dtos/client');
 
 
 // GET /api/client/:id - serves object - client
@@ -29,14 +30,14 @@ router.get('/:id/invoices', (req, res) => {
   clientController.getInvoices(req, res);
 });
 
-// PUT /api/client/:id/address
+// PUT /api/client/:id/address - adds address_id to client
 router.put('/:id/address', (req, res) => {
   clientController.setAddress(req, res);
 });
 
 // POST /api/client/ - takes params for new client
-router.post('/', (req, res) => {
-  clientController.create
+router.post('/', validateDto(clientDto), (req, res) => {
+  clientController.create(req, res);
 });
 
 module.exports = router;

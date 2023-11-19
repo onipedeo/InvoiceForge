@@ -1,4 +1,4 @@
-const appointmentDao = require('../dao/appointment');
+const appointmentDao = require('../daos/appointment');
 class AppointmentService {
 
   create(appointmentDto) {

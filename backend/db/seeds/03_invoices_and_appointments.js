@@ -19,6 +19,8 @@ exports.seed = async function(knex) {
     { id: 2, user_id: 1, client_id: 2, invoice_number: 2, created: "2023-11-15", due_date: "2023-11-15", total_cents: 56000, paid: false },
   ]);
 
+  await knex('users').update({ next_invoice_number: 3 }).where({ id: 1 });
+
   await knex('appointments').update({ invoice_id: 1, invoiced: true}).where({ client_id: 1, invoiced: false, reviewed: true });
   await knex('appointments').update({ invoice_id: 2, invoiced: true}).where({ client_id: 2, invoiced: false, reviewed: true });
 
