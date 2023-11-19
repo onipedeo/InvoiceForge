@@ -5,12 +5,13 @@ export const put = async (url, Dto) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(Dto) || null,
+    body: JSON.stringify(Dto),
   };
 
   return await fetch(url, requestOptions)
     .then((response) => response.json())
     .then((data) => {
+      data = (
       // Handle the response data
       console.log(data);
       return data;
