@@ -33,8 +33,8 @@ class ClientDao {
     const invoices = await db('invoices').where({ client_id: clientId });
     const invoiced = await db('appointments').where({ client_id: clientId, invoiced: true });
     const reviewed = await db('appointments').where({ client_id: clientId, invoiced: false, reviewed: true });
-    const notReviewed = await db('appointments').where({ client_id: clientId, reviewed: false });
-    return { client, address, appointments, invoices, invoiced, reviewed, notReviewed };
+    const unReviewed = await db('appointments').where({ client_id: clientId, reviewed: false });
+    return { client, address, appointments, invoices, invoiced, reviewed, unReviewed };
   }
 
   async setAddressId(clientId, addressId) {

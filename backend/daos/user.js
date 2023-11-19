@@ -21,10 +21,10 @@ class UserDao {
     const appointments = await db('appointments').where({ user_id: id });
     const invoices = await db('invoices').where({ user_id: id });
     const address = await db('addresses').where({ id: user.addressId }).first();
-    const notInvoiced = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
+    const reviewed = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
     const unReviewed = await db('appointments').where({ user_id: id, reviewed: false });
 
-    return { clients, appointments, invoices, address, notInvoiced, unReviewed };
+    return { clients, appointments, invoices, address, reviewed, unReviewed };
   }
 
   async getByEmail(email) {
