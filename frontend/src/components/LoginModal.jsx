@@ -14,11 +14,8 @@ const LoginModal = (props) => {
       const response = await fetch(`/api/user/${email}`);
 
       if (response.ok) {
-     
         const data = await response.json();
-
         const { userData } = data;
-       
         setUserData(userData);
         
       } else {
@@ -33,7 +30,7 @@ const LoginModal = (props) => {
     <div className="login-container">
       <div className="modal" id="loginModal">
         <div className="modal-content">
-          <span className="close">&times;</span>
+          <span className="close" onClick={props.onClose}>&times;</span>
           <h2>Login</h2>
           <form className="login-form" onSubmit={handleSubmit}>
             <div className="form-group">
