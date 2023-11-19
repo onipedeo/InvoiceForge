@@ -4,7 +4,7 @@ import "../styles/login-modal.scss";
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const [userData, setUserData] = useState(null);
+  const {setUserData} = props
 
   const handleSubmit = async (e) => {
     e.preventDefault();
