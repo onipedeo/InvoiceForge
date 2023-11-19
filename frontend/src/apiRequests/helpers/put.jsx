@@ -1,5 +1,5 @@
 
-export const put = async (url, Dto) => {
+export default put = async (url, Dto) => {
   const requestOptions = {
     method: "PUT", // Change the method to "PUT"
     headers: {

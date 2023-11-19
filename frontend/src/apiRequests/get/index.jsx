@@ -1,9 +1,12 @@
-import getAppointmentData from './getAppointmentData';
-import getClientData from './getClientData';
-import getUserData from './getUserData';
+import appointmentData from './appointment';
+import clientData from './clientData';
+import userData from './userData';
+import idByEmail from './idByEmail';
+
 
 export default get = {
-  getAppointmentData,
-  getClientData,
-  getUserData,
+  appointmentData,
+  clientData,
+  userData,
+  idByEmail,
 };
