@@ -8,9 +8,11 @@ import Footer from './components/footer'
 function App() {
   const [count, setCount] = useState(0)
 
+  const [userData, setUserData] = useState(null);
+
   return (
     <>
-     < TopNavBar/>
+     < TopNavBar setUserData={setUserData} userData={userData}/>
       <LandingPage />
       <Footer/>
      
