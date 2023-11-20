@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import '../styles/page.scss';
+import Schedule from './Schedule';
 import AddEditModal from './AddEditModal';
 import Day from './Day';
 

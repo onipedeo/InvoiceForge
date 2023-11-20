@@ -1,7 +1,15 @@
-// .fullPage {
-//   display: flex;
-  
-// }
+#floating-add-button {
+  position: absolute;
+  top: 130px;
+  right: 10px;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
 
 #floating-add-button {
   position: absolute;
