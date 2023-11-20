@@ -4,7 +4,7 @@ import client from './create/Client';
 import invoice from './create/Invoice';
 import user from './create/User';
 
-export default {
+export default create = {
   address,
   appointment,
   client,

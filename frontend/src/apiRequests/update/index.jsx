@@ -1,15 +1,14 @@
-import { confirmAppointmentHours } from "./ConfirmAppointmentHours";
-import { updateAddress } from "./updateAddress";
-import { updateAppointment } from "./appointment/updateAppointment";
-import { updateClient } from "./updateClient";
-import { updateUser } from "./updateUser";
-import { setInvoicePaid } from "./setInvoicePaid";
+import address from "./address";
+import appointment  from "./appointment";
+import client  from "./client";
+import user from "./user";
+import  invoice from "./invoice";
 
-export {
-  confirmAppointmentHours,
-  updateAddress,
-  updateAppointment,
-  updateClient,
-  updateUser,
-  setInvoicePaid,
+
+export default update = {
+  address,
+  appointment,
+  client,
+  user,
+  invoice,
 };
