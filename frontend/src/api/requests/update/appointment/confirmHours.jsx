@@ -1,7 +1,15 @@
 import put from '../../helpers/put';
 
+/**
+ * Updates the confirmed hours for an appointment.
+ *
+ * @param {string} id - The ID of the appointment.
+ * @param {number} hoursNum - The number of hours to be confirmed.
+ * @returns {Promise} - A promise that resolves to the updated appointment.
+ * @throws {Error} - If there is an error confirming the hours.
+ */
 export default async (id, hoursNum) => {
   return await put(`/api/appointment/${id}/hours`, {hoursNum}).catch((error) => {
-    throw new error("Error confirming hours", error);
+    throw new Error("Error confirming hours", error);
   });
 }
