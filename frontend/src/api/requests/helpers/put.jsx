@@ -1,5 +1,5 @@
 
-export default put = async (url, Dto) => {
+export default async (url, Dto) => {
   const requestOptions = {
     method: "PUT", // Change the method to "PUT"
     headers: {
@@ -10,12 +10,6 @@ export default put = async (url, Dto) => {
 
   return await fetch(url, requestOptions)
     .then((response) => response.json())
-    .then((data) => {
-      data = (
-      // Handle the response data
-      console.log(data);
-      return data;
-    })
     .catch((error) => {
       // Handle any errors
       console.error(error);

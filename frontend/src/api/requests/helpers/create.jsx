@@ -1,5 +1,5 @@
 
-export default create = async (url, Dto) => {
+export default async (url, Dto) => {
   const requestOptions = {
     method: "POST",
     headers: {

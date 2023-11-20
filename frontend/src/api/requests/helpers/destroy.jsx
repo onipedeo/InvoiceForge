@@ -1,5 +1,5 @@
 
-export default destroy = async (url, Dto) => {
+export default async (url, Dto) => {
   //configure the request options
   const requestOptions = {
     method: "DELETE", // Change the method to "PUT"
