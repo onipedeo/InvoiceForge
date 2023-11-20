@@ -18,7 +18,7 @@ function App() {
       {/* <TopNavBar />
       <LandingPage />
       <Footer /> */}
-      {/* <SimpleAppointments/> */}
+      <SimpleAppointments/>
       {/* <InvoicePreview/> */}
       {/* <InvoiceGeneratedModal/> */}
     </>

@@ -70,8 +70,6 @@
 //   );
 // };
 
-
-
 import React, { useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -177,7 +175,6 @@ const userAddress = [
   },
 ];
 
-
 const SimpleAppointments = () => {
   const [checkedAppointments, setCheckedAppointments] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -215,34 +212,56 @@ const SimpleAppointments = () => {
     </tr>
   ));
 
-  const handleReviewButton = () => {
+  const generateInvoice = () => {
     // Create a new jsPDF instance
     const pdf = new jsPDF();
 
+    // Set font and font size
+    pdf.setFont("helvetica");
+    pdf.setFontSize(12);
+
     // Add content to the PDF
     pdf.text("Invoice", 20, 20);
+    pdf.text("LOGO", 20,30);
 
     // Add user and client details
-    const userDetails = userAddress.find((user) => user.id === 1); // Assuming there's only one user for simplicity
+    const userDetails = userAddress.find((user) => user.id === 1);
+
+    pdf.text(
+      `User Details:
+      ${userDetails.line_1}
+      ${userDetails.city},
+      ${userDetails.province}
+      ${userDetails.country}
+      ${userDetails.postal_code}`,
+      150,
+      20
+    );
+
+    // Add client details
     const clientDetails = clientsAddress.find(
       (client) => client.id === parseInt(selectedClient)
     );
 
-    
-
     pdf.text(
-      `User Details:\n${userDetails.line_1}\n${userDetails.city}, ${userDetails.province}\n${userDetails.country}\n${userDetails.postal_code}`,
+      `Client Details:
+      ${clientDetails.line_1}
+      ${clientDetails.city},
+      ${clientDetails.province}
+      ${clientDetails.country}
+      ${clientDetails.postal_code}`,
       20,
-      30
-    );
-    pdf.text(
-      `Client Details:\n${clientDetails.line_1}\n${clientDetails.city}, ${clientDetails.province}\n${clientDetails.country}\n${clientDetails.postal_code}`,
-      20,
-      50
+      65
     );
 
     // Add appointment details
-    pdf.text("Appointment Details", 20, 70);
+    pdf.text("Appointment Details", 20, 110);
+
+    // Set styles for the table
+    pdf.setFillColor(200, 220, 255); // Header fill color
+    pdf.setTextColor(0, 0, 0); // Header text color
+    pdf.setFont("helvetica", "bold");
+
     pdf.autoTable({
       head: [["Appointment", "Date", "Hours"]],
       body: appointments
@@ -252,9 +271,13 @@ const SimpleAppointments = () => {
           appointment.date,
           appointment.confirmed_hours,
         ]),
-      startY: 80,
+      startY: 115,
+      theme: "striped",
     });
-   
+
+    // Reset styles
+    pdf.setFillColor(255, 255, 255);
+    pdf.setFont("helvetica", "normal");
 
     // Calculate and add the total amount
     const totalAmount = appointments
@@ -264,13 +287,7 @@ const SimpleAppointments = () => {
         0
       );
 
-      console.log("TotalAmount", totalAmount)
-
-    pdf.text(
-      `Total Amount: ${totalAmount} cents`,
-      20,
-      pdf.autoTable.previous.finalY + 10
-    );
+    pdf.text(`Total Amount: $${totalAmount}`, 20, pdf.autoTable.previous.finalY + 10);
 
     // Save the PDF
     const generatedPDFData = pdf.output("blob");
@@ -278,7 +295,8 @@ const SimpleAppointments = () => {
   };
 
   const handleConfirmAndSend = () => {
-  alert("invoice sent");}
+    alert("invoice sent");
+  };
 
   return (
     <div>
@@ -305,7 +323,7 @@ const SimpleAppointments = () => {
             </thead>
             <tbody>{appointmentList}</tbody>
           </table>
-          <div onClick={handleReviewButton}>Generate Invoice</div>
+          <div onClick={generateInvoice}>Generate Invoice</div>
         </>
       )}
 
@@ -314,7 +332,7 @@ const SimpleAppointments = () => {
           <iframe
             title="Invoice PDF"
             src={generatedPDF}
-            width="100%"
+            width="60%"
             height="500px"
           ></iframe>
           <button onClick={handleConfirmAndSend}>Confirm and Send</button>
