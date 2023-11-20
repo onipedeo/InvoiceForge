@@ -1,5 +1,5 @@
 import create from '../helpers/create';
 
-export const createClient = (clientData) => {
+export const client = (clientData) => {
   return create('/api/client', clientData);
 };
