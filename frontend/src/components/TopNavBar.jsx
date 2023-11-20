@@ -18,17 +18,21 @@ export default function TopNavBar(props) {
   return (
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">InvoiceForge</span>
+
+      {userData &&
       <div className="top-nav-bar__list">
         <span>Schedule</span>
         <span>Client List</span>
         <span>Appointments in Review</span>
         <span>Forge Invoice</span>
-      </div>
+      </div>}
+
       <div className="top-nav-bar__authentication">
         {!userData && (<span onClick={handleLoginClick}>Login</span>)}
         {userData && (<span>Welcome, {userData.first_name}</span>)}
-        <span>Sign Up</span>
+        {!userData && (<span>Sign Up</span>)}
       </div>
+      
       {isLoginModalOpen && <LoginModal onClose={handleModalClose} setUserData={setUserData}/>}
     </nav>
   );
