@@ -7,7 +7,7 @@ class AppointmentController {
       const [id] = await appointmentService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "appointmentService failing" });
     }
   }
 
@@ -39,28 +39,6 @@ class AppointmentController {
       const appointmentId = req.params.id;
       await appointmentService.delete(appointmentId);
       res.status(200).json({ message: "Appointment deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
-  // Method to set reviewed = true
-  async setReviewedById(req, res) {
-    try {
-      const appointmentId = req.params.id;
-      await appointmentService.setReviewedById(appointmentId);
-      res.status(200).json({ message: "Appointment reviewed successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
-  // Method to set invoiced = true
-  async setInvoicedById(req, res) {
-    try {
-      const appointmentId = req.params.id;
-      await appointmentService.setInvoicedById(appointmentId);
-      res.status(200).json({ message: "Appointment invoiced successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
     }

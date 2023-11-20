@@ -16,7 +16,15 @@ class UserDao {
   }
 
   async getById(id) {
-    return await db('users').where({ id }).first();
+    const user = await db('users').where({ id }).first();
+    const clients = await db('clients').where({ user_id: id });
+    const appointments = await db('appointments').where({ user_id: id });
+    const invoices = await db('invoices').where({ user_id: id });
+    const address = await db('addresses').where({ id: user.addressId }).first();
+    const reviewed = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
+    const unReviewed = await db('appointments').where({ user_id: id, reviewed: false });
+
+    return { clients, appointments, invoices, address, reviewed, unReviewed };
   }
 
   async getByEmail(email) {
@@ -33,22 +41,6 @@ class UserDao {
       password,
       standard_rate_cents: standardRateCents
     });
-  }
-
-  getClients(id) {
-    return db('clients').where({ user_id: id });
-  }
-
-  getAppointments(id) {
-    return db('appointments').where({ user_id: id }.sort({ start_time: 'desc' }));
-  }
-
-  getAppointmentsInReview(id) {
-    return db('appointments').where({ user_id: id, reviewed: false }.sort({ start_time: 'asc' }));
-  }
-
-  getInvoices(id) {
-    return db('invoices').where({ user_id: id });
   }
 
   getInvoiceByNumber(id, number) {

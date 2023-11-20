@@ -1,4 +1,4 @@
-const appointmentDao = require('../dao/appointment');
+const appointmentDao = require('../daos/appointment');
 class AppointmentService {
 
   create(appointmentDto) {
@@ -17,14 +17,6 @@ class AppointmentService {
 
   delete(appointmentId) {
     return appointmentDao.delete(appointmentId);
-  }
-
-  setReviewedById(appointmentId) {
-    return appointmentDao.reviewedById(appointmentId);
-  }
-
-  setInvoicedById(appointmentId) {
-    return appointmentDao.invoicedById(appointmentId);
   }
 
   confirmHours(appointmentId, confirmedHours) {
