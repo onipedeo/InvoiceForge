@@ -19,14 +19,6 @@ class AppointmentService {
     return appointmentDao.delete(appointmentId);
   }
 
-  setReviewedById(appointmentId) {
-    return appointmentDao.reviewedById(appointmentId);
-  }
-
-  setInvoicedById(appointmentId) {
-    return appointmentDao.invoicedById(appointmentId);
-  }
-
   confirmHours(appointmentId, confirmedHours) {
     return appointmentDao.confirmHours(appointmentId, confirmedHours);
   }

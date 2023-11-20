@@ -44,28 +44,6 @@ class AppointmentController {
     }
   }
 
-  // Method to set reviewed = true
-  async setReviewedById(req, res) {
-    try {
-      const appointmentId = req.params.id;
-      await appointmentService.setReviewedById(appointmentId);
-      res.status(200).json({ message: "Appointment reviewed successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
-  // Method to set invoiced = true
-  async setInvoicedById(req, res) {
-    try {
-      const appointmentId = req.params.id;
-      await appointmentService.setInvoicedById(appointmentId);
-      res.status(200).json({ message: "Appointment invoiced successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
   // Method to confirm hours
   async confirmHours(req, res) {
     try {

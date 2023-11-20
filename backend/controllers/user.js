@@ -37,49 +37,6 @@ class UserController {
     }
   }
 
-  async getClients(req, res) {
-    try {
-      const clients = await userService.getClients(req.params.id);
-      res.status(200).json(clients);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-  async getAppointments(req, res) {
-    try {
-      const appointments = await userService.getAppointments(req.params.id);
-      res.status(200).json(appointments);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-  async getAppointmentsInReview(req, res) {
-    try {
-      const appointments = await userService.getAppointmentsInReview(
-        req.params.id
-      );
-      res.status(200).json(appointments);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-
-  async getInvoices(req, res) {
-    try {
-      const invoices = await userService.getAllInvoices(req.params.id);
-      res.status(200).json(invoices);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
   async getInvoiceByNumber(req, res) {
     try {
       const invoice = await userService.getInvoiceByNumber(
