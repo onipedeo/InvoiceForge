@@ -2,7 +2,7 @@ import confirmHours from "./confirmHours";
 
 import put from '../../helpers/put';
 
-export default appointment = async (id, formData) => {
+export default async (id, formData) => {
 
   // If the form has confirmed hours, use the confirmHours function
   if (formData.confirmedHours) {

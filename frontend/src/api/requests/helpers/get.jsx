@@ -3,7 +3,7 @@
  * @param {string} url
  * @returns promise with data
  */
-export default get = (url, body) => {
+export default (url, body) => {
 
   const options =  {
     method: "GET",

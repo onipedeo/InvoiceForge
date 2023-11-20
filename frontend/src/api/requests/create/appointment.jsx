@@ -1,5 +1,5 @@
 import create from '../helpers/create';
 
-export const appointment = (appointmentData) => {
+export default (appointmentData) => {
   return create('/api/appointment', appointmentData);
 };

@@ -4,7 +4,7 @@ import userData from './userData';
 import idByEmail from './idByEmail';
 
 
-export default get = {
+export default {
   appointmentData,
   clientData,
   userData,

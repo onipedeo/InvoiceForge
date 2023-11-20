@@ -5,7 +5,7 @@ import user from "./user";
 import  invoice from "./invoice";
 
 
-export default update = {
+export default {
   address,
   appointment,
   client,
