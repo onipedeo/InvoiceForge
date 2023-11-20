@@ -1,17 +1,38 @@
-import React from 'react';
+import { React, useState } from 'react';
 import LeftSideBar from './LeftSideBar';
 import '../styles/page.scss';
-import AddEditModal from './AddEditModal';
 import Schedule from './Schedule';
-
+import AddEditModal from './AddEditModal';
 
 
 const Page = (props) => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
-      {/* <LeftSideBar/> */}
-      <AddEditModal/>
-      {/* <Schedule /> */}
+      <div className='fullPage'>
+        {isModalOpen ? (
+          <>
+            <AddEditModal isOpen={isModalOpen} onClose={closeModal} />
+          </>
+        ) : (
+          <>
+            <LeftSideBar />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Schedule />
+          </>
+        )}
+        <button id='floating-add-button' onClick={openModal}>➕</button>
+      </div>
     </div>
   );
 };
