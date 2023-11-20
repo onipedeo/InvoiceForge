@@ -1,61 +1,32 @@
 import React from 'react';
 import '../styles/leftSideBar.scss'
 
+const week = [
+  "Nov-20 - Nov-26",
+  "Nov-26 - Dec-03",
+  "Dec-04 - Dec10",
+  "Dec-11 - Dec-16",
+  "Dec-17 - Dec-24",
+  "Dec-25 - Dec-31"
+];
+
+const iterateWeek = week.map((week, index) => (
+  < li key={index}>
+    {week}
+  </li >
+)
+);
+
+
 const LeftSideBar = (props) => {
   return (
-    <div className='container'>
-      <sidebar className='sidebar'>
-        {/* <h1>Hello left side bar</h1> */}
-
-        <div>
-          <h1>Weeks</h1>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        <div>
-          <p>Jan 20 - Jan 27</p>
-        </div>
-        {/* <table className='sidebar-list'>
-       <tr>
-       <th>Weeks</th>
-       </tr>
-       <tr>
-       <td>Jan 20 - Jan 27</td>
-       </tr>
-       
-       <tr>
-       <td>Jan 20 - Jan 27</td>
-       </tr>
-       
-       <tr>
-       <td>Jan 20 - Jan 27</td>
-       </tr>
-       
-       <tr>
-       <td>Jan 20 - Jan 27</td>
-       </tr>
-       
-       <tr>
-       <td>Jan 20 - Jan 27</td>
-       </tr>
-       
-      </table> */}
-
-      </sidebar>
-    </div>
+    
+      <div className='sidebar'>
+        <ul>
+          {iterateWeek}
+        </ul>
+      </div>
+    
   );
 };
 
