@@ -7,7 +7,7 @@
 import destroy from "../helpers/destroy";
 
 export default (clientId) => {
-  const url = `http://localhost:8080/api/clients/${clientId}`;
+  const url = `/api/clients/${clientId}`;
   return destroy(url).catch((error) => {
     throw new error("Error deleting client");
   });

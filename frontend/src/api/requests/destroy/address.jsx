@@ -8,7 +8,7 @@
 import destroy from '../helpers/destroy';
 
 export default (addressId) => {
-  const url = `http://localhost:8080/api/addresses/${addressId}`;
+  const url = `/api/addresses/${addressId}`;
   return destroy(url).catch((error) => {
     throw new error("Error deleting address", error);
   });

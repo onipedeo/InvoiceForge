@@ -7,7 +7,7 @@
  */
 import destroy from "../helpers/destroy";
 export default (appointmentId) => {
-  const url = `http://localhost:8080/api/appointments/${appointmentId}`;
+  const url = `/api/appointments/${appointmentId}`;
   return destroy(url).catch((error) => {
     throw new Error("Error deleting appointment", error);
   });
