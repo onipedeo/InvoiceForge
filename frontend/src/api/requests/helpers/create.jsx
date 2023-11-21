@@ -6,7 +6,7 @@
  * @returns {Promise<object>} - A promise that resolves to the response data.
  * @throws {Error} - If there is an error during the request.
  */
-export default async (url, Dto) => {
+export default (url, Dto) => {
   const requestOptions = {
     method: "POST",
     headers: {
@@ -16,7 +16,7 @@ export default async (url, Dto) => {
   };
 
 
-  return await fetch(url, requestOptions)
+  return fetch(url, requestOptions)
     .then((response) => response.json())
     .then((data) => {
       // Handle the response data

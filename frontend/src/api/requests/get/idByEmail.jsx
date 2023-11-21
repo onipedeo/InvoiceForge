@@ -6,11 +6,11 @@ import get from "../helpers/get";
  * @returns {Promise<number>} - A promise that resolves to the user ID.
  * @throws {Error} - If there is an error retrieving the user ID.
  */
-export const idByEmail = async (email) => {
+export default (email) => {
 
   const url = `api/user/idByEmail`;
 
-  return await get(url, { email }).catch((error) => {
+  return get(url, { email }).catch((error) => {
     throw new error("Error retrieving user id");
   });
-}
+};

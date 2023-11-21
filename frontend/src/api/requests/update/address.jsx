@@ -6,6 +6,6 @@
  */
 import put from '../helpers/put';
 
-export default async (addressId, addressData) => {
-  return await put(`/api/address/${addressId}`, addressData);
+export default (addressId, addressData) => {
+  return put(`/api/address/${addressId}`, addressData);
 };
