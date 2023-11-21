@@ -15,8 +15,8 @@ class AppointmentController {
   async getById(req, res) {
     try {
       const appointmentId = req.params.id;
+      console.log("appointmentId", appointmentId);
       const appointment = await appointmentService.getById(appointmentId);
-      // const appointmentJson = JSON.stringify(appointment);
       res.status(200).json(appointment);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
@@ -50,12 +50,14 @@ class AppointmentController {
     try {
       const appointmentId = req.params.id;
       await appointmentService.confirmHours(appointmentId);
-      res.status(200).json({ message: "Appointment hours confirmed successfully" });
+      res
+        .status(200)
+        .json({ message: "Appointment hours confirmed successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
     }
   }
-
 }
+
 
 module.exports = new AppointmentController();
