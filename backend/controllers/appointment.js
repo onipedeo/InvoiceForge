@@ -16,6 +16,7 @@ class AppointmentController {
     try {
       const appointmentId = req.params.id;
       const appointment = await appointmentService.getById(appointmentId);
+      // const appointmentJson = JSON.stringify(appointment);
       res.status(200).json(appointment);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
