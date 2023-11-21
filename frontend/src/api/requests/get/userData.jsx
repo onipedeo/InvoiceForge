@@ -5,15 +5,8 @@ import get from '../helpers/get.jsx';
  * @param {string} userId - The ID of the user.
  * @returns {Promise<Object>} - A promise that resolves to an object containing user data.
  */
-<<<<<<< HEAD
-const userData = async (userId) => {
-  const { address, clients, appointments, invoices, reviewed, unreviewed } = await get(`/api/user/${userId}`);
-  return { address, clients, appointments, invoices, reviewed, unreviewed };
-=======
 export default function  (userId) {
   return get(`/api/user/${userId}`);
 
->>>>>>> master
 };
 
-export default userData

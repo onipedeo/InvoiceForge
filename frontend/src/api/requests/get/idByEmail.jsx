@@ -6,21 +6,11 @@ import update from "../helpers/put";
  * @returns {Promise<number>} - A promise that resolves to the user ID.
  * @throws {Error} - If there is an error retrieving the user ID.
  */
-<<<<<<< HEAD
-const idByEmail = async (email) => {
-=======
 export default (email) => {
->>>>>>> master
 
   const url = `api/user/idByEmail`;
 
   return update(url, { email }).catch((error) => {
     throw new error("Error retrieving user id");
   });
-<<<<<<< HEAD
-}
-
-export default idByEmail
-=======
 };
->>>>>>> master
