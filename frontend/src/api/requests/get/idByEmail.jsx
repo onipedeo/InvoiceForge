@@ -1,4 +1,4 @@
-import get from "../helpers/get";
+import update from "../helpers/put";
 
 /**
  * Retrieves the user ID by email.
@@ -10,7 +10,7 @@ export default (email) => {
 
   const url = `api/user/idByEmail`;
 
-  return get(url, { email }).catch((error) => {
+  return update(url, { email }).catch((error) => {
     throw new error("Error retrieving user id");
   });
 };
