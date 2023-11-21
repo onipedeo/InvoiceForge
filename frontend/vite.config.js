@@ -8,12 +8,6 @@ dotenv.config({ path: process.cwd() + '/.env' });
 export default defineConfig({
   plugins: [react()],
   server: {
-<<<<<<< HEAD
-    proxy: process.env.PROXY,
-    port: 3000,
-    // host: process.env.HOST,
-    // private: false,
-=======
     port: process.env.PORT,
     host: process.env.HOST,
     proxy: {
@@ -24,6 +18,5 @@ export default defineConfig({
         ws: true,
       },
     },
->>>>>>> master
   },
 });
