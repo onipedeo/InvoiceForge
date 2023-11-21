@@ -111,9 +111,11 @@ const SimpleAppointments = () => {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    fetch("/api/appointment/1").then((response) => {
-      console.log(response);
-      return response.json();
+    fetch("http://localhost:8080/api/appointment/2")
+    .then((response) => response.json())
+    .then((data) => {
+      setAppointments([data]);
+      console.log(data)
     });
   }, []);
 
