@@ -1,10 +1,4 @@
-import "./App.css";
-
 import SimpleAppointments from "./components/SimpleAppointmets";
-import InvoiceGeneratedModal from "./components/InvoiceGeneratedModal";
-import InvoicePreview from "./components/InvoicePreview";
-import { PDFViewer } from "@react-pdf/renderer";
-
 import { useState } from "react";
 import "./App.css";
 import LandingPage from "./components/Landingpage";
@@ -19,8 +13,6 @@ function App() {
       <LandingPage />
       <Footer /> */}
       <SimpleAppointments/>
-      {/* <InvoicePreview/> */}
-      {/* <InvoiceGeneratedModal/> */}
     </>
   );
 }
