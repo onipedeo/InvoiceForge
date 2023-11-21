@@ -12,11 +12,11 @@ import put from '../../helpers/put';
  * @returns {Promise} - A promise that resolves to the updated appointment.
  * @throws {Error} - If there is an error updating the appointment.
  */
-export default async (id, formData) => {
+export default (id, formData) => {
   if (formData.confirmedHours) {
-    return await confirmHours(id, formData.confirmedHours);
+    return confirmHours(id, formData.confirmedHours);
   }
-  return await put(`/api/appointment/${id}`, formData).catch((error) => {
+  return put(`/api/appointment/${id}`, formData).catch((error) => {
     throw new Error("Error updating appointment", error);
   });
 };

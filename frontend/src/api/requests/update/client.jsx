@@ -7,6 +7,6 @@ import put from '../helpers/put';
  * @param {object} clientData - The updated data for the client.
  * @returns {Promise} - A promise that resolves to the updated client data.
  */
-export default async (clientId, clientData) => {
-  return await put(`/api/client/${clientId}`, clientData);
+export default (clientId, clientData) => {
+  return put(`/api/client/${clientId}`, clientData);
 };

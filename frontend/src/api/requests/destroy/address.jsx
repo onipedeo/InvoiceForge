@@ -7,9 +7,9 @@
  */
 import destroy from '../helpers/destroy';
 
-export default async (addressId) => {
-  const url = `http://localhost:8080/api/addresses/${addressId}`;
-  return await destroy(url).catch((error) => {
+export default (addressId) => {
+  const url = `/api/addresses/${addressId}`;
+  return destroy(url).catch((error) => {
     throw new error("Error deleting address", error);
   });
 };

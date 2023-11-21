@@ -6,9 +6,9 @@
  * @throws {Error} If there is an error deleting the appointment.
  */
 import destroy from "../helpers/destroy";
-export default async (appointmentId) => {
-  const url = `http://localhost:8080/api/appointments/${appointmentId}`;
-  return await destroy(url).catch((error) => {
+export default (appointmentId) => {
+  const url = `/api/appointments/${appointmentId}`;
+  return destroy(url).catch((error) => {
     throw new Error("Error deleting appointment", error);
   });
-}
+};
