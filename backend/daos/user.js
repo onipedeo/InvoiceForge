@@ -17,14 +17,15 @@ class UserDao {
 
   async getById(id) {
     const user = await db('users').where({ id }).first();
+    const addressId = await user.address_id;
     const clients = await db('clients').where({ user_id: id });
     const appointments = await db('appointments').where({ user_id: id });
     const invoices = await db('invoices').where({ user_id: id });
-    const address = await db('addresses').where({ id: user.addressId }).first();
+    const address = await db('addresses').where({ id: addressId }).first();
     const reviewed = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
     const unReviewed = await db('appointments').where({ user_id: id, reviewed: false });
 
-    return { clients, appointments, invoices, address, reviewed, unReviewed };
+    return { user, clients, appointments, invoices, address, reviewed, unReviewed };
   }
 
   async getByEmail(email) {
