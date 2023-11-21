@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Modal from "react-modal";
 import "../styles/SimpleAppointments.scss";
-import requests from "../api/requests/get/";
+import requests from "../api/requests/get";
 
 const appointment = [
   {
