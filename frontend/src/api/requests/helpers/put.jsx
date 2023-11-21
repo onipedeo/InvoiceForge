@@ -7,7 +7,7 @@
  * @returns {Promise<object>} - A Promise that resolves to the response data as an object.
  * @throws {Error} - If there is an error during the request or response handling.
  */
-export default async (url, Dto) => {
+export default (url, Dto) => {
   const requestOptions = {
     method: "PUT", // Change the method to "PUT"
     headers: {
@@ -16,7 +16,7 @@ export default async (url, Dto) => {
     body: JSON.stringify(Dto),
   };
 
-  return await fetch(url, requestOptions)
+  return fetch(url, requestOptions)
     .then((response) => response.json())
     .catch((error) => {
       // Handle any errors

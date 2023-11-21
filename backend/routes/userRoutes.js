@@ -13,7 +13,7 @@ router.post('/', validateDto(userDto), (req, res) => {
   userController.create(req, res);
 });
 // GET /api/user/idByEmail - Get user by email
-router.get('/idByEmail', validateDto(emailDto), (req, res) => {
+router.put('/idByEmail', validateDto(emailDto), (req, res) => {
   userController.getByEmail(req, res);
 });
 // GET /api/user/:id - Get user by ID

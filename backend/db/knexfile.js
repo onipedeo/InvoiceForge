@@ -1,5 +1,7 @@
 require('dotenv').config({path: '../.env'});
-
+const types = require('pg').types;
+// override parsing date column to Date()
+types.setTypeParser(1082, val => val);
 module.exports = {
 
   development: {
@@ -10,7 +12,7 @@ module.exports = {
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE,
       port: process.env.PG_PORT || 5432,
-      ssl: process.env.PG_SSL,
+      ssl: process.env.PG_SSL ? { rejectUnauthorized: false } : false,
     },
     migrations: {
       directory: './migrations',
