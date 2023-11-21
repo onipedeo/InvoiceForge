@@ -5,7 +5,7 @@ to start, import the requests object from the api module
 
 ```javascript
 
-import { requests } from '/api'
+import requests from '/api'
 
 ```
 > note: "/api" not a relative path, but an absolute path from the root of the frontend. There is no "." before the "/".

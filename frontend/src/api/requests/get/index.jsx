@@ -7,13 +7,13 @@
  * @property {Object} idByEmail - The module for retrieving user IDs by email.
  */
 
-import appointmentData from './appointment';
+import appointment from './appointment';
 import clientData from './clientData';
 import userData from './userData';
 import idByEmail from './idByEmail';
 
 export default {
-  appointmentData,
+  appointment,
   clientData,
   userData,
   idByEmail,

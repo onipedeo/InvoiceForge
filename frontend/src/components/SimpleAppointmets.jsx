@@ -1,82 +1,11 @@
-// const SimpleAppointments = () => {
-//   const [checkedAppointments, setCheckedAppointments] = useState([]);
-//   const [selectedClient, setSelectedClient] = useState(null);
-
-//   const handleAppointmentCheck = (id) => {
-//     setCheckedAppointments((checkedAppointments) =>
-//       checkedAppointments.includes(id)
-//         ? checkedAppointments.filter((item) => item !== id)
-//         : [...checkedAppointments, id]
-//     );
-//   };
-
-//   const handleClientSelect = (clientId) => {
-//     setSelectedClient(clientId);
-//   };
-
-//   const filteredAppointments = appointments.filter(
-//     (appointment) =>
-//       appointment.client_id === selectedClient && !appointment.invoiced
-//   );
-
-//   const appointmentList = filteredAppointments.map((appointment) => (
-//     <tr key={appointment.id} className="appointment-list-item">
-//       <td>{appointment.notes}</td>
-//       <td>{appointment.date}</td>
-//       <td>{appointment.confirmed_hours} hours</td>
-//       <td>
-//         <input
-//           type="checkbox"
-//           checked={checkedAppointments.includes(appointment.id)}
-//           onChange={() => handleAppointmentCheck(appointment.id)}
-//         />
-//       </td>
-//     </tr>
-//   ));
-
-//   const handleReviewButton = () => {
-
-//   }
-
-//   return (
-//     <div>
-//     <label>Client List</label>
-//     <select onChange={(e) => handleClientSelect(parseInt(e.target.value))}>
-//       <option value={null}>Select a client</option>
-//       {clients.map((client) => (
-//         <option key={client.id} value={client.id}>
-//           {client.name}
-//         </option>
-//       ))}
-//     </select>
-
-//     {selectedClient && (
-//       <>
-//         <table className="appointment-list">
-//           <thead>
-//             <tr>
-//               <th>Appointment</th>
-//               <th>Date</th>
-//               <th>Hours</th>
-//               <th>Checkbox</th>
-//             </tr>
-//           </thead>
-//           <tbody>{appointmentList}</tbody>
-//         </table>
-//         <div onClick={handleReviewButton}>Generate Invoice</div>
-//       </>
-//     )}
-//   </div>
-//   );
-// };
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Modal from "react-modal";
 import "../styles/SimpleAppointments.scss";
+import requests from "../api/requests/get/";
 
-const appointments = [
+const appointment = [
   {
     id: 1,
     user_id: 1,
@@ -179,6 +108,14 @@ const SimpleAppointments = () => {
   const [checkedAppointments, setCheckedAppointments] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [generatedPDF, setGeneratedPDF] = useState(null);
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/appointment/1").then((response) => {
+      console.log(response);
+      return response.json();
+    });
+  }, []);
 
   const handleAppointmentCheck = (id) => {
     setCheckedAppointments((checkedAppointments) =>
@@ -222,7 +159,7 @@ const SimpleAppointments = () => {
 
     // Add content to the PDF
     pdf.text("Invoice", 20, 20);
-    pdf.text("LOGO", 20,30);
+    pdf.text("LOGO", 20, 30);
 
     // Add user and client details
     const userDetails = userAddress.find((user) => user.id === 1);
@@ -287,7 +224,11 @@ const SimpleAppointments = () => {
         0
       );
 
-    pdf.text(`Total Amount: $${totalAmount}`, 20, pdf.autoTable.previous.finalY + 10);
+    pdf.text(
+      `Total Amount: $${totalAmount}`,
+      20,
+      pdf.autoTable.previous.finalY + 10
+    );
 
     // Save the PDF
     const generatedPDFData = pdf.output("blob");

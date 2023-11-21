@@ -6,7 +6,7 @@ import get from "../helpers/get";
  * @returns {Promise<number>} - A promise that resolves to the user ID.
  * @throws {Error} - If there is an error retrieving the user ID.
  */
-export const idByEmail = async (email) => {
+const idByEmail = async (email) => {
 
   const url = `api/user/idByEmail`;
 
@@ -14,3 +14,5 @@ export const idByEmail = async (email) => {
     throw new error("Error retrieving user id");
   });
 }
+
+export default idByEmail
