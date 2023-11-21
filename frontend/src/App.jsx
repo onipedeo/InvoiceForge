@@ -14,8 +14,9 @@ function App() {
 
      requests
       .get
-      .idByEmail(email).then((userData) => {
-        setUser(userData.user.id)
+      .idByEmail(email).then((user) => {
+        console.log(user)
+        setUser(user.id)
       });
 
 
