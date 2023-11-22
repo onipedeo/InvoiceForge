@@ -10,6 +10,8 @@ export default (appointmentId) => {
   const data = get(
     `/api/appointment/${appointmentId}`
   );
-
+    
   return data;
 };
+
+

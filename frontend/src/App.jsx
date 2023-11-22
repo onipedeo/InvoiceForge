@@ -1,24 +1,22 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import LandingPage from './components/Landingpage'
+import AppointmentContainer from "./components/AppointmentContainer";
+import { useState, useEffect } from "react";
+import "./App.css";
+import LandingPage from "./components/Landingpage";
+import TopNavBar from "./components/TopNavBar";
+import Footer from "./components/footer";
 
-import TopNavBar from './components/TopNavBar'
-import Footer from './components/footer'
-import requests from './api/requests'
+
 function App() {
-  const [user, setUser] = useState(null)
-
- 
+  const [user, setUser] = useState(null);
 
   return (
     <>
-        {/* {user} */}
-     < TopNavBar user={user} setUser={setUser}/>
+      <TopNavBar user={user} setUser={setUser} />
       <LandingPage />
-      <Footer/>
-
+      <Footer />
+      {/* <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

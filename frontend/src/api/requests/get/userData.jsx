@@ -9,3 +9,4 @@ export default function  (userId) {
   return get(`/api/user/${userId}`);
 
 };
+

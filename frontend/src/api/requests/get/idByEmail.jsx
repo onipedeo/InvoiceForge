@@ -11,6 +11,6 @@ export default (email) => {
   const url = `api/user/idByEmail`;
 
   return update(url, { email }).catch((error) => {
-    throw new error("Error retrieving user id");
+    throw new Error("Error retrieving user id");
   });
 };
