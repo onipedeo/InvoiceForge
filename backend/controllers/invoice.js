@@ -22,6 +22,16 @@ class InvoiceController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const { id } = req.params;
+      const invoice = await invoiceService.getById(id);
+      res.status(200).json(invoice);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
 }
 
 module.exports = new InvoiceController();
