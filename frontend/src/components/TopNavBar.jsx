@@ -8,10 +8,10 @@ export default function TopNavBar(props) {
   const { user, setUser} = props
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   
-  const [showClientList, setClientListShow] = useState(false)
+  const [showClientList, setShowClientList] = useState(false)
 
   const handleClientListClick = () => {
-     setClientListShow(true)
+     setShowClientList(true)
      console.log('Client List clicked');
   }
 
@@ -28,7 +28,6 @@ export default function TopNavBar(props) {
     setUser(null);
     window.location.href = '/';
   }
-
 
   return (
     <div>
@@ -50,7 +49,8 @@ export default function TopNavBar(props) {
         {!user && (<span>Sign Up</span>)}
       </div>
       
-      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser}/>}
+      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user}
+       setShowClientList={setShowClientList} showClientList={showClientList}/>}
     </nav>
       {showClientList && <ClientList/>}
       </div>
