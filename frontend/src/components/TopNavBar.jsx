@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import "../styles/top-navbar.scss";
 import LoginModal from "./LoginModal";
+import ClientList from './ClientList';
 
 
 export default function TopNavBar(props) {
   const { user, setUser, handleLinkClick} = props
-
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handleLoginClick = () => {
@@ -22,15 +22,15 @@ export default function TopNavBar(props) {
     window.location.href = '/';
   }
 
-
   return (
+    <div>
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">InvoiceForge</span>
 
       {user &&
       <div className="top-nav-bar__list">
         <span>Schedule</span>
-        <span>Client List</span>
+        <span onClick={()=>handleLinkClick(2)}>Client List</span>
         <span>Appointments in Review</span>
         <span onClick={()=>handleLinkClick(4)}>Forge Invoice</span>
       </div>}
@@ -42,7 +42,10 @@ export default function TopNavBar(props) {
         {!user && (<span>Sign Up</span>)}
       </div>
       
-      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser}/>}
+      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user}
+      handleLinkClick={handleLinkClick}
+       />}
     </nav>
+      </div>
   );
 }
