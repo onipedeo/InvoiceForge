@@ -7,7 +7,7 @@ class InvoiceController {
       res.status(201).json(id);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+
     }
   }
 
@@ -18,7 +18,7 @@ class InvoiceController {
       res.sendStatus(204);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+
     }
   }
 

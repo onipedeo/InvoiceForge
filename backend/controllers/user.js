@@ -23,7 +23,7 @@ class UserController {
       res.status(200).json(user);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -33,7 +33,7 @@ class UserController {
       res.status(200).json({ message: "User updated successfully" });
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -45,7 +45,7 @@ class UserController {
       res.status(200).json(invoice);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -57,7 +57,7 @@ class UserController {
       res.status(200).json(appointments);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -69,7 +69,7 @@ class UserController {
       res.status(200).json(clients);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -81,7 +81,7 @@ class UserController {
       res.status(200).json(unReviewed);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
