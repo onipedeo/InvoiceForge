@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const { replacePropertyWithinObject, getAppointmentsByWhere, getInvoicesByWhere } = require('./helpers');
 
 class ClientDao {
   async create(userId, name, companyName, email, phone, clientRateCents) {
@@ -27,14 +28,14 @@ class ClientDao {
   }
 
   async getById(clientId) {
-    const client = await db('clients').where({ id: clientId }).first();
-    const address = await db('addresses').where({ id: client.address_id }).first();
-    const appointments = await db('appointments').where({ client_id: clientId });
-    const invoices = await db('invoices').where({ client_id: clientId });
-    const invoiced = await db('appointments').where({ client_id: clientId, invoiced: true });
-    const reviewed = await db('appointments').where({ client_id: clientId, invoiced: false, reviewed: true });
-    const unReviewed = await db('appointments').where({ client_id: clientId, reviewed: false });
-    return { client, address, appointments, invoices, invoiced, reviewed, unReviewed };
+    let client = await db('clients').where({ id: clientId }).first();
+    client = await replacePropertyWithinObject('address', client, 'client');
+    const appointments = await getAppointmentsByWhere({ client_id: clientId });
+    const invoices = await getInvoicesByWhere({ client_id: clientId });
+    const invoiced = await getAppointmentsByWhere({ client_id: clientId, invoiced: true });
+    const reviewed = await getAppointmentsByWhere({ client_id: clientId, invoiced: false, reviewed: true });
+    const unReviewed = await getAppointmentsByWhere({ client_id: clientId, reviewed: false });
+    return { client, appointments, invoices, invoiced, reviewed, unReviewed };
   }
 
   async setAddressId(clientId, addressId) {
