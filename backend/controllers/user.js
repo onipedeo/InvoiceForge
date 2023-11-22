@@ -49,6 +49,42 @@ class UserController {
     }
   }
 
+  async getAppointments(req, res) {
+    try {
+      const appointments = await userService.getAppointments(
+        req.params.id,
+      );
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+      console.error(e);
+    }
+  }
+
+  async getClients(req, res) {
+    try {
+      const clients = await userService.getClients(
+        req.params.id,
+      );
+      res.status(200).json(clients);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+      console.error(e);
+    }
+  }
+
+  async getUnreviewed(req, res) {
+    try {
+      const unReviewed = await userService.getUnreviewed(
+        req.params.id,
+      );
+      res.status(200).json(unReviewed);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+      console.error(e);
+    }
+  }
+
 }
 
 module.exports = new UserController();

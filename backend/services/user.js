@@ -23,6 +23,19 @@ class UserService {
     return userDao.getInvoices(id);
   }
 
+  getAppointments(id) {
+    return userDao.getAppointments(id);
+  }
+
+  getClients(id) {
+    return userDao.getClients(id);
+  }
+
+  getUnreviewed(id) {
+    return userDao.getUnreviewed(id);
+  }
+  
+
 }
 
 module.exports = new UserService();
