@@ -14,11 +14,9 @@ function App() {
   
   return (
     <>
-      {/* {user}
       <TopNavBar />
       <LandingPage />
-      <Footer /> */}
-      <AppointmentContainer userId={userId} standardRateCents={standardRateCents}/>
+      <Footer />
 
     </>
   );
