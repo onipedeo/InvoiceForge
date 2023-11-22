@@ -1,8 +1,12 @@
-import destroy from '..';
+import destroyRequests from '..';
+
 import { test, it, expect } from 'vitest';
 
-test("'destroy' object", () => {
-  it("should compile 'destroy' object", () => {
-    expect(destroy).toBeDefined();
+test("'destroyRequests' object", () => {
+  it("should compile 'destroyRequests' object", () => {
+    expect(destroyRequests).toBeDefined();
+    expect(destroyRequests.address).toBeDefined();
+    expect(destroyRequests.appointment).toBeDefined();
+    expect(destroyRequests.client).toBeDefined();
   });
 });
