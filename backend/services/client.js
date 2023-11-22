@@ -10,7 +10,7 @@ class ClientService {
   update(clientId, clientDto) {
     const { name, companyName, email, phone, clientRateCents } = clientDto;
     return clientDao.update(clientId, name, companyName, email, phone, clientRateCents)
-      
+
   }
 
   getById(clientId) {
@@ -34,9 +34,10 @@ class ClientService {
     return clientDao.getReviewed(clientId);
   }
 
-
-
-
+  getObject(clientId) {
+    return clientDao.getObject(clientId);
+  }
+  
 }
 
 module.exports = new ClientService();

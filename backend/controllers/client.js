@@ -45,7 +45,7 @@ class ClientController {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
-  
+
   async getUnreviewed(req, res) {
     try {
       const appointments = await clientService.getUnreviewed(req.params.id);
@@ -62,6 +62,15 @@ class ClientController {
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
       console.error(e);
+    }
+  }
+
+  async getObject(req, res) {
+    try {
+      const client = await clientService.getObject(req.params.id);
+      res.status(200).json(client);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
     }
   }
 

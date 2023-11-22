@@ -68,6 +68,13 @@ class ClientDao {
     return await appointments;
   }
 
+  async getObject(clientId) {
+    let client = await db('clients')
+      .where({ id: clientId })
+      .first();
+    client = await replacePropertyWithinObject('address', client);
+    return await client;
+  }
 }
 
 module.exports = new ClientDao();
