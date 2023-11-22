@@ -7,13 +7,6 @@ import ClientList from './ClientList';
 export default function TopNavBar(props) {
   const { user, setUser, handleLinkClick} = props
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  
-  const [showClientList, setShowClientList] = useState(false)
-
-  const handleClientListClick = () => {
-     setShowClientList(true)
-     console.log('Client List clicked');
-  }
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
@@ -37,7 +30,7 @@ export default function TopNavBar(props) {
       {user &&
       <div className="top-nav-bar__list">
         <span>Schedule</span>
-        <span onClick={handleClientListClick}>Client List</span>
+        <span onClick={()=>handleLinkClick(2)}>Client List</span>
         <span>Appointments in Review</span>
         <span onClick={()=>handleLinkClick(4)}>Forge Invoice</span>
       </div>}
@@ -50,9 +43,9 @@ export default function TopNavBar(props) {
       </div>
       
       {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user}
-       setShowClientList={setShowClientList} showClientList={showClientList}/>}
+      handleLinkClick={handleLinkClick}
+       />}
     </nav>
-      {showClientList && <ClientList/>}
       </div>
   );
 }
