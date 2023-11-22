@@ -12,12 +12,8 @@ const confirmedHoursDto = require("../dtos/confirmedHours");
 router.get("/:id", appointmentController.getById);
 
 // PUT edit appointment
-router.put("/:id", validateDto(appointmentDto), (req, res) => {
-  try {
-    appointmentController.edit(req, res);
-  } catch (e) {
-    console.error(e, "error in appointmentRoutes.js");
-  }
+router.put('/:id', validateDto(appointmentDto), (req, res) => {
+  appointmentController.edit(req, res);
 });
 
 // POST create new appointment

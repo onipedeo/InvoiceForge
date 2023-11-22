@@ -11,10 +11,14 @@ import appointment from './appointment';
 import clientData from './clientData';
 import userData from './userData';
 import idByEmail from './idByEmail';
+import user from './user';
+import client from './client';
 
 export default {
   appointment,
   clientData,
   userData,
   idByEmail,
+  client,
+  user,
 };
