@@ -15,18 +15,19 @@ class UserDao {
     return id;
   }
 
-  async getById(id) {
+  async getUser(id) {
     let user = await db('users').where({ id }).first();
-    const address = await db('addresses').where({ id: user.address_id }).first();
-    //replace address_id with address
-    user = { ...user, address };
-    const { address_id: discard, ...rest } = user;
-    user = rest;
+    user = this.replaceAddressIdWithObject(user, 'user');
+    return user;
+  }
+
+  async getById(id) {
+    const user = await this.getUser(id);
     const clients = await this.getClients(id);
-    const appointments = await this.getAppointments(id);
+    const appointments = await this.getAppointmentsByWhere({user_id: id});
     const invoices = await this.getInvoices(id);
-    const reviewed = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
-    const unReviewed = await db('appointments').where({ user_id: id, reviewed: false });
+    const reviewed = await this.getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
+    const unReviewed = await this.getAppointmentsByWhere({ user_id: id, reviewed: false });
 
     return { user, clients, appointments, invoices, reviewed, unReviewed };
   }
@@ -47,7 +48,7 @@ class UserDao {
     });
   }
 
-  async appointmentsByWhere(where) {
+  async getAppointmentsByWhere(where) {
     const sanitizeAppointments = (appointments) => {
       return appointments.map((appointment) => {
         const { invoice_id, user_id, client_id, ...rest } = appointment;
@@ -57,23 +58,20 @@ class UserDao {
     return sanitizeAppointments(await db('appointments').where(where));
   }
 
-  async getReviewed(id) { }
-
   async getInvoices(id) {
     try {
       const invoices = await db('invoices').where({ 'user_id': id });
 
       const results = await Promise.all(invoices.map(async (invoice) => {
         const { client_id, user_id, ...invoiceWithoutClientId } = invoice;
-        const { address_id, user_id: discard, ...client } = await db('clients').where({ 'id': client_id }).first();
-        const address = await db('addresses').where({ 'id': address_id }).first();
-        const appointments = this.appointmentsByWhere({ invoice_id: invoice.id });
+        const { user_id: discard, ...client } = await db('clients').where({ 'id': client_id }).first();
+        const appointments = this.getAppointmentsByWhere({ invoice_id: invoice.id });
+        // replace address_id with address,  client_id
         return {
           ...invoiceWithoutClientId,
-          client: {
-            ...client,
-            address
-          },
+          client: this.replaceAddressIdWithObject(client, 'client'),
+
+
           appointments
         };
       }));
@@ -83,27 +81,23 @@ class UserDao {
       console.error(error);
     }
   }
+  async replaceAddressIdWithObject(object, objectName) {
+    const { address_id, [objectName + '_id']: id, ...rest } = object;
+      const address = await db('addresses').where({ id: address_id }).first();
+      return { ...rest, address };
+    }
+
 
   async getClients(id) {
     const dirtyClients = await db('clients').where({ user_id: id });
+
+
     const clients = await Promise.all(dirtyClients.map(async (client) => {
-      const { address_id, user_id, ...rest } = client;
-      const address = await db('addresses').where({ id: client.address_id }).first();
-      return { ...rest, address };
-    }));
+      return await this.replaceAddressIdWithObject(client, 'client');
+    }
+      ));
+
     return clients;
-  }
-
-  async getAppointments(id) {
-    this.appointmentsByWhere({ user_id: id });
-  }
-
-  async getUnreviewed(id) {
-    this.appointmentsByWhere({ user_id: id, reviewed: false });
-  }
-
-  async getReviewed(id) {
-    this.appointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
   }
 }
 
