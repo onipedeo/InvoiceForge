@@ -5,22 +5,18 @@ import ClientList from './ClientList';
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const { setUser, user, setShowClientList, showClientList } = props;
-
-
-  const toggleShowClientList = () => {
-    setShowClientList(true);
-  };
+  const { setUser, user, handleLinkClick} = props;
 
   const fetchUser = async () => {
     try {
       const user = await requests.get.idByEmail(email);
       setUser(user);
-      console.log(user)
       const userData = await requests.get.userData(user.id);
       const { clients } = userData;
-      console.log("clients", clients)
-  
+      console.log("clients", clients.length)
+      if (clients.length === 2) {
+       handleLinkClick(2)
+      }
   
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -61,8 +57,6 @@ const LoginModal = (props) => {
           </form>
         </div>
       </div>
-
-      {showClientList && <ClientList />}
     </div>
   );
 };
