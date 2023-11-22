@@ -1,34 +1,61 @@
-import  "../styles/login-modal.scss"
+import { useState, useEffect } from 'react';
+import requests from '../api/requests';
+import '../styles/login-modal.scss';
 
-export default function LoginModal(props) {
+const LoginModal = (props) => {
+  const [email, setEmail] = useState('');
+  const {setUser} = props;
+
+  const fetchUser = () => {
+    requests
+      .get
+      .idByEmail(email)
+      .then((user) => {
+        setUser(user);
+        console.log(user);
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchUser();
+  };
+
 
   return (
     <div className="login-container">
       <div className="modal" id="loginModal">
+        <span className="close" onClick={props.onClose}>
+          &times;
+        </span>
         <div className="modal-content">
-          <span className="close">&times;</span>
           <h2>Login</h2>
-          <form className="login-form ">
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                required
-              />
+          <form onSubmit={handleSubmit}>
+            <div className="login-form">
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" />
+              </div>
+              <button type="submit">Login</button>
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                required
-              />
-            </div>
-            <button type="submit">Login</button>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default LoginModal;
+
+
+

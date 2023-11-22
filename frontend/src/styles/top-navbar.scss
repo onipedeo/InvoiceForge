@@ -50,9 +50,15 @@
   text-decoration: none;
   font-weight: 500;
 
+  .username {
+    font-size: medium;
+  }
+
   span {
     padding: 2px;
     transition: text-shadow 0.3s ease;
+
+    
 
     &:not(:last-child) {
       padding-right: 8px;
