@@ -4,7 +4,7 @@ class AppointmentController {
   // Method to create a new appointment
   async create(req, res) {
     try {
-      const [id] = await appointmentService.create(req.body);
+      const id = await appointmentService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
       res.status(500).json({ error: "appointmentService failing" });
@@ -49,7 +49,7 @@ class AppointmentController {
   async confirmHours(req, res) {
     try {
       const appointmentId = req.params.id;
-      await appointmentService.confirmHours(appointmentId);
+      await appointmentService.confirmHours(appointmentId, req.body);
       res
         .status(200)
         .json({ message: "Appointment hours confirmed successfully" });
