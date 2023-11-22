@@ -19,8 +19,8 @@ class UserService {
     return userDao.edit(id, firstName, lastName, companyName, email, phone, password, standardRateCents);
   }
 
-  getInvoiceByNumber(id, number) {
-    return userDao.getInvoiceByNumber(id, number);
+  getInvoices(id, number) {
+    return userDao.getInvoices(id);
   }
 
 }
