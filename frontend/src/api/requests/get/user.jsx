@@ -1,24 +1,26 @@
-import get from "../helpers";
+import helpers from "../helpers";
+const { get } = helpers;
 class UserData {
   constructor(id) {
     this.id = id;
   }
 
-  appointments() {
+  get appointments() {
     return get(`/api/user/${this.id}/appointments`);
   }
-  object() {
+  get allData() {
     return get(`/api/user/${this.id}`);
   }
-  clients() {
+  get clients() {
     return get(`/api/user/${this.id}/clients`);
   }
-  
-  unreviewed() {
+
+  get unreviewed() {
     return get(`/api/user/${this.id}/unreviewed`);
   }
-  invoices() {
-    return get(`/api/user/${this.id}/invoiced`);
+
+  get invoices() {
+    return get(`/api/user/${this.id}/invoices`);
   }
 
 };
