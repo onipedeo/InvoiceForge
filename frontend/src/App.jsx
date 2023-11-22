@@ -4,6 +4,7 @@ import "./App.css";
 import LandingPage from "./components/Landingpage";
 import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
+import ClientList from "./components/ClientList";
 
 
 
@@ -19,6 +20,7 @@ function App() {
     <>
       <TopNavBar user={user} setUser={setUser} handleLinkClick={handleLinkClick}/>
       {displayPage=== 0 && <LandingPage />}
+      {displayPage=== 2 && <ClientList />}
       {displayPage === 4 && <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/>}
       <Footer />
     </>
