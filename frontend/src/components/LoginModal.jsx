@@ -1,26 +1,32 @@
 import { useState, useEffect } from 'react';
 import requests from '../api/requests';
 import '../styles/login-modal.scss';
+import ClientList from './ClientList';
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const {setUser} = props;
+  const { setUser, user, handleLinkClick} = props;
 
-  const fetchUser = () => {
-    requests
-      .get
-      .idByEmail(email)
-      .then((user) => {
-        setUser(user);
-        console.log(user);
-      });
+  const fetchUser = async () => {
+    try {
+      const user = await requests.get.idByEmail(email);
+      setUser(user);
+      const userData = await requests.get.userData(user.id);
+      const { clients } = userData;
+      console.log("clients", clients.length)
+      if (clients.length === 0) {
+       handleLinkClick(2)
+      }
+  
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetchUser();
   };
-
 
   return (
     <div className="login-container">
