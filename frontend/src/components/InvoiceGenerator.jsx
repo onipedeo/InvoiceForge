@@ -48,8 +48,16 @@ const InvoiceGenerator = ({
   standardRateCents
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  
 
   const generateInvoice = () => {
+
+    if (checkedAppointments.length === 0) {
+      setErrorMessage("Please select at least one appointment to generate an invoice.");
+      return;
+    }
+
     // Create a new jsPDF instance
     const pdf = new jsPDF();
 
@@ -141,6 +149,8 @@ const InvoiceGenerator = ({
     // Save the PDF
     const generatedPDFData = pdf.output("blob");
     setGeneratedPDF(URL.createObjectURL(generatedPDFData));
+
+    setErrorMessage("");
   };
 
   const handleConfirmAndSend = () => {
@@ -150,6 +160,7 @@ const InvoiceGenerator = ({
   return (
     <div>
       <div onClick={generateInvoice}>Generate Invoice</div>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {generatedPDF && (
         <div className="pdf-modal">
           <iframe
