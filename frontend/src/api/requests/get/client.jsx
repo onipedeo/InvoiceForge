@@ -12,6 +12,10 @@ class clientRequests {
     return get(`/api/client/${this.id}`);
   }
 
+  get object() {
+    return get(`/api/client/${this.id}/object`);
+  }
+
   get unreviewed() {
     return get(`/api/client/${this.id}/unreviewed`);
   }

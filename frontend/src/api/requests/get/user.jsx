@@ -14,6 +14,9 @@ class UserData {
   get clients() {
     return get(`/api/user/${this.id}/clients`);
   }
+  get object() {
+    return get(`/api/user/${this.id}/object`);
+  }
 
   get unreviewed() {
     return get(`/api/user/${this.id}/unreviewed`);
