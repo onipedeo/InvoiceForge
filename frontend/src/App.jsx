@@ -20,7 +20,7 @@ function App() {
     <>
       <TopNavBar user={user} setUser={setUser} handleLinkClick={handleLinkClick}/>
       {displayPage=== 0 && <LandingPage />}
-      {displayPage=== 2 && <ClientList />}
+      {displayPage=== 2 && <ClientList user={user}/>}
       {displayPage === 4 && <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/>}
       <Footer />
     </>
