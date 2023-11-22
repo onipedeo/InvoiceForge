@@ -1,4 +1,3 @@
-const { Client } = require('knex');
 const db = require('../db/db');
 
 class UserDao {
@@ -17,15 +16,15 @@ class UserDao {
   }
 
   async getById(id) {
-    const user = await db('users').join('addresses', 'users.address_id', '=', 'address.id').where({ id }).first();
-    const clients = await db('clients').where({ user_id: id });
-    const appointments = await db('appointments').where({ user_id: id });
-    const invoices = await db('invoices')
-      .join('appointments', 'invoices.id', '=', 'appointments.invoice_id')
-      .join('users', 'invoices.user_id', '=', 'users.id')
-      .join('clients', 'invoices.client_id', '=', 'clients.id')
-      .join('addresses', 'clients.address_id', '=', 'addresses.id')
-      .where({ user_id: id });
+    let user = await db('users').where({ id }).first();
+    const address = await db('addresses').where({ id: user.address_id }).first();
+    //replace address_id with address
+    user = { ...user, address };
+    const { address_id: discard, ...rest } = user;
+    user = rest;
+    const clients = await this.getClients(id);
+    const appointments = await this.getAppointments(id);
+    const invoices = await this.getInvoices(id);
     const reviewed = await db('appointments').where({ user_id: id, invoiced: false, reviewed: true });
     const unReviewed = await db('appointments').where({ user_id: id, reviewed: false });
 
@@ -48,34 +47,64 @@ class UserDao {
     });
   }
 
-async getInvoices(id) {
-  const invoices = await db('invoices').where({ 'user_id': id });
-
-  const results = await Promise.all(invoices.map(async (invoice) => {
-    const { client_id, user_id, ...invoiceWithoutClientId } = invoice;
-    const { address_id, user_id: discard,  ...client } = await db('clients').where({ 'id': client_id }).first();
-    const address = await db('addresses').where({ 'id': address_id }).first();
-
-    const dirtyAppointments = await db('appointments').where({ 'invoice_id': invoice.id });
-    const appointments = dirtyAppointments.map((appointment) => {
-      const { invoice_id, user_id, client_id, ...rest } = appointment;
-      return rest;
-    });
-
-    return {
-      ...invoiceWithoutClientId,
-      client: {
-        ...client,
-        address
-      },
-      appointments,
+  async appointmentsByWhere(where) {
+    const sanitizeAppointments = (appointments) => {
+      return appointments.map((appointment) => {
+        const { invoice_id, user_id, client_id, ...rest } = appointment;
+        return rest;
+      });
     };
-  }));
+    return sanitizeAppointments(await db('appointments').where(where));
+  }
 
-  return results;
-}
+  async getReviewed(id) { }
 
+  async getInvoices(id) {
+    try {
+      const invoices = await db('invoices').where({ 'user_id': id });
 
+      const results = await Promise.all(invoices.map(async (invoice) => {
+        const { client_id, user_id, ...invoiceWithoutClientId } = invoice;
+        const { address_id, user_id: discard, ...client } = await db('clients').where({ 'id': client_id }).first();
+        const address = await db('addresses').where({ 'id': address_id }).first();
+        const appointments = this.appointmentsByWhere({ invoice_id: invoice.id });
+        return {
+          ...invoiceWithoutClientId,
+          client: {
+            ...client,
+            address
+          },
+          appointments
+        };
+      }));
+
+      return results;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getClients(id) {
+    const dirtyClients = await db('clients').where({ user_id: id });
+    const clients = await Promise.all(dirtyClients.map(async (client) => {
+      const { address_id, user_id, ...rest } = client;
+      const address = await db('addresses').where({ id: client.address_id }).first();
+      return { ...rest, address };
+    }));
+    return clients;
+  }
+
+  async getAppointments(id) {
+    this.appointmentsByWhere({ user_id: id });
+  }
+
+  async getUnreviewed(id) {
+    this.appointmentsByWhere({ user_id: id, reviewed: false });
+  }
+
+  async getReviewed(id) {
+    this.appointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
+  }
 }
 
 module.exports = new UserDao();
