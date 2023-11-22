@@ -4,7 +4,7 @@ import LoginModal from "./LoginModal";
 
 
 export default function TopNavBar(props) {
-  const { user, setUser} = props
+  const { user, setUser, handleLinkClick} = props
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -32,7 +32,7 @@ export default function TopNavBar(props) {
         <span>Schedule</span>
         <span>Client List</span>
         <span>Appointments in Review</span>
-        <span>Forge Invoice</span>
+        <span onClick={()=>handleLinkClick(4)}>Forge Invoice</span>
       </div>}
 
       <div className="top-nav-bar__authentication">
