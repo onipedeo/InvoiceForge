@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const {replacePropertyWithinObject} = require('./helpers')
 
 class appointmentDao {
   async create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes) {
@@ -21,7 +22,11 @@ class appointmentDao {
   }
 
   async getById(id) {
-    return await db('appointments').select('*').where({ id }).first();
+    let appointment = await db('appointments').select('*').where({ id }).first();
+    console.log(appointment);
+    appointment = await replacePropertyWithinObject('client', appointment, 'appointment');
+    appointment = await replacePropertyWithinObject('user', appointment, 'appointment');
+    return appointment;
   }
 
   async delete(id) {
