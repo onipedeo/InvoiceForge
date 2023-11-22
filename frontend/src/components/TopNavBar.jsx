@@ -5,7 +5,7 @@ import ClientList from './ClientList';
 
 
 export default function TopNavBar(props) {
-  const { user, setUser} = props
+  const { user, setUser, handleLinkClick} = props
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   
   const [showClientList, setShowClientList] = useState(false)
@@ -39,7 +39,7 @@ export default function TopNavBar(props) {
         <span>Schedule</span>
         <span onClick={handleClientListClick}>Client List</span>
         <span>Appointments in Review</span>
-        <span>Forge Invoice</span>
+        <span onClick={()=>handleLinkClick(4)}>Forge Invoice</span>
       </div>}
 
       <div className="top-nav-bar__authentication">
