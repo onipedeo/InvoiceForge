@@ -11,4 +11,12 @@ router.post('/', (req, res) => {
 router.put('/:id/paid', (req, res) => {
   invoiceController.setPaid(req, res);
 });
+
+// GET api/invoice/id - get invoice by id
+router.get('/:id', (req, res) => {
+  invoiceController.getById(req, res);
+});
+
+
+
 module.exports = router;
