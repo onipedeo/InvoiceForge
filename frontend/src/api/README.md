@@ -13,20 +13,24 @@ import { requests } from '/api'
 
 Then, use the requests object to make build requests to the backend
 ```javascript
-// example: get a users data by id
-const userData = requests.get.userData(id)
+// example: with userData by id
 
-// example: get a user's id by email
-const userId = requests.get.idByEmail(email)
+// set up state
+const [appointments, setAppointments] = useState([]);
+const [clients, setClients] = useState([]);
+const [invoices, setInvoices] = useState([]);
 
-// example: create a new user
-requests.create.user(formData)
-
-// example: update a user's data
-requests.update.user(userId, formData)
-
-//example: delete an address
-requests.delete.address(addressId)
+useEffect(() => {
+  // get the user's data
+  requests.get.userData(id).then((userData) =>
+  //seperate the data into variables
+    const { appointments, clients, invoices } = userData
+    // do something with the data
+    setAppointments(appointments)
+    setClients(clients)
+    setInvoices(invoices)
+  );
+}, [id]);
 
 ```
 
