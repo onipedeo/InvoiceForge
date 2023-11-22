@@ -24,11 +24,10 @@
 
 .top-nav-bar__list {
   display: flex;
-  position: fixed;
   justify-content: space-between;
   width: 45%;
   align-items: center;
-  margin: 400px;
+  margin: 120px;
   font-size: 18px;
   text-decoration: none;
   font-weight: 500;
@@ -51,9 +50,15 @@
   text-decoration: none;
   font-weight: 500;
 
+  .username {
+    font-size: medium;
+  }
+
   span {
     padding: 2px;
     transition: text-shadow 0.3s ease;
+
+    
 
     &:not(:last-child) {
       padding-right: 8px;
