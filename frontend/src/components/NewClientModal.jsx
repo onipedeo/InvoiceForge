@@ -1,10 +1,17 @@
 import "../styles/new-client-modal.scss"
 
 export default function NewClientModal(props) {
+
+  const {setClientModelOpen} = props
+
+  const handleClientModelClose = () => {
+    setClientModelOpen(false)
+  }
+
   return (
     <div className="modal" id="newClientModal">
       <div className="modal-content">
-        <span className="close">&times;</span>
+        <span className="close" onClick={handleClientModelClose}>&times;</span>
         <h2>Add Client</h2>
         <form>
           <div className="form-group">
