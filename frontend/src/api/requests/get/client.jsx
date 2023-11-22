@@ -1,3 +1,4 @@
+import get from "../helpers/get";
 /**
  * Represents a client request object.
  * @class
