@@ -15,7 +15,7 @@ class UserDao {
     return id;
   }
 
-  async getUser(id) {
+  async getObject(id) {
     let user = await db('users').where({ id }).first();
     user = replacePropertyWithinObject('address', user);
     return user;

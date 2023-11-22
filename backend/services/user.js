@@ -34,7 +34,10 @@ class UserService {
   getUnreviewed(id) {
     return userDao.getUnreviewed(id);
   }
-  
+
+  getObject(id) {
+    return userDao.getObject(id);
+  }
 
 }
 

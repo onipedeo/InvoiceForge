@@ -85,6 +85,17 @@ class UserController {
     }
   }
 
+  async getObject(req, res) {
+    try {
+      const object = await userService.getObject(
+        req.params.id,
+      );
+      res.status(200).json(object);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+
+    }
+  }
 }
 
 module.exports = new UserController();
