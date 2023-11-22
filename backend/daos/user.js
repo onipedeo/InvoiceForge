@@ -27,7 +27,7 @@ class UserDao {
     const appointments = await getAppointmentsByWhere({ user_id: id });
     const invoices = await this.getInvoices(id);
     const reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
-    const unReviewed = await getAppointmentsByWhere({ user_id: id, reviewed: false });
+    const unReviewed = await this.getUnreviewed(id);
 
     return { user, clients, appointments, invoices, reviewed, unReviewed };
   }
@@ -52,11 +52,24 @@ class UserDao {
     return await getInvoicesByWhere({ 'user_id': id });
   }
 
+  async getUnreviewed(id) {
+    return await getAppointmentsByWhere({ user_id: id, reviewed: false });
+  }
+
+  async getAppointments(id) {
+    let appointments = await db('appointments').where({ user_id: id });
+    appointments = await Promise.all(appointments.map(async (appointment) => {
+      appointment = await replacePropertyWithinObject('client', appointment);
+      appointment.client = await replacePropertyWithinObject('address', appointment.client);
+      return appointment;
+
+
+    }));
+    return appointments;
+  }
 
   async getClients(id) {
     const dirtyClients = await db('clients').where({ user_id: id });
-
-
     const clients = await Promise.all(dirtyClients.map(async (client) => {
       return await replacePropertyWithinObject('address', client);
     }
