@@ -14,11 +14,11 @@ function App() {
 
   return (
     <>
-        {/* {user} */}
+      
      < TopNavBar user={user} setUser={setUser}/>
       <LandingPage />
       <Footer />
-
+      {/* <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/> */}
     </>
   );
 }
