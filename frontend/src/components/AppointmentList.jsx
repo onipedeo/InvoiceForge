@@ -1,11 +1,11 @@
-const AppointmentList = ({ selectedClient, appointments, handleAppointmentCheck, checkedAppointments }) => {
-  const filteredAppointments = appointments.filter(
-    (appointment) =>
-      appointment.client_id === selectedClient && !appointment.invoiced
-  );
+const AppointmentList = ({ reviewedAppointments, handleAppointmentCheck, checkedAppointments }) => {
+  // const filteredAppointments = appointments.filter(
+  //   (appointment) =>
+  //     appointment.client_id === selectedClient && !appointment.invoiced
+  // );
 
 
-  const appointmentList = filteredAppointments.map((appointment) => (
+  const appointmentList = reviewedAppointments.map((appointment) => (
     <tr key={appointment.id} className="appointment-list-item">
            <td>{appointment.notes}</td>
            <td>{appointment.date}</td>
