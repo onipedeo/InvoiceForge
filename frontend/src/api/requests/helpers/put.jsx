@@ -24,3 +24,5 @@ export default (url, Dto) => {
       throw error;
     });
 };
+
+
