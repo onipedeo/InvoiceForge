@@ -7,16 +7,13 @@ class UserData {
   appointments() {
     return get(`/api/user/${this.id}/appointments`);
   }
-
   object() {
     return get(`/api/user/${this.id}`);
   }
   clients() {
     return get(`/api/user/${this.id}/clients`);
   }
-  reviewed() {
-    return get(`/api/user/${this.id}/reviewed`);
-  }
+  
   unreviewed() {
     return get(`/api/user/${this.id}/unreviewed`);
   }
