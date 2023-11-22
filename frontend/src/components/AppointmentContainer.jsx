@@ -1,81 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClientSelection from "./ClientSelection";
 import AppointmentList from "./AppointmentList";
 import InvoiceGenerator from "./InvoiceGenerator";
+import requests from "../api/requests";
 
- const appointments = [
-    {
-      id: 1,
-      user_id: 1,
-      client_id: 1,
-      date: "2023-11-13",
-      start_time: "09:00:00",
-      end_time: "17:00:00",
-      confirmed_hours: 8,
-      reviewed: true,
-      invoiced: false,
-      appointment_rate_cents: 2000,
-      notes: "finish repairs.",
-    },
-    {
-      id: 2,
-      user_id: 1,
-      client_id: 1,
-      date: "2023-11-14",
-      start_time: "09:00:00",
-      end_time: "17:00:00",
-      confirmed_hours: 8,
-      reviewed: true,
-      invoiced: false,
-      notes: "paint",
-    },
-    {
-      id: 3,
-      user_id: 1,
-      client_id: 2,
-      date: "2023-11-15",
-      start_time: "09:00:00",
-      end_time: "17:00:00",
-      confirmed_hours: 8,
-      reviewed: true,
-      invoiced: false,
-      appointment_rate_cents: 3000,
-      notes: "demo and begin rebuild",
-    },
-    {
-      id: 4,
-      user_id: 1,
-      client_id: 2,
-      date: "2023-11-16",
-      start_time: "09:00:00",
-      end_time: "17:00:00",
-      confirmed_hours: 8,
-      reviewed: true,
-      invoiced: false,
-      notes: "finish rebuild",
-    },
-  ];
-
-
-  const clients = [
-  {
-    id: 1,
-    user_id: 1,
-    name: "Sally Parker",
-    email: "nathanwilespainting@gmail.com",
-    client_rate_cents: 5000,
-  },
-  {
-    id: 2,
-    user_id: 1,
-    name: "Jeff Jetson",
-    email: "nathanwilespainting@gmail.com",
-  },
-];
-
-const AppointmentsContainer = () => {
+const AppointmentsContainer = ({ userId, standardRateCents }) => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [checkedAppointments, setCheckedAppointments] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [reviewedAppointments, setReviewedAppointments] = useState([]);
+  const [clientRate, setClientRate] = useState(null);
+
+  useEffect(() => {
+    if (selectedClient) {
+      requests.get.clientData(selectedClient).then((clientData) => {
+        setReviewedAppointments(clientData.reviewed);
+        setClientRate(clientData.client_rate_cents || null);
+        
+      });
+    }
+  }, [selectedClient]);
+
+  useEffect(() => {
+    requests.get.userData(userId).then((userData) => {
+      setClients(userData.clients);
+    });
+  }, []);
 
   const handleAppointmentCheck = (id) => {
     setCheckedAppointments((checkedAppointments) =>
@@ -96,8 +46,23 @@ const AppointmentsContainer = () => {
         handleClientSelect={handleClientSelect}
         clients={clients}
       />
-      {selectedClient && (<AppointmentList selectedClient={selectedClient} appointments={appointments} handleAppointmentCheck={handleAppointmentCheck} checkedAppointments={checkedAppointments}/>)}
-      { selectedClient && (<InvoiceGenerator selectedClient={selectedClient} appointments={appointments} checkedAppointments={checkedAppointments}/>) }
+      {selectedClient && (
+        <AppointmentList
+          selectedClient={selectedClient}
+          reviewedAppointments={reviewedAppointments}
+          handleAppointmentCheck={handleAppointmentCheck}
+          checkedAppointments={checkedAppointments}
+        />
+      )}
+      {selectedClient && (
+        <InvoiceGenerator
+          selectedClient={selectedClient}
+          reviewedAppointments={reviewedAppointments}
+          checkedAppointments={checkedAppointments}
+          clientRate={clientRate}
+          standardRateCents={standardRateCents}
+        />
+      )}
     </div>
   );
 };
