@@ -16,7 +16,6 @@ class ClientController {
       res.status(200).json({ message: 'Client updated successfully' });
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
     }
   }
 
@@ -26,17 +25,42 @@ class ClientController {
       res.status(200).json(client);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
     }
   }
 
   async setAddressId(req, res) {
     try {
       const id = await clientService.setAddressId(req.params.id, req.perams.addressId);
-      res.status(200).json({ message: 'Address updated successfully' });
+      res.status(200).json({ message: 'Address updated successfully', id: id });
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+    }
+  }
+
+  async getAppointments(req, res) {
+    try {
+      const appointments = await clientService.getAppointments(req.params.id);
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  async getUnreviewed(req, res) {
+    try {
+      const appointments = await clientService.getUnreviewed(req.params.id);
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  async getReviewed(req, res) {
+    try {
+      const appointments = await clientService.getReviewed(req.params.id);
+      res.status(200).json(appointments);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
     }
   }
 

@@ -4,13 +4,13 @@ class ClientService {
   create(clientDto) {
     const { userId, name, companyName, email, phone, clientRateCents } = clientDto;
     return clientDao.create(userId, name, companyName, email, phone, clientRateCents)
-      .catch((error) => { console.error(error); });
+
   }
 
   update(clientId, clientDto) {
     const { name, companyName, email, phone, clientRateCents } = clientDto;
     return clientDao.update(clientId, name, companyName, email, phone, clientRateCents)
-      .catch((error) => { console.error(error); });
+      
   }
 
   getById(clientId) {
@@ -20,6 +20,18 @@ class ClientService {
 
   setAddressId(clientId, addressId) {
     return clientDao.setAddressId(clientId, addressId);
+  }
+
+  getAppointments(clientId) {
+    return clientDao.getAppointments(clientId);
+  }
+
+  getUnreviewed(clientId) {
+    return clientDao.getUnreviewed(clientId);
+  }
+
+  getReviewed(clientId) {
+    return clientDao.getReviewed(clientId);
   }
 
 

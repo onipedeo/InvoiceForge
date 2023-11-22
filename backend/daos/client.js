@@ -30,16 +30,41 @@ class ClientDao {
   async getById(clientId) {
     let client = await db('clients').where({ id: clientId }).first();
     client = await replacePropertyWithinObject('address', client, 'client');
-    const appointments = await getAppointmentsByWhere({ client_id: clientId });
-    const invoices = await getInvoicesByWhere({ client_id: clientId });
+    const appointments = await this.getAppointments(clientId);
+    const invoices = await db('invoices').select('id','invoice_number').where({ client_id: clientId });
     const invoiced = await getAppointmentsByWhere({ client_id: clientId, invoiced: true });
-    const reviewed = await getAppointmentsByWhere({ client_id: clientId, invoiced: false, reviewed: true });
-    const unReviewed = await getAppointmentsByWhere({ client_id: clientId, reviewed: false });
+    const reviewed = await this.getReviewed(clientId);
+    const unReviewed = await this.getUnreviewed(clientId);
     return { client, appointments, invoices, invoiced, reviewed, unReviewed };
   }
 
   async setAddressId(clientId, addressId) {
     await db('clients').where({ id: clientId }).update({ address_id: addressId });
+  }
+
+  async getAppointments(clientId) {
+    const appointments = await this.compileAppointmentsByWhere({ client_id: clientId });
+    return appointments;
+  }
+
+  async getUnreviewed(clientId) {
+    const appointments = await this.compileAppointmentsByWhere({ client_id: clientId, reviewed: false });
+    return await appointments;
+  }
+
+  async getReviewed(clientId) {
+    const appointments = await this.compileAppointmentsByWhere({ client_id: clientId, reviewed: true, invoiced: false });
+    return await appointments;
+  }
+  async compileAppointmentsByWhere(where) {
+    let appointments = await db('appointments').where(where);
+    appointments = await appointments.map(async (appointment) => {
+      appointment = await replacePropertyWithinObject('client', appointment);
+      appointment.client = await replacePropertyWithinObject('address', appointment.client);
+      appointment = await replacePropertyWithinObject('user', appointment);
+
+      return appointment;
+    });
   }
 }
 
