@@ -14,11 +14,7 @@ router.get('/:id', (req, res) => {
 
 // PUT edit appointment
 router.put('/:id', validateDto(appointmentDto), (req, res) => {
-  try {
   appointmentController.edit(req, res);
-  } catch (e) {
-    console.error(e, "error in appointmentRoutes.js");
-  }
 });
 
 // POST create new appointment
