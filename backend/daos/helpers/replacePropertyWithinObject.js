@@ -22,14 +22,11 @@ module.exports = async function(propertyName, object) {
   const { [propertyName_Id]: _, ...rest } = object;
 
   const propertyId = object[propertyName_Id];
-  console.log(`propertyId: ${propertyId}`); // Debugging line
 
   const propertyObject = async () => {
     if (!propertyId) return null;
     const tableName = makeTableName(propertyName);
-    console.log(`tableName: ${tableName}`); // Debugging line
     const result = await db(tableName).where({ id: propertyId }).first();
-    console.log(`Query result: ${JSON.stringify(result)}`); // Debugging line
     return result;
   };
 
