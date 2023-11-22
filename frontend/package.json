@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  
   "scripts": {
     "cypress": "npx cypress open",
     "test": "vitest",
@@ -13,8 +12,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.14",
+    "cors": "^2.8.5",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.7.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

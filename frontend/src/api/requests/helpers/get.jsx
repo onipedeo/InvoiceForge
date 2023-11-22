@@ -12,7 +12,7 @@ export default (url, body) => {
     headers: { "Content-Type": "application/json" },
   }
 
-  return fetch(url, (options))
-    .then(response => response.json())
-    .catch(err => console.log(err));
+  return fetch(url, options)
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
 };
