@@ -7,7 +7,7 @@ export default function TopNavBar(props) {
     <div className="top-nav-bar__list">
       <span>Schedule</span>
       <span>Client List</span>
-      <span>Appointments in Reviwe</span>
+      <span>Appointments in Review</span>
       <span>Forge Invoice</span>
     </div>
     <div className="top-nav-bar__authentication">
