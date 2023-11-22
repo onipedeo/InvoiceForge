@@ -1,4 +1,4 @@
-const { replacePropertyWithinObject, getAppointmentsByWhere, getInvoicesByWhere } = require('./helpers');
+const { replacePropertyWithinObject, getAppointmentsByWhere } = require('./helpers');
 const db = require('../db/db');
 
 class ClientDao {
@@ -54,23 +54,20 @@ class ClientDao {
   }
 
   async getAppointments(clientId) {
-    const appointments = await this.simpleAppoiontmentByWhere({ client_id: clientId });
+    const appointments = await getAppointmentsByWhere({ client_id: clientId });
     return await appointments;
   }
 
   async getUnreviewed(clientId) {
-    const appointments = await this.simpleAppoiontmentByWhere({ client_id: clientId, reviewed: false });
+    const appointments = await getAppointmentsByWhere({ client_id: clientId, reviewed: false });
     return await appointments;
   }
 
   async getReviewed(clientId) {
-    const appointments = await this.simpleAppoiontmentByWhere({ client_id: clientId, reviewed: true, invoiced: false });
+    const appointments = await getAppointmentsByWhere({ client_id: clientId, reviewed: true, invoiced: false });
     return await appointments;
   }
 
-  async simpleAppoiontmentByWhere(where) {
-    return await db('appointments').where(where);
-  }
 }
 
 module.exports = new ClientDao();
