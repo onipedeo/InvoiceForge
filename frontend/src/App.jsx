@@ -6,15 +6,16 @@ import requests from './api/requests'
 
 import TopNavBar from './components/TopNavBar'
 import Footer from './components/footer'
-
+import requests from './api/requests'
 function App() {
-  const [userId, setUserId] = useState(1);
-  const [standardRateCents, setStandardRateCents] = useState(4000)
+  const [user, setUser] = useState(null)
 
-  
+ 
+
   return (
     <>
-      <TopNavBar />
+        {/* {user} */}
+     < TopNavBar user={user} setUser={setUser}/>
       <LandingPage />
       <Footer />
 
