@@ -2,8 +2,9 @@ import { useState } from 'react';
 import "../styles/top-navbar.scss";
 import LoginModal from "./LoginModal";
 
+
 export default function TopNavBar(props) {
-  const { userId, setUserId } = props
+  const { user, setUser} = props
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -19,7 +20,7 @@ export default function TopNavBar(props) {
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">InvoiceForge</span>
 
-      {userId!== 0 &&
+      {user &&
       <div className="top-nav-bar__list">
         <span>Schedule</span>
         <span>Client List</span>
@@ -28,12 +29,12 @@ export default function TopNavBar(props) {
       </div>}
 
       <div className="top-nav-bar__authentication">
-        {userId === 0 && (<span onClick={handleLoginClick}>Login</span>)}
-        {userId !== 0 && (<span>You are logged in</span>)}
-        {userId === 0 && (<span>Sign Up</span>)}
+        {!user && (<span onClick={handleLoginClick}>Login</span>)}
+        {user && (<span className='username'>Hello, {user.first_name}.</span>)}
+        {!user && (<span>Sign Up</span>)}
       </div>
       
-      {isLoginModalOpen && userId === 0 && <LoginModal onClose={handleModalClose} userId={userId} setUserId={setUserId}/>}
+      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser}/>}
     </nav>
   );
 }
