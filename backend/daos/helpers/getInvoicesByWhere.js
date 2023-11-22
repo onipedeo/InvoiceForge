@@ -3,7 +3,7 @@ const replacePropertyWithinObject = require('./replacePropertyWithinObject');
 const db = require('../../db/db');
 
 
-module.exports = async function (where) {
+module.exports = async function(where) {
   try {
     const invoices = await db('invoices').where(where);
 
@@ -19,6 +19,6 @@ module.exports = async function (where) {
 
     return results;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
-}
+};
