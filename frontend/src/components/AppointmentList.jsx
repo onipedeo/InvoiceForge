@@ -1,9 +1,4 @@
 const AppointmentList = ({ reviewedAppointments, handleAppointmentCheck, checkedAppointments }) => {
-  // const filteredAppointments = appointments.filter(
-  //   (appointment) =>
-  //     appointment.client_id === selectedClient && !appointment.invoiced
-  // );
-
 
   const appointmentList = reviewedAppointments.map((appointment) => (
     <tr key={appointment.id} className="appointment-list-item">
