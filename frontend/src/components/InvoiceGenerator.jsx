@@ -42,8 +42,10 @@ const userAddress = [
 
 const InvoiceGenerator = ({
   selectedClient,
-  appointments,
+  reviewedAppointments,
   checkedAppointments,
+  clientRate,
+  standardRateCents
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
 
@@ -99,7 +101,7 @@ const InvoiceGenerator = ({
 
     pdf.autoTable({
       head: [["Appointment", "Date", "Hours"]],
-      body: appointments
+      body: reviewedAppointments
         .filter((appointment) => checkedAppointments.includes(appointment.id))
         .map((appointment) => [
           appointment.notes,
@@ -114,11 +116,19 @@ const InvoiceGenerator = ({
     pdf.setFillColor(255, 255, 255);
     pdf.setFont("helvetica", "normal");
 
+
     // Calculate and add the total amount
-    const totalAmount = appointments
+    const totalAmount = reviewedAppointments
       .filter((appointment) => checkedAppointments.includes(appointment.id))
       .reduce(
-        (total, appointment) => total + appointment.confirmed_hours * 100,
+        (total, appointment) => {
+          const {appointment_rate_cents} = appointment;
+          const rate = appointment_rate_cents ? appointment_rate_cents :
+                clientRate ? clientRate : standardRateCents;
+          console.log("rate", rate)
+          console.log("appointment", appointment)
+          console.log("appointment.confirmed_hours", appointment.confirmed_hours)
+          return total + appointment.confirmed_hours * rate/100},
         0
       );
 
