@@ -41,10 +41,8 @@ export default function TopNavBar(props) {
         {user && (<span className='afterlogin' onClick={handleLogoutClick}>Log Out</span>)}
         {!user && (<span>Sign Up</span>)}
       </div>
-      
-      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user}
-      handleLinkClick={handleLinkClick}
-       />}
+
+      {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user} handleLinkClick={handleLinkClick} />}
     </nav>
       </div>
   );
