@@ -6,16 +6,7 @@ import ClientList from './ClientList';
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
   const { setUser, user, setShowClientList, showClientList } = props;
-  const [client, setClient] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    // This effect runs after every render
-    if (loggedIn && client.length === 0) {
-      console.log('client', client)
-      toggleShowClientList();
-    }
-  },[]); // Watch for changes in loggedIn and client
 
   const toggleShowClientList = () => {
     setShowClientList(true);
@@ -26,15 +17,11 @@ const LoginModal = (props) => {
       const user = await requests.get.idByEmail(email);
       setUser(user);
       console.log(user)
-      if (user) {
-        setLoggedIn(true); // Set loggedIn to true after successful login
-        console.log("loginState", loggedIn)
-        const userData = await requests.get.userData(user.id);
-        const { clients } = userData;
-        console.log("clients", clients)
-        setClient(clients);
-        console.log("clientState", client)
-      }
+      const userData = await requests.get.userData(user.id);
+      const { clients } = userData;
+      console.log("clients", clients)
+  
+  
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
