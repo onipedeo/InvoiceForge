@@ -37,11 +37,10 @@ class UserController {
     }
   }
 
-  async getInvoiceByNumber(req, res) {
+  async getInvoices(req, res) {
     try {
-      const invoice = await userService.getInvoiceByNumber(
+      const invoice = await userService.getInvoices(
         req.params.id,
-        req.params.number
       );
       res.status(200).json(invoice);
     } catch (e) {
