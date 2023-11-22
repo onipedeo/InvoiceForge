@@ -6,15 +6,11 @@ import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
 import ClientList from "./components/ClientList";
 
-
-
 function App() {
   const handleLinkClick = (pageNumber) => {
     setDisplayPage(pageNumber);
   }
   const [user, setUser] = useState(null);
-  const [displayPage, setDisplayPage] = useState(0);
-  
 
   return (
     <>
@@ -23,6 +19,7 @@ function App() {
       {displayPage=== 2 && <ClientList user={user}/>}
       {displayPage === 4 && <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/>}
       <Footer />
+      {/* <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/> */}
     </>
   );
 }
