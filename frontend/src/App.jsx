@@ -8,13 +8,18 @@ import Footer from "./components/footer";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [displayPage, setDisplayPage] = useState(0);
+
+  const handleLinkClick = (pageNum) => {
+    setDisplayPage(pageNum);
+  }
 
   return (
     <>
-      <TopNavBar user={user} setUser={setUser} />
-      <LandingPage />
+      <TopNavBar user={user} setUser={setUser} handleLinkClick={handleLinkClick}/>
+      {displayPage === 0 && <LandingPage />}
       <Footer />
-      {/* <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/> */}
+      {displayPage === 4 && <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/>}
     </>
   );
 }
