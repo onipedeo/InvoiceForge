@@ -16,6 +16,12 @@ export default function TopNavBar(props) {
     setIsLoginModalOpen(false);
   };
 
+  const handleLogoutClick = () => {
+    setIsLoginModalOpen(false);
+    setUser(null);
+  }
+
+
   return (
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">InvoiceForge</span>
@@ -29,8 +35,9 @@ export default function TopNavBar(props) {
       </div>}
 
       <div className="top-nav-bar__authentication">
-        {!user && (<span onClick={handleLoginClick}>Login</span>)}
-        {user && (<span className='username'>Hello, {user.first_name}.</span>)}
+        {!user && (<span onClick={handleLoginClick}>Log In</span>)}
+        {user && (<span className='afterlogin'>Hello, {user.first_name}.</span>)}
+        {user && (<span className='afterlogin' onClick={handleLogoutClick}>Log Out</span>)}
         {!user && (<span>Sign Up</span>)}
       </div>
       
