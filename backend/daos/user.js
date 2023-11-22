@@ -22,14 +22,14 @@ class UserDao {
   }
 
   async getById(id) {
-    const user = await this.getUser(id);
+    const user = await this.getObject(id);
     const clients = await this.getClients(id);
     const appointments = await getAppointmentsByWhere({ user_id: id });
     const invoices = await this.getInvoices(id);
     const reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
     const unReviewed = await this.getUnreviewed(id);
 
-    return { user, clients, appointments, invoices, reviewed, unReviewed };
+    return await { user, clients, appointments, invoices, reviewed, unReviewed };
   }
 
   async getByEmail(email) {
