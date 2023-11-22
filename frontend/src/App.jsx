@@ -6,25 +6,14 @@ import TopNavBar from './components/TopNavBar'
 import Footer from './components/footer'
 import requests from './api/requests'
 function App() {
-  const [userId, setUserId] = useState(0)
+  const [user, setUser] = useState(null)
 
-  // useEffect(() =>  {
-  //   //example how to use the api
-  //   const email = "nathanwilespainting@gmail.com"
+ 
 
-  //    requests
-  //     .get
-  //     .idByEmail(email).then((user) => {
-  //       console.log(user)
-  //       setUserID(user.id)
-  //     });
-
-
-  // },[])
   return (
     <>
         {/* {user} */}
-     < TopNavBar userId={userId} setUserId={setUserId}/>
+     < TopNavBar user={user} setUser={setUser}/>
       <LandingPage />
       <Footer/>
 
