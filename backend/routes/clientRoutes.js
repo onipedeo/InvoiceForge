@@ -23,4 +23,17 @@ router.post('/', validateDto(clientDto), (req, res) => {
   clientController.create(req, res);
 });
 
+router.get('/appointments', (req, res) => {
+  clientController.getAppointments(req, res);
+});
+
+router.get('/unreviewed', (req, res) => {
+  clientController.getUnreviewed(req, res);
+});
+
+router.get('/reviewed', (req, res) => {
+  clientController.getReviewed(req, res);
+});
+
+
 module.exports = router;
