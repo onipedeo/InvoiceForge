@@ -14,7 +14,7 @@ const LoginModal = (props) => {
       const userData = await requests.get.userData(user.id);
       const { clients } = userData;
       console.log("clients", clients.length)
-      if (clients.length === 2) {
+      if (clients.length === 0) {
        handleLinkClick(2)
       }
   
