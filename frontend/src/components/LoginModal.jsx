@@ -4,25 +4,23 @@ import '../styles/login-modal.scss';
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const { setUserId } = props;
+  const {setUser} = props;
 
-  const fetchData = () => {
+  const fetchUser = () => {
     requests
       .get
       .idByEmail(email)
       .then((user) => {
-        setUserId(user.id);
+        setUser(user);
+        console.log(user);
       });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchData();
+    fetchUser();
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [setUserId]);
 
   return (
     <div className="login-container">
