@@ -10,4 +10,10 @@ module.exports = yup.object().shape({
   province: yup.string(),
   country: yup.string(),
   postalCode: yup.string().length(6)
-});
+}).test(
+  'userId-clientId',
+  'Must have either a userId or a clientId',
+  function(value) {
+    return !!(value.userId || value.clientId);
+  }
+);
