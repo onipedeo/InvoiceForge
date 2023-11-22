@@ -169,7 +169,7 @@ const InvoiceGenerator = ({
              width="60%"
             height="500px"
           ></iframe>
-          <button onClick={handleConfirmAndSend}>Confirm and Send</button>
+          <div><button onClick={handleConfirmAndSend}>Confirm and Send</button></div>
         </div>
       )}
     </div>
