@@ -48,7 +48,7 @@ class AppointmentController {
   async confirmHours(req, res) {
     try {
       const appointmentId = req.params.id;
-      await appointmentService.confirmHours(appointmentId);
+      await appointmentService.confirmHours(appointmentId, req.body);
       res.status(200).json({ message: "Appointment hours confirmed successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
