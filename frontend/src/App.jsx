@@ -1,4 +1,4 @@
-import SimpleAppointments from "./components/SimpleAppointmets";
+import AppointmentContainer from "./components/AppointmentContainer";
 import { useState, useEffect } from "react";
 import "./App.css";
 import LandingPage from "./components/Landingpage";
@@ -8,26 +8,17 @@ import TopNavBar from './components/TopNavBar'
 import Footer from './components/footer'
 
 function App() {
-  const [user, setUser] = useState(0);
-  useEffect(() =>  {
-    //example how to use the api
-    const email = "nathanwilespainting@gmail.com"
+  const [userId, setUserId] = useState(1);
+  const [standardRateCents, setStandardRateCents] = useState(4000)
 
-     requests
-      .get
-      .idByEmail(email).then((userData) => {
-        setUser(userData.user.id)
-      });
-  },[]);
-
-
+  
   return (
     <>
-      {user}
-      {/* <TopNavBar />
+      {/* {user}
+      <TopNavBar />
       <LandingPage />
       <Footer /> */}
-      <SimpleAppointments/>
+      <AppointmentContainer userId={userId} standardRateCents={standardRateCents}/>
 
     </>
   );
