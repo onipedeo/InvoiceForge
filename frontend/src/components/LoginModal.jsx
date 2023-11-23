@@ -11,13 +11,10 @@ const LoginModal = (props) => {
     try {
       const user = await requests.get.idByEmail(email);
       setUser(user);
-      const userData = await requests.get.userData(user.id);
-      const { clients } = userData;
-      console.log("clients", clients.length)
+      const clients = await requests.get.user(user.id).clients
       if (clients.length === 0) {
        handleLinkClick(2)
       }
-  
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
