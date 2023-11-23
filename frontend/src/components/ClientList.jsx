@@ -39,9 +39,10 @@ export default function ClientList(props) {
           <li key={client.id} className="client-item">
             <div className="client-details">
               <span className='client-id'>Client ID: {client.id}</span>
-              <span>Client Name: {client.name}</span>
-              <span>Client Email: {client.email}</span>
-              <span>Client Company: {client.company || 'Not specified'}</span>
+              <span>{client.name}</span>
+              <span>{client.address.line_1}</span>
+              <span>{client.email}</span>
+              {client.company && <span>Company: {client.company}</span>}
             </div>
           </li>
         ))}
@@ -56,7 +57,7 @@ export default function ClientList(props) {
 
       <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
-      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} />}
+      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={ user } />}
     </div>
   );
 }
