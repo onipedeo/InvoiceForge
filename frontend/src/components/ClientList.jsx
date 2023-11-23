@@ -31,7 +31,9 @@ export default function ClientList(props) {
 
   return (
     <div>
-      <h3>Client List</h3>
+      <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
+
+      {clients.length > 0 ? (
       <ul className="client-list">
         {clients.map((client) => (
           <li key={client.id} className="client-item">
@@ -43,7 +45,12 @@ export default function ClientList(props) {
             </div>
           </li>
         ))}
-      </ul>
+      </ul> ) : (
+        <div>
+        <h4>Please Add your first client using the "Add New Client" button.</h4>
+        <h4>Your Client Information will showup here once is added as demonstrated below. </h4>
+        </div>
+      )}
 
       <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
