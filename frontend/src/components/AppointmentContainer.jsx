@@ -11,21 +11,27 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
   const [clientObj, setClientObj] = useState({});
+  const [userObj, setUserObj] = useState({});
 
   useEffect(() => {
     if (selectedClient) {
-      requests.get.clientData(selectedClient).then((clientData) => {
-        setReviewedAppointments(clientData.reviewed);
-        setClientRate(clientData.client_rate_cents || null);
-        setClientObj(clientData);
-        
+      //reworked the request to use the new syntax
+      requests.get.client(selectedClient).allData.then((data) => {
+        setReviewedAppointments(data.reviewed);
+        setClientRate(data.client.client_rate_cents || null);
+        setClientObj(data.client);
       });
     }
   }, [selectedClient]);
 
   useEffect(() => {
-    requests.get.userData(userId).then((userData) => {
-      setClients(userData.clients);
+    //reworked the request to use the new syntax
+    requests.get.user(userId).clients.then((clients) => {
+      setClients(clients);
+    });
+    //set user data here as well
+    requests.get.user(userId).object.then((userObj) => {
+      setUserObj(userObj);
     });
   }, []);
 
@@ -63,7 +69,7 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
           clientRate={clientRate}
           standardRateCents={standardRateCents}
           clientObj={clientObj}
-          userId={userId}
+          userObj={userObj} //pass userObj to invoice generator
         />
       )}
     </div>
