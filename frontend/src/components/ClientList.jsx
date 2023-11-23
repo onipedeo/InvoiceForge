@@ -30,20 +30,22 @@ export default function ClientList(props) {
   };
 
   return (
-    <div className="client-list-container">
-      <p>Client List Content</p>
-
-      <ul>
+    <div>
+      <h3>Client List</h3>
+      <ul className="client-list">
         {clients.map((client) => (
-          <li key={client.id}>
-          <span> Client's Name: {client.name}</span>
-          <span>Client's Email: {client.email}</span> 
-          <span>Client's Company: {client.company}</span>
+          <li key={client.id} className="client-item">
+            <div className="client-details">
+              <span className='client-id'>Client ID: {client.id}</span>
+              <span>Client Name: {client.name}</span>
+              <span>Client Email: {client.email}</span>
+              <span>Client Company: {client.company || 'Not specified'}</span>
+            </div>
           </li>
         ))}
       </ul>
 
-      <button onClick={handleNewClientModalClick}>Add New Client</button>
+      <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
       {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} />}
     </div>
