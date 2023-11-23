@@ -1,4 +1,3 @@
-const { faker } = require('@faker-js/faker');
 const moment = require('moment');
 /**
  * @param { import("knex").Knex } knex
@@ -27,7 +26,7 @@ exports.seed = async function(knex) {
   const start_time = ["06:00:00", "07:00:00", "08:00:00", "09:00:00"];
   const end_time_morning = ["12:00:00", "13:00:00", "14:00:00", "15:00:00"];
   const end_time_afternoon = ["17:00:00", "18:00:00", "19:00:00", "20:00:00"];
-  const notes = faker.lorem.sentence();
+  const notes = ["sand and prep", 'install vanity', 'demo wall'];
 
   //creates 2 appointments per day for 20 days
   for (let i = 1; i <= 20; i++) {
@@ -62,6 +61,10 @@ exports.seed = async function(knex) {
       confirmed_hours: null,
       notes: randomFromArr(notes),
     };
+    // ensure a different note is used for the second appointment
+    while (secondAppointment.notes === appointment.notes) {
+      secondAppointment.notes = randomFromArr(notes);
+    }
 
     const secondStartTime = moment(secondAppointment.start_time, 'HH:mm:ss');
     const secondEndTime = moment(secondAppointment.end_time, 'HH:mm:ss');
