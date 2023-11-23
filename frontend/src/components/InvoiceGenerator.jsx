@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import requests from "../api/requests"
+import requests from "../api/requests";
 
 const InvoiceGenerator = ({
   reviewedAppointments,
@@ -9,21 +9,15 @@ const InvoiceGenerator = ({
   clientRate,
   standardRateCents,
   clientObj,
-  userId,
   userData
 }) => {
+
+
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  
-     // Add user and client details
-     const userDetails = userData.address;
-  console.log("userDetails", userDetails);
 
- 
-  // useEffect(() => {
-  //   requests.get.user(userId).object.then((data) => setUserData(data));
-  // },[]);
-  
+
+
   const generateInvoice = () => {
 
     if (checkedAppointments.length === 0) {
@@ -41,8 +35,10 @@ const InvoiceGenerator = ({
     // Add content to the PDF
     pdf.text("Invoice", 20, 20);
     pdf.text("LOGO", 20, 30);
-   
-    
+
+    // Add user and client details
+    const userDetails = userData.address;
+
     pdf.text(
       `User Details:
       ${userDetails.line_1}
@@ -54,7 +50,9 @@ const InvoiceGenerator = ({
       20
     );
 
-  
+    // Add client details
+
+    const clientDetails = clientObj.address;
 
     pdf.text(
       `Client Details:
@@ -66,6 +64,7 @@ const InvoiceGenerator = ({
       20,
       65
     );
+
 
     // Add appointment details
     pdf.text("Appointment Details", 20, 110);
@@ -98,10 +97,11 @@ const InvoiceGenerator = ({
       .filter((appointment) => checkedAppointments.includes(appointment.id))
       .reduce(
         (total, appointment) => {
-          const {appointment_rate_cents} = appointment;
+          const { appointment_rate_cents } = appointment;
           const rate = appointment_rate_cents ? appointment_rate_cents :
-                clientRate ? clientRate : standardRateCents;
-          return total + appointment.confirmed_hours * rate/100},
+            clientRate ? clientRate : standardRateCents;
+          return total + appointment.confirmed_hours * rate / 100;
+        },
         0
       );
 
@@ -129,9 +129,9 @@ const InvoiceGenerator = ({
       {generatedPDF && (
         <div className="pdf-modal">
           <iframe
-             title="Invoice PDF"
+            title="Invoice PDF"
             src={generatedPDF}
-             width="60%"
+            width="60%"
             height="500px"
           ></iframe>
           <div><button onClick={handleConfirmAndSend}>Confirm and Send</button></div>
