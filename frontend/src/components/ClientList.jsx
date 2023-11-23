@@ -32,10 +32,12 @@ export default function ClientList(props) {
   return (
     <div>
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
+      <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
       {clients.length > 0 ? (
+        <div className="client-list-container">
       <ul className="client-list">
-        {clients.map((client) => (
+        {clients.map((client) => (<div>
           <li key={client.id} className="client-item">
             <div className="client-details">
               <span className='client-id'>Client ID: {client.id}</span>
@@ -44,18 +46,18 @@ export default function ClientList(props) {
               <span>{client.email}</span>
               {client.company && <span>Company: {client.company}</span>}
             </div>
-          </li>
+           </li>
+         </div>
         ))}
-      </ul> ) : (
+      </ul> 
+    </div>) : (
         <div>
         <h4>Please Add your first client using the "Add New Client" button.</h4>
-        <h4>Your Client Information will showup here once is added as demonstrated below.</h4>
+        <h4>Your client info will display when you finish adding new client. Here is an exmaple:</h4>
         <img style={{ maxWidth: '45%' }}
          src="/clientExample.jpg" alt="example" />
         </div>
       )}
-
-      <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
       {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={ user } />}
     </div>
