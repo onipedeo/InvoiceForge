@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import requests from '../api/requests';
 import '../styles/login-modal.scss';
-import ClientList from './ClientList';
+
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
