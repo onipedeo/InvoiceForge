@@ -6,28 +6,37 @@ export default function NewClientModal(props) {
   const { setClientModelOpen, user } = props;
 
   const [clientData, setClientData] = useState({
+    user_id: user.id,
     name: '',
     email: '',
     phone: '',
     rate: 0,
-    user_id: user.id,
+   
   });
 
   const [addressData, setAddressData] = useState({
-    line1: '',
-    line2: '',
+    line_1: '',
+    line_2: '',
     city: '',
     province: '',
     country: '',
-    postalCode: '',
+    postal_code: '',
   });
 
   const handleClientInputChange = (e) => {
-   
+    const { name, value } = e.target;
+    setClientData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleAddressInputChange = (e) => {
-  
+    const { name, value } = e.target;
+    setAddressData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleClientModelClose = () => {
@@ -38,14 +47,17 @@ export default function NewClientModal(props) {
     e.preventDefault();
 
     try {
-      // Make route requests to send the form data to the backend
-      
+      // Make a network request to send the form data to the backend
+      await Promise.all([
+        requests.create.client(clientData),
+        requests.create.address(addressData),
+      ]);
 
       // Close the modal after successful submission
       setClientModelOpen(false);
     } catch (error) {
       console.error('Error adding client:', error);
-     
+      // Handle error (e.g., show an error message to the user)
     }
   };
 
@@ -66,6 +78,16 @@ export default function NewClientModal(props) {
               onChange={handleClientInputChange}
               placeholder='required'
               required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="company_name">Company Name:</label>
+            <input
+              type="text"
+              id="company_name"
+              name="company_name"
+              value={clientData.company_name}
+              onChange={handleClientInputChange}
             />
           </div>
           <div className="form-group">
@@ -107,16 +129,16 @@ export default function NewClientModal(props) {
             <input
               type="text"
               placeholder="Line 1 Required"
-              name="line1"
-              value={addressData.line1}
+              name="line_1"
+              value={addressData.line_1}
               onChange={handleAddressInputChange}
               required
             />
             <input
               type="text"
               placeholder="Line 2"
-              name="line2"
-              value={addressData.line2}
+              name="line_2"
+              value={addressData.line_2}
               onChange={handleAddressInputChange}
             />
             <input
@@ -143,8 +165,8 @@ export default function NewClientModal(props) {
             <input
               type="text"
               placeholder="Postal Code"
-              name="postalCode"
-              value={addressData.postalCode}
+              name="postal_code"
+              value={addressData.postal_code}
               onChange={handleAddressInputChange}
             />
           </div>
