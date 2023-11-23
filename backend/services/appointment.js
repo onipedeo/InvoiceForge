@@ -19,8 +19,7 @@ class AppointmentService {
     return appointmentDao.delete(appointmentId);
   }
 
-  confirmHours(appointmentId, confirmedHoursDto) {
-    const {confirmedHours} = confirmedHoursDto;
+  confirmHours(appointmentId, {confirmedHours}) {
     return appointmentDao.confirmHours(appointmentId, confirmedHours);
   }
 }

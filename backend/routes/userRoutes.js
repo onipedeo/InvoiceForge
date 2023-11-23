@@ -26,9 +26,26 @@ router.put('/:id', validateDto(userDto), (req, res) => {
   userController.edit(req, res);
 });
 
-// GET /api/user/:id/invoice/:number - Get invoice by user_id and invoice_number.
-router.get('/:id/invoice/:number', (req, res) => {
-  userController.getInvoiceByNumber(req, res);
+router.get('/:id/object', (req, res) => {
+  userController.getObject(req, res);
 });
+
+router.get('/:id/invoices', (req, res) => {
+  userController.getInvoices(req, res);
+});
+
+router.get('/:id/appointments', (req, res) => {
+  userController.getAppointments(req, res);
+});
+
+router.get('/:id/clients', (req, res) => {
+  userController.getClients(req, res);
+});
+
+router.get('/:id/unreviewed/', (req, res) => {
+  userController.getUnreviewed(req, res);
+});
+
+
 
 module.exports = router;

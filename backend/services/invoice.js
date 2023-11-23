@@ -9,6 +9,9 @@ class InvoiceService {
     return invoiceDao.setPaid(id);
   }
 
+  getById(id) {
+    return invoiceDao.getById(id);
+  }
 }
 
 module.exports = new InvoiceService();
