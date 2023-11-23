@@ -27,9 +27,9 @@ class UserDao {
     const appointments = await getAppointmentsByWhere({ user_id: id });
     const invoices = await this.getInvoices(id);
     const reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
-    const unReviewed = await this.getUnreviewed(id);
+    const unreviewed = await this.getUnreviewed(id);
 
-    return await { user, clients, appointments, invoices, reviewed, unReviewed };
+    return await { user, clients, appointments, invoices, reviewed, unreviewed };
   }
 
   async getByEmail(email) {
