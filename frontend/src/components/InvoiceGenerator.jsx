@@ -1,56 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-
-const clientsAddress = [
-    {
-      id: 1,
-      line_1: "456 Main St",
-      city: "Toronto",
-      province: "ON",
-      country: "Canada",
-      postal_code: "M1M1M1",
-    },
-    {
-    id: 2,
-    line_1: "123 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-  {
-    id: 3,
-    line_1: "456 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-];
-
-const userAddress = [
-  {
-    id: 1,
-    line_1: "123 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-];
+import requests from "../api/requests"
 
 const InvoiceGenerator = ({
-  selectedClient,
   reviewedAppointments,
   checkedAppointments,
   clientRate,
-  standardRateCents
+  standardRateCents,
+  clientObj,
+  userId
 }) => {
+
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const [userData, setUserData] = useState({});
 
+  useEffect(() => {
+    requests.get.userData(userId).then((data) => setUserData(data));
+  })
+  
   const generateInvoice = () => {
 
     if (checkedAppointments.length === 0) {
@@ -70,8 +39,8 @@ const InvoiceGenerator = ({
     pdf.text("LOGO", 20, 30);
 
     // Add user and client details
-    const userDetails = userAddress.find((user) => user.id === 1);
-
+    const userDetails = userData.address;
+    
     pdf.text(
       `User Details:
       ${userDetails.line_1}
@@ -84,9 +53,7 @@ const InvoiceGenerator = ({
     );
 
     // Add client details
-    const clientDetails = clientsAddress.find(
-      (client) => client.id === parseInt(selectedClient)
-    );
+    const clientDetails = clientObj.address;
 
     pdf.text(
       `Client Details:
@@ -133,9 +100,6 @@ const InvoiceGenerator = ({
           const {appointment_rate_cents} = appointment;
           const rate = appointment_rate_cents ? appointment_rate_cents :
                 clientRate ? clientRate : standardRateCents;
-          console.log("rate", rate)
-          console.log("appointment", appointment)
-          console.log("appointment.confirmed_hours", appointment.confirmed_hours)
           return total + appointment.confirmed_hours * rate/100},
         0
       );
