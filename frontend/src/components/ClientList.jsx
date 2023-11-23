@@ -15,10 +15,8 @@ export default function ClientList(props) {
   const fetchClients = async () => {
     try {
       const clientData = await requests.get.user(user.id).clients
-    
-
       setClients(clientData);
-      console.log('Clients State:', clients);
+     
 
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -28,7 +26,7 @@ export default function ClientList(props) {
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
   };
-
+  console.log('Clients State:', clients);
   return (
     <div>
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
@@ -37,17 +35,17 @@ export default function ClientList(props) {
       {clients.length > 0 ? (
         <div className="client-list-container">
       <ul className="client-list">
-        {clients.map((client) => (<div>
+        {clients.map((client) => (
           <li key={client.id} className="client-item">
-            <div className="client-details">
+           
               <span className='client-id'>Client ID: {client.id}</span>
               <span>{client.name}</span>
               <span>{client.address.line_1}</span>
               <span>{client.email}</span>
               {client.company && <span>Company: {client.company}</span>}
-            </div>
+            
            </li>
-         </div>
+       
         ))}
       </ul> 
     </div>) : (
