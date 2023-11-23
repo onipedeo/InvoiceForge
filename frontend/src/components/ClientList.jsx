@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import requests from '../api/requests'; // Import your requests module
+import requests from '../api/requests'; 
 import "../styles/client-list.scss";
 import NewClientModal from "./NewClientModal";
 
@@ -15,14 +15,14 @@ export default function ClientList(props) {
   const fetchClients = async () => {
     try {
       const clientData = await requests.get.user(user.id).clients
-      console.log('Clients Data:', clientData);
+    
 
       setClients(clientData);
       console.log('Clients State:', clients);
 
     } catch (error) {
       console.error('Error fetching user data:', error);
-    }
+    } 
   };
 
   const handleNewClientModalClick = () => {
