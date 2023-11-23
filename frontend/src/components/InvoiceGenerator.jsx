@@ -18,7 +18,7 @@ const InvoiceGenerator = ({
 
   useEffect(() => {
     requests.get.userData(userId).then((data) => setUserData(data));
-  })
+  },[]);
   
   const generateInvoice = () => {
 
