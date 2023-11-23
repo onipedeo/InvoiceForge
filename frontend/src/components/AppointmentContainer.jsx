@@ -11,6 +11,11 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
   const [clientObj, setClientObj] = useState({});
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    requests.get.user(userId).object.then((data) => setUserData(data));
+  },[]);
 
   useEffect(() => {
     if (selectedClient) {
@@ -64,6 +69,7 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
           standardRateCents={standardRateCents}
           clientObj={clientObj}
           userId={userId}
+          userData={userData}
         />
       )}
     </div>

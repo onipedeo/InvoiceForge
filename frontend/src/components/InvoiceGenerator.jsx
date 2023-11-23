@@ -9,16 +9,20 @@ const InvoiceGenerator = ({
   clientRate,
   standardRateCents,
   clientObj,
-  userId
+  userId,
+  userData
 }) => {
-
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const [userData, setUserData] = useState({});
+  
+     // Add user and client details
+     const userDetails = userData.address;
+  console.log("userDetails", userDetails);
 
-  useEffect(() => {
-    requests.get.userData(userId).then((data) => setUserData(data));
-  },[]);
+ 
+  // useEffect(() => {
+  //   requests.get.user(userId).object.then((data) => setUserData(data));
+  // },[]);
   
   const generateInvoice = () => {
 
@@ -37,9 +41,7 @@ const InvoiceGenerator = ({
     // Add content to the PDF
     pdf.text("Invoice", 20, 20);
     pdf.text("LOGO", 20, 30);
-
-    // Add user and client details
-    const userDetails = userData.address;
+   
     
     pdf.text(
       `User Details:
@@ -52,8 +54,7 @@ const InvoiceGenerator = ({
       20
     );
 
-    // Add client details
-    const clientDetails = clientObj.address;
+  
 
     pdf.text(
       `Client Details:
