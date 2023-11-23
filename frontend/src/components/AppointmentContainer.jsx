@@ -15,7 +15,7 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
 
   useEffect(() => {
     if (selectedClient) {
-      //reworked the request to use the new syntax
+      
       requests.get.client(selectedClient).allData.then((data) => {
         setReviewedAppointments(data.reviewed);
         setClientRate(data.client.client_rate_cents || null);
@@ -25,11 +25,10 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
   }, [selectedClient]);
 
   useEffect(() => {
-    //reworked the request to use the new syntax
     requests.get.user(userId).clients.then((clients) => {
       setClients(clients);
     });
-    //set user data here as well
+
     requests.get.user(userId).object.then((userObj) => {
       setUserObj(userObj);
     });
@@ -69,7 +68,7 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
           clientRate={clientRate}
           standardRateCents={standardRateCents}
           clientObj={clientObj}
-          userObj={userObj} //pass userObj to invoice generator
+          userObj={userObj}
         />
       )}
     </div>
