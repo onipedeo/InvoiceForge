@@ -10,12 +10,14 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
   const [clients, setClients] = useState([]);
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
+  const [clientObj, setClientObj] = useState({});
 
   useEffect(() => {
     if (selectedClient) {
       requests.get.clientData(selectedClient).then((clientData) => {
         setReviewedAppointments(clientData.reviewed);
         setClientRate(clientData.client_rate_cents || null);
+        setClientObj(clientData);
         
       });
     }
@@ -56,11 +58,12 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
       )}
       {selectedClient && (
         <InvoiceGenerator
-          selectedClient={selectedClient}
           reviewedAppointments={reviewedAppointments}
           checkedAppointments={checkedAppointments}
           clientRate={clientRate}
           standardRateCents={standardRateCents}
+          clientObj={clientObj}
+          userId={userId}
         />
       )}
     </div>
