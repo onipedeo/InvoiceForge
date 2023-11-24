@@ -40,7 +40,7 @@ export default function ClientList(props) {
            
               <span className='client-id'>Client ID: {client.id}</span>
               <span>{client.name}</span>
-              <span>{client.address.line_1}</span>
+              {client.address &&<span>{client.address.line_1}</span>}
               <span>{client.email}</span>
               {client.company && <span>Company: {client.company}</span>}
             
