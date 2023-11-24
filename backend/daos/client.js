@@ -35,7 +35,6 @@ class ClientDao {
 
   async getById(clientId) {
     let client = await this.getObject(clientId);
-    client = await replacePropertyWithinObject('address', client, 'client');
     const appointments = await this.getAppointments(clientId);
     const invoices = await db('invoices')
       .select('id', 'invoice_number')
