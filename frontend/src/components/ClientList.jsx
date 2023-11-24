@@ -5,12 +5,16 @@ import NewClientModal from "./NewClientModal";
 
 export default function ClientList(props) {
   const [isClientModalOpen, setClientModelOpen] = useState(false);
-  const [clients, setClients] = useState([]); 
+  const [clients, setClients] = useState([]);
+
+  const [clientId, setClientId] = useState(null)
+  const [addressId, setAddressId] = useState(null) 
+
   const { user } = props;
 
   useEffect(() => {
     fetchClients();
-  }, []); 
+  }, [clientId, addressId]); 
 
   const fetchClients = async () => {
     try {
@@ -57,7 +61,8 @@ export default function ClientList(props) {
         </div>
       )}
 
-      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={ user } />}
+      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user} 
+      setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId}/>}
     </div>
   );
 }
