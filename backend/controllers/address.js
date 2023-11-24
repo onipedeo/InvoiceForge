@@ -16,7 +16,7 @@ class AddressController {
       res.status(201).json(id);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-
+      console.log(e)
     }
   }
   async delete(req, res) {

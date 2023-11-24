@@ -1,5 +1,6 @@
 const { replacePropertyWithinObject, getAppointmentsByWhere } = require('./helpers');
 const db = require('../db/db');
+const humps = require('humps');
 
 class ClientDao {
   async create(userId, name, companyName, email, phone, clientRateCents) {
@@ -33,18 +34,15 @@ class ClientDao {
   }
 
   async getById(clientId) {
-    let client = await db('clients')
-      .where({ id: clientId })
-      .first();
-    client = await replacePropertyWithinObject('address', client, 'client');
+    let client = await this.getObject(clientId);
     const appointments = await this.getAppointments(clientId);
     const invoices = await db('invoices')
       .select('id', 'invoice_number')
       .where({ client_id: clientId });
     const invoiced = await getAppointmentsByWhere({ client_id: clientId, invoiced: true });
     const reviewed = await this.getReviewed(clientId);
-    const unReviewed = await this.getUnreviewed(clientId);
-    return { client, appointments, invoices, invoiced, reviewed, unReviewed };
+    const unreviewed = await this.getUnreviewed(clientId);
+    return { client, appointments, invoices, invoiced, reviewed, unreviewed };
   }
 
   async setAddressId(clientId, addressId) {
@@ -73,7 +71,7 @@ class ClientDao {
       .where({ id: clientId })
       .first();
     client = await replacePropertyWithinObject('address', client);
-    return await client;
+    return  humps.camelizeKeys(client);
   }
 }
 

@@ -7,7 +7,7 @@ const AppointmentList = ({
     <tr key={appointment.id} className="appointment-list-item">
       <td>{appointment.notes}</td>
       <td>{appointment.date}</td>
-      <td>{appointment.confirmed_hours} hours</td>
+      <td>{appointment.confirmedHours} hours</td>
       <td>
         <input
           type="checkbox"

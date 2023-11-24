@@ -28,7 +28,9 @@ class InvoiceController {
       const invoice = await invoiceService.getById(id);
       res.status(200).json(invoice);
     } catch (e) {
-      res.status(500).json({ error: 'Internal server error' });
+      if (e.statusCode) return res.status(e.statusCode).json({ error: e.message });
+      res.status(500).json({ error: 'Internal server error', ...res.body });
+      console.log(e);
     }
   }
 

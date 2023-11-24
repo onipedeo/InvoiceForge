@@ -1,6 +1,6 @@
 const db = require('../db/db');
 const { replacePropertyWithinObject } = require('./helpers');
-
+const humps = require('humps');
 class appointmentDao {
   async create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes) {
     try {
@@ -25,7 +25,7 @@ class appointmentDao {
     let appointment = await db('appointments').select('*').where({ id }).first();
     appointment = await replacePropertyWithinObject('client', appointment, 'appointment');
     appointment = await replacePropertyWithinObject('user', appointment, 'appointment');
-    return appointment;
+    return humps.camelizeKeys(appointment);
   }
 
   async delete(id) {

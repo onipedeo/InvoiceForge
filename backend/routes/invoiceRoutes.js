@@ -1,9 +1,11 @@
 const invoiceController = require('../controllers/invoice');
 const express = require('express');
+const validateDto = require('../middleware/validate-dto');
+const invoiceDto = require('../dtos/invoice');
 const router = express.Router();
 
 // POST api/invoice/ - create invoice
-router.post('/', (req, res) => {
+router.post('/', validateDto(invoiceDto), (req, res) => {
   invoiceController.create(req, res);
 });
 

@@ -15,7 +15,7 @@
     npm install
 ```
 # Trouble Shooting
--if you are have trouble with installing the dependancies, make sure that you are using node 18 or higher.  You can check your node version by running the following command:
+-if you are have trouble with installing the dependancies, make sure that you are using node 16.  You can check your node version by running the following command:
 ```sh
     node -v
 ```
