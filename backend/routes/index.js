@@ -10,6 +10,7 @@ const client = require('./clientRoutes');
 const appointment = require('./appointmentRoutes');
 const invoice = require('./invoiceRoutes');
 const address = require('./addressRoutes');
+const runDbReset = require('../services/dbReset');
 
 const router = express.Router();
 
@@ -31,6 +32,14 @@ router.use('/address', address);
 router.get('/test', (req, res) => res.json({
   message: "Seems to work!",
 }));
+
+// database reset route
+router.post('/reset', (req, res) => {
+  runDbReset()
+    .then(() => res.status(200).send('Database reset'))
+    .catch(() => res.status(500).send('Database reset failed'));
+});
+
 
 
 
