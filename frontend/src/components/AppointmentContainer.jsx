@@ -10,20 +10,27 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
   const [clients, setClients] = useState([]);
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
+  const [clientObj, setClientObj] = useState({});
+  const [userObj, setUserObj] = useState({});
 
   useEffect(() => {
     if (selectedClient) {
-      requests.get.clientData(selectedClient).then((clientData) => {
-        setReviewedAppointments(clientData.reviewed);
-        setClientRate(clientData.client_rate_cents || null);
-        
+      
+      requests.get.client(selectedClient).allData.then((data) => {
+        setReviewedAppointments(data.reviewed);
+        setClientRate(data.client.client_rate_cents || null);
+        setClientObj(data.client);
       });
     }
   }, [selectedClient]);
 
   useEffect(() => {
-    requests.get.userData(userId).then((userData) => {
-      setClients(userData.clients);
+    requests.get.user(userId).clients.then((clients) => {
+      setClients(clients);
+    });
+
+    requests.get.user(userId).object.then((userObj) => {
+      setUserObj(userObj);
     });
   }, []);
 
@@ -56,11 +63,12 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
       )}
       {selectedClient && (
         <InvoiceGenerator
-          selectedClient={selectedClient}
           reviewedAppointments={reviewedAppointments}
           checkedAppointments={checkedAppointments}
           clientRate={clientRate}
           standardRateCents={standardRateCents}
+          clientObj={clientObj}
+          userObj={userObj}
         />
       )}
     </div>

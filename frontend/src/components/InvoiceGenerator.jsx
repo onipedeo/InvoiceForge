@@ -2,145 +2,129 @@ import { useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const clientsAddress = [
-    {
-      id: 1,
-      line_1: "456 Main St",
-      city: "Toronto",
-      province: "ON",
-      country: "Canada",
-      postal_code: "M1M1M1",
-    },
-    {
-    id: 2,
-    line_1: "123 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-  {
-    id: 3,
-    line_1: "456 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-];
-
-const userAddress = [
-  {
-    id: 1,
-    line_1: "123 Main St",
-    city: "Toronto",
-    province: "ON",
-    country: "Canada",
-    postal_code: "M1M1M1",
-  },
-];
-
 const InvoiceGenerator = ({
-  selectedClient,
   reviewedAppointments,
   checkedAppointments,
   clientRate,
-  standardRateCents
+  standardRateCents,
+  clientObj,
+  userObj,
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const generateInvoice = () => {
+    if (checkedAppointments.length === 0) {
+      setErrorMessage(
+        "Please select at least one appointment to generate an invoice."
+      );
+      return;
+    }
+
     // Create a new jsPDF instance
     const pdf = new jsPDF();
 
-    // Set font and font size
-    pdf.setFont("helvetica");
+    pdf.setLineWidth(0.5);
+    pdf.setDrawColor("black");
+    const overlineY = 25;
+    pdf.line(20, overlineY, 66, overlineY); // Draw the line
+
+    // styled text
+    pdf.setFont("sans-serif");
+    pdf.setFontSize(24);
+    pdf.setTextColor(0, 0, 0);
+
+    const text = "InvoiceForge";
+    const textX = 20;
+    const textY = 32;
+    pdf.text(textX, textY, text);
+
+    // user details
+    const userDetails = userObj.address;
     pdf.setFontSize(12);
-
-    // Add content to the PDF
-    pdf.text("Invoice", 20, 20);
-    pdf.text("LOGO", 20, 30);
-
-    // Add user and client details
-    const userDetails = userAddress.find((user) => user.id === 1);
-
+    pdf.setFont("sans-serif");
     pdf.text(
-      `User Details:
+      `
+      ${userObj.first_name} ${userObj.last_name}
       ${userDetails.line_1}
-      ${userDetails.city},
-      ${userDetails.province}
-      ${userDetails.country}
-      ${userDetails.postal_code}`,
+      ${userDetails.city}, ${userDetails.province} ${userDetails.postal_code}
+      204-444-888
+      `,
       150,
       20
     );
 
-    // Add client details
-    const clientDetails = clientsAddress.find(
-      (client) => client.id === parseInt(selectedClient)
-    );
-
+    // client details
+    const clientDetails = clientObj.address;
     pdf.text(
-      `Client Details:
+      `
+      BILL TO:
+      ${clientObj.name}
       ${clientDetails.line_1}
-      ${clientDetails.city},
-      ${clientDetails.province}
-      ${clientDetails.country}
-      ${clientDetails.postal_code}`,
+      ${clientDetails.city}, ${clientDetails.province} ${clientDetails.postal_code}
+      `,
       20,
-      65
+      55
     );
 
-    // Add appointment details
-    pdf.text("Appointment Details", 20, 110);
-
-    // Set styles for the table
-    pdf.setFillColor(200, 220, 255); // Header fill color
-    pdf.setTextColor(0, 0, 0); // Header text color
-    pdf.setFont("helvetica", "bold");
+    // styles for the table
+    pdf.setFillColor(200, 220, 255);
+    pdf.setTextColor(0, 0, 0);
+    pdf.setFont("sans-serif", "bold");
 
     pdf.autoTable({
-      head: [["Appointment", "Date", "Hours"]],
+      head: [["Description", "Date", "Rate per Hour", "Hours", "Total"]],
       body: reviewedAppointments
         .filter((appointment) => checkedAppointments.includes(appointment.id))
-        .map((appointment) => [
-          appointment.notes,
-          appointment.date,
-          appointment.confirmed_hours,
-        ]),
-      startY: 115,
+        .map((appointment) => {
+          const rate = appointment.appointment_rate_cents
+            ? appointment.appointment_rate_cents
+            : clientRate
+            ? clientRate
+            : standardRateCents;
+          const total = (rate * appointment.confirmed_hours) / 100;
+
+          return [
+            appointment.notes,
+            appointment.date,
+            `${appointment.appointment_rate_cents / 100}`,
+            appointment.confirmed_hours,
+            `${total}`,
+          ];
+        }),
+      startY: 90,
       theme: "striped",
     });
 
     // Reset styles
     pdf.setFillColor(255, 255, 255);
-    pdf.setFont("helvetica", "normal");
-
+    pdf.setFont("sans-serif", "bold");
+    pdf.setFontSize(14);
 
     // Calculate and add the total amount
-    const totalAmount = reviewedAppointments
+    const GrandTotalAmount = reviewedAppointments
       .filter((appointment) => checkedAppointments.includes(appointment.id))
-      .reduce(
-        (total, appointment) => {
-          const {appointment_rate_cents} = appointment;
-          const rate = appointment_rate_cents ? appointment_rate_cents :
-                clientRate ? clientRate : standardRateCents;
-          console.log("rate", rate)
-          console.log("appointment", appointment)
-          console.log("appointment.confirmed_hours", appointment.confirmed_hours)
-          return total + appointment.confirmed_hours * rate/100},
-        0
-      );
+      .reduce((total, appointment) => {
+        const { appointment_rate_cents } = appointment;
+        const rate = appointment_rate_cents
+          ? appointment_rate_cents
+          : clientRate
+          ? clientRate
+          : standardRateCents;
+        return total + (appointment.confirmed_hours * rate) / 100;
+      }, 0);
 
     pdf.text(
-      `Total Amount: $${totalAmount}`,
-      20,
+      `Grand Total: $${GrandTotalAmount}`,
+      150,
       pdf.autoTable.previous.finalY + 10
     );
 
     // Save the PDF
     const generatedPDFData = pdf.output("blob");
     setGeneratedPDF(URL.createObjectURL(generatedPDFData));
+
+    setErrorMessage("");
   };
 
   const handleConfirmAndSend = () => {
@@ -150,15 +134,18 @@ const InvoiceGenerator = ({
   return (
     <div>
       <div onClick={generateInvoice}>Generate Invoice</div>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {generatedPDF && (
         <div className="pdf-modal">
           <iframe
-             title="Invoice PDF"
+            title="Invoice PDF"
             src={generatedPDF}
-             width="60%"
+            width="60%"
             height="500px"
           ></iframe>
-          <button onClick={handleConfirmAndSend}>Confirm and Send</button>
+          <div>
+            <button onClick={handleConfirmAndSend}>Confirm and Send</button>
+          </div>
         </div>
       )}
     </div>
