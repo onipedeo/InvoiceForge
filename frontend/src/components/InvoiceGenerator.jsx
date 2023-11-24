@@ -7,7 +7,7 @@ const InvoiceGenerator = ({
   checkedAppointments,
   clientRate,
   clientObj,
-  userObj,
+  user,
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,14 +39,14 @@ const InvoiceGenerator = ({
     pdf.text(textX, textY, text);
 
     // user details
-    const userDetails = userObj.address;
+    const userDetails = user.address;
     pdf.setFontSize(12);
     pdf.setFont("sans-serif");
     pdf.text(
       `
-      ${userObj.first_name} ${userObj.last_name}
-      ${userDetails.line_1}
-      ${userDetails.city}, ${userDetails.province} ${userDetails.postal_code}
+      ${user.firstName} ${user.lastName}
+      ${userDetails.line1}
+      ${userDetails.city}, ${userDetails.province} ${userDetails.postalCode}
       204-444-888
       `,
       150,
@@ -54,13 +54,21 @@ const InvoiceGenerator = ({
     );
 
     // client details
-    const clientDetails = clientObj.address;
+    let clientDetails = clientObj.address;
+    if (!clientDetails) {
+      clientDetails = {
+        line1: "",
+        city: "",
+        province: "",
+        postalCode: "",
+      };
+    }
     pdf.text(
       `
       BILL TO:
       ${clientObj.name}
-      ${clientDetails.line_1}
-      ${clientDetails.city}, ${clientDetails.province} ${clientDetails.postal_code}
+      ${clientDetails.line1}
+      ${clientDetails.city} ${clientDetails.city ? ',' : ''} ${clientDetails.province} ${clientDetails.postalCode}
       `,
       20,
       55
@@ -77,13 +85,12 @@ const InvoiceGenerator = ({
       body: reviewedAppointments
         .filter((appointment) => checkedAppointments.includes(appointment.id))
         .map((appointment) => {
-          const rate = appointment.appointment_rate_cents
-            ? appointment.appointment_rate_cents
+          const rate = appointment.appointmentRateCents
+            ? appointment.appointmentRateCents
             : clientRate
-            ? clientRate
-            : userObj.standard_rate_cents;
-
-          const total = (rate * appointment.confirmed_hours) / 100;
+              ? clientRate
+              : standardRateCents;
+          const total = (rate * appointment.confirmedHours) / 100;
 
           return [
             appointment.notes,
@@ -107,14 +114,13 @@ const InvoiceGenerator = ({
     const GrandTotalAmount = reviewedAppointments
       .filter((appointment) => checkedAppointments.includes(appointment.id))
       .reduce((total, appointment) => {
-        const { appointment_rate_cents } = appointment;
-        const rate = appointment_rate_cents
-          ? appointment_rate_cents
+        const { appointmentRateCents } = appointment;
+        const rate = appointmentRateCents
+          ? appointmentRateCents
           : clientRate
-          ? clientRate
-          : userObj.standard_rate_cents;
-
-        return total + (appointment.confirmed_hours * rate) / 100;
+            ? clientRate
+            : standardRateCents;
+        return total + (appointment.confirmedHours * rate) / 100;
       }, 0);
 
     pdf.text(
