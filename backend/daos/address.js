@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const humps = require('humps');
 
 class AddressDao {
   async create(idObj, line_1, line_2, city, province, country, postalCode) {
@@ -26,7 +27,8 @@ class AddressDao {
 
   }
   async getById(id) {
-    return await db('addresses').select('*').where({ id });
+    const result = await db('addresses').select('*').where({ id }).first();
+    return humps.camelizeKeys(result);
 
   }
 
