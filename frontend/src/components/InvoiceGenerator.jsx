@@ -11,7 +11,7 @@ const InvoiceGenerator = ({
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const standardRateCents = user.standardRateCents;
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
       setErrorMessage(
