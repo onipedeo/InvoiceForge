@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import "../styles/new-client-modal.scss";
 import requests from '../api/requests';
+import NewAddressModal from './NewAddressModal'
+
 
 export default function NewClientModal(props) {
   const { setClientModelOpen, user } = props;
@@ -14,27 +16,11 @@ export default function NewClientModal(props) {
     clientRateCents: 0,
   });
 
-  const [addressData, setAddressData] = useState({
-    userId: user.id,
-    line_1: '',
-    line_2: '',
-    city: '',
-    province: '',
-    country: '',
-    postalCode: '',
-  });
+  const [clientId, setClientId] = useState(null);
 
   const handleClientInputChange = (e) => {
     const { name, value } = e.target;
     setClientData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleAddressInputChange = (e) => {
-    const { name, value } = e.target;
-    setAddressData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -49,12 +35,12 @@ export default function NewClientModal(props) {
 
     try {
       // Make routes requests to send the forms data to the backend
-      await Promise.all([
-        requests.create.address(addressData),
-        requests.create.client(clientData),
+      const response = await requests.create.client(clientData) //return client id
+      const newClientId = response[0].id
+      console.log("response", response)
+      console.log(newClientId)
+      setClientId(newClientId);
       
-      ]);
-
       // Close the modal after successful submission
       setClientModelOpen(false);
     } catch (error) {
@@ -63,7 +49,7 @@ export default function NewClientModal(props) {
   };
    
     console.log("clientData", clientData)
-    console.log("addressData", addressData)
+
   return (
     <div className="new-client-modal-container" id="newClientModal">
       <div className="new-client-modal-content">
@@ -127,58 +113,9 @@ export default function NewClientModal(props) {
               required
             />
           </div>
-
-          {/* Address Table Data*/}
-          <div className="address-group">
-            <label>Address:</label>
-            <input
-              type="text"
-              placeholder="Line 1 Required"
-              name="line_1"
-              value={addressData.line_1}
-              onChange={handleAddressInputChange}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Line 2"
-              name="line_2"
-              value={addressData.line_2}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="City"
-              name="city"
-              value={addressData.city}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Province"
-              name="province"
-              value={addressData.province}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Country"
-              name="country"
-              value={addressData.country}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Postal Code Required"
-              name="postalCode"
-              value={addressData.postalCode}
-              onChange={handleAddressInputChange}
-              required
-            />
-          </div>
-
           <button type="submit">Add Client</button>
         </form>
+        { <NewAddressModal setClientModelOpen={setClientModelOpen} user={user} clientId={clientId}/>}
       </div>
     </div>
   );
