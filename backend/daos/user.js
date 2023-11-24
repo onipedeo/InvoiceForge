@@ -18,7 +18,7 @@ class UserDao {
 
   async getObject(id) {
     let user = await db('users').where({ id }).first();
-    user = replacePropertyWithinObject('address', user);
+    user = await replacePropertyWithinObject('address', user);
     return humps.camelizeKeys(user);
   }
 
@@ -30,11 +30,13 @@ class UserDao {
     const reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false });
     const unreviewed = await this.getUnreviewed(id);
 
-    return await { user, clients, appointments, invoices, reviewed, unreviewed };
+    return { user, clients, appointments, invoices, reviewed, unreviewed };
   }
 
   async getByEmail(email) {
-    return await db('users').where({ email }).first();
+    let user = await db('users').where({ email }).first();
+    user = await replacePropertyWithinObject('address', user);
+    return humps.camelizeKeys(user);
   }
 
   async edit(id, firstName, lastName, companyName, email, phone, password, standardRateCents) {
