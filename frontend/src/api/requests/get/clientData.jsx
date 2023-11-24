@@ -1,6 +1,12 @@
 import get from "../helpers/get";
 
-export const clientData = async (clientId) => {
+/**
+ * Fetches client data from the server.
+ *
+ * @param {string} clientId - The ID of the client.
+ * @returns {Promise<Object>} - A promise that resolves to an object containing client data.
+ */
+export default async (clientId) => {
   const { client, address, appointments, invoices, invoiced, reviewed, unReviewed } = await get(
     `/api/client/${clientId}`
   );

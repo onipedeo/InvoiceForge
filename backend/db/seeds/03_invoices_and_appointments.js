@@ -1,3 +1,4 @@
+const moment = require('moment');
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -7,26 +8,76 @@ exports.seed = async function(knex) {
   await knex('appointments').del();
   await knex('invoices').del();
 
-  await knex('appointments').insert([
-    { id: 1, user_id: 1, client_id: 1, date: "2023-11-13", start_time: "09:00:00", end_time: "17:00:00", confirmed_hours: 8, reviewed: true, invoiced: false, appointment_rate_cents: 2000, notes: "finish repairs." },
-    { id: 2, user_id: 1, client_id: 1, date: "2023-11-14", start_time: "09:00:00", end_time: "17:00:00", confirmed_hours: 8, reviewed: true, invoiced: false, notes: "paint" },
-    { id: 3, user_id: 1, client_id: 2, date: "2023-11-15", start_time: "09:00:00", end_time: "17:00:00", confirmed_hours: 8, reviewed: true, invoiced: false, appointment_rate_cents: 3000, notes: "demo and begin rebuild" },
-    { id: 4, user_id: 1, client_id: 2, date: "2023-11-16", start_time: "09:00:00", end_time: "17:00:00", confirmed_hours: 8, reviewed: true, invoiced: false, notes: "finish rebuild" },
-  ]);
 
-  await knex('invoices').insert([
-    { id: 1, user_id: 1, client_id: 1, invoice_number: 1, created: "2023-11-13", due_date: "2023-11-13", total_cents: 48000, paid: true },
-    { id: 2, user_id: 1, client_id: 2, invoice_number: 2, created: "2023-11-15", due_date: "2023-11-15", total_cents: 56000, paid: false },
-  ]);
+  const randomFromArr = (arr) => {
+    const randomElement = arr[Math.floor(Math.random() * arr.length)];
+    return randomElement;
+  };
 
-  await knex('users').update({ next_invoice_number: 3 }).where({ id: 1 });
+  // new seed data
+  // write a loop to create 40 appointments
+  const appointments = [];
 
-  await knex('appointments').update({ invoice_id: 1, invoiced: true}).where({ client_id: 1, invoiced: false, reviewed: true });
-  await knex('appointments').update({ invoice_id: 2, invoiced: true}).where({ client_id: 2, invoiced: false, reviewed: true });
+  const first_date = moment('2023-11-13');
+  let date = first_date.clone();
+  const clients = await knex('clients').select('id');
+  const users = await knex('users').select('id');
+  const appointment_rate_cents = [null, 3000, 5000];
+  const start_time = ["06:00:00", "07:00:00", "08:00:00", "09:00:00"];
+  const end_time_morning = ["12:00:00", "13:00:00", "14:00:00", "15:00:00"];
+  const end_time_afternoon = ["17:00:00", "18:00:00", "19:00:00", "20:00:00"];
+  const notes = ["sand and prep", 'install vanity', 'demo wall'];
 
-  await knex('appointments').insert([
-    { id: 5, user_id: 1, client_id: 1, date: "2023-11-17", start_time: "09:00:00", end_time: "17:00:00", reviewed: false, invoiced: false, notes: "prime" },
-    { id: 6, user_id: 1, client_id: 2, date: "2023-11-18", start_time: "09:00:00", end_time: "17:00:00", reviewed: false, invoiced: false, notes: "paint" },
-    { id: 7, user_id: 1, client_id: 1, date: "2023-11-19", start_time: "09:00:00", end_time: "17:00:00", reviewed: false, invoiced: false, notes: "paint" },
-  ]);
+  //creates 2 appointments per day for 20 days
+  for (let i = 1; i <= 20; i++) {
+    const appointment = {
+      id: i,
+      user_id: randomFromArr(users).id,
+      client_id: randomFromArr(clients).id,
+      date: date.format('YYYY-MM-DD'),
+      start_time: randomFromArr(start_time),
+      end_time: randomFromArr(end_time_morning),
+      confirmed_hours: null,
+      reviewed: true,
+      invoiced: false,
+      appointment_rate_cents: randomFromArr(appointment_rate_cents),
+      notes: randomFromArr(notes),
+    };
+
+    // set confirmed hours
+    const startTime = moment(appointment.start_time, 'HH:mm:ss');
+    const endTime = moment(appointment.end_time, 'HH:mm:ss');
+    appointment.confirmed_hours = endTime.diff(startTime, 'hours');
+
+    // make two appointments per day
+    appointments.push(appointment);
+
+    // the second appointment:
+    const secondAppointment = {
+      ...appointment,
+      id: i + 20,
+      start_time: endTime.add(1, 'hour').format('HH:mm:ss'),
+      end_time: randomFromArr(end_time_afternoon),
+      confirmed_hours: null,
+      notes: randomFromArr(notes),
+    };
+    // ensure a different note is used for the second appointment
+    while (secondAppointment.notes === appointment.notes) {
+      secondAppointment.notes = randomFromArr(notes);
+    }
+
+    const secondStartTime = moment(secondAppointment.start_time, 'HH:mm:ss');
+    const secondEndTime = moment(secondAppointment.end_time, 'HH:mm:ss');
+    secondAppointment.confirmed_hours = secondEndTime.diff(secondStartTime, 'hours');
+
+    appointments.push(secondAppointment);
+
+    date.add(1, 'day');
+  }
+
+  // insert appointments into db
+  await knex('appointments').insert(appointments);
+
+  // reset the index of the appointments table
+  await knex.raw('ALTER SEQUENCE appointments_id_seq RESTART WITH 21');
 };

@@ -3,6 +3,7 @@ const BodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 
+
 // Import sub routers
 const user = require('./userRoutes');
 const client = require('./clientRoutes');
@@ -12,9 +13,13 @@ const address = require('./addressRoutes');
 
 const router = express.Router();
 
+router.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json');
+  next();
+});
+
 router.use(BodyParser.urlencoded({ extended: false }));
 router.use(BodyParser.json());
-
 router.use(morgan('dev'));
 router.use('/user', user);
 router.use('/client', client);
