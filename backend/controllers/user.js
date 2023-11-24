@@ -75,10 +75,10 @@ class UserController {
 
   async getUnreviewed(req, res) {
     try {
-      const unReviewed = await userService.getUnreviewed(
+      const unreviewed = await userService.getUnreviewed(
         req.params.id,
       );
-      res.status(200).json(unReviewed);
+      res.status(200).json(unreviewed);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
 
