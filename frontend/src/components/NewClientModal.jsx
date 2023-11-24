@@ -163,12 +163,12 @@ export default function NewClientModal(props) {
             />
           </div>
         
-          <button type="submit">Add Client</button>
+          <button type="submit">Add Client Info</button>
           </form>
 
           {clientId && !showAddressForm &&
           <div>
-            <h3>Client Added</h3>
+            <h3>Client Info Added</h3>
             <p>Would you like to add client address now?</p>
             <button onClick={handleTransition}>Yes</button>
             <button onClick={handleClientModelClose}>No</button>
@@ -228,7 +228,7 @@ export default function NewClientModal(props) {
           
           { addressId && 
           <div>
-            <h3>Address Added</h3>
+            <h3>Client Address Added</h3>
             <button onClick={handleClientModelClose}>Close</button>
           </div>
           }
