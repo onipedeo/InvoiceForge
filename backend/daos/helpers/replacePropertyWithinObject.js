@@ -8,29 +8,35 @@ const db = require('../../db/db');
  */
 module.exports = async function(propertyName, object) {
   //helper function
-  const makeTableName = (propertyName) => {
-    if (propertyName.endsWith('s')) {
-      return propertyName + 'es';
-    }
-    if (propertyName.endsWith('y')) {
-      return propertyName.slice(0, -1) + 'ies';
-    }
-    return propertyName + 's';
-  };
+  try {
+    const makeTableName = (propertyName) => {
+      if (propertyName.endsWith('s')) {
+        return propertyName + 'es';
+      }
+      if (propertyName.endsWith('y')) {
+        return propertyName.slice(0, -1) + 'ies';
+      }
+      return propertyName + 's';
+    };
 
-  const propertyName_Id = propertyName + '_id';
-  const { [propertyName_Id]: _, ...rest } = object;
+    const propertyName_Id = propertyName + '_id';
+    const { [propertyName_Id]: _, ...rest } = object;
 
-  const propertyId = object[propertyName_Id];
+    const propertyId = object[propertyName_Id];
 
-  const propertyObject = async () => {
-    if (!propertyId) return null;
-    const tableName = makeTableName(propertyName);
-    const result = await db(tableName).where({ id: propertyId }).first();
-    return result;
-  };
+    const propertyObject = async () => {
+      if (!propertyId) return null;
+      const tableName = makeTableName(propertyName);
+      const result = await db(tableName).where({ id: propertyId }).first();
+      return result;
+    };
 
-  const resolvedPropertyObject = await propertyObject();
+    const resolvedPropertyObject = await propertyObject();
 
-  return { ...rest, [propertyName]: resolvedPropertyObject };
+    return { ...rest, [propertyName]: resolvedPropertyObject };
+  } catch (err) {
+    err.statusCode = 404;
+    err.message = `Could not find ${propertyName} assosciated with that id.`;
+    throw err;
+  }
 };
