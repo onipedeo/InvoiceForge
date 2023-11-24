@@ -1,39 +1,33 @@
-const appointmentController = require('../controllers/appointment');
-const express = require('express');
+const appointmentController = require("../controllers/appointment");
+
+const express = require("express");
 const router = express.Router();
 
+// For validating the request body
+const validateDto = require("../middleware/validate-dto");
+const appointmentDto = require("../dtos/appointment");
+const confirmedHoursDto = require("../dtos/confirmedHours");
+
 // GET appointment by ID
-router.get('/:id', (req, res) => {
-  appointmentController.getById(req, res);
-});
+router.get("/:id", appointmentController.getById);
 
 // PUT edit appointment
-router.put('/:id', (req, res) => {
+router.put('/:id', validateDto(appointmentDto), (req, res) => {
   appointmentController.edit(req, res);
 });
 
 // POST create new appointment
-router.post('/', (req, res) => {
+router.post("/", validateDto(appointmentDto), (req, res) => {
   appointmentController.create(req, res);
 });
 
-// Put reviewed = true by id
-router.put('/set-reviewed/:id', (req, res) => {
-  appointmentController.setReviewedById(req, res);
-});
-
-// Put invoiced = true by id
-router.put('/set-invoiced/:id', (req, res) => {
-  appointmentController.setInvoicedById(req, res);
-});
-
 // DELETE appointment by ID
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   appointmentController.delete(req, res);
 });
 
 // PUT confirmed hours by ID
-router.put('/confirm-hours/:id', (req, res) => {
+router.put("/:id/hours", validateDto(confirmedHoursDto), (req, res) => {
   appointmentController.confirmHours(req, res);
 });
 

@@ -1,36 +1,43 @@
-const clientDao = require('../dao/client');
+const clientDao = require('../daos/client');
 
 class ClientService {
   create(clientDto) {
     const { userId, name, companyName, email, phone, clientRateCents } = clientDto;
-    return clientDao.create(userId, name, companyName, email, phone, clientRateCents);
+    return clientDao.create(userId, name, companyName, email, phone, clientRateCents)
+
+  }
+
+  update(clientId, clientDto) {
+    const { name, companyName, email, phone, clientRateCents } = clientDto;
+    return clientDao.update(clientId, name, companyName, email, phone, clientRateCents)
+
   }
 
   getById(clientId) {
     return clientDao.getById(clientId);
   }
 
+
+  setAddressId(clientId, addressId) {
+    return clientDao.setAddressId(clientId, addressId);
+  }
+
   getAppointments(clientId) {
     return clientDao.getAppointments(clientId);
   }
 
-  getInvoices(clientId) {
-    return clientDao.getInvoices(clientId);
+  getUnreviewed(clientId) {
+    return clientDao.getUnreviewed(clientId);
   }
 
-  setAddress(clientId, addressIdDto) {
-    const { addressId } = addressIdDto;
-    return clientDao.setAddress(clientId, addressId);
+  getReviewed(clientId) {
+    return clientDao.getReviewed(clientId);
   }
 
-  getReviewedAppointments(clientId) {
-    return clientDao.getReviewedAppointments(clientId);
+  getObject(clientId) {
+    return clientDao.getObject(clientId);
   }
-
-  getAppointmentsInReview(clientId) {
-    return clientDao.getAppointmentsInReview(clientId);
-  }
-
+  
 }
 
 module.exports = new ClientService();

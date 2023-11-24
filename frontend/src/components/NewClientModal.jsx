@@ -1,39 +1,242 @@
-import "../styles/new-client-modal.scss"
+import { useState } from 'react';
+import "../styles/new-client-modal.scss";
+import requests from '../api/requests';
+
 
 export default function NewClientModal(props) {
+
+  {/* imports */ }
+  const { setClientModelOpen, user, setAddressId, setClientId, clientId, addressId } = props;
+
+  {/* states */ }
+  const [clientData, setClientData] = useState({
+    userId: user.id,
+    name: '',
+    companyName: '',
+    email: '',
+    phone: '',
+    clientRateCents: 0,
+  });
+
+  const [addressData, setAddressData] = useState({
+    userId: user.id,
+    line1: '',
+    line2: '',
+    city: '',
+    province: '',
+    country: '',
+    postalCode: '',
+  });
+
+
+
+  // State for showing the address form
+  const [showAddressForm, setShowAddressForm] = useState(false);
+
+
+  {/* functions */ }
+  const handleClientInputChange = (e) => {
+    const { name, value } = e.target;
+    setClientData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleAddressInputChange = (e) => {
+    const { name, value } = e.target;
+    setAddressData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleClientModelClose = () => {
+    setClientModelOpen(false);
+    setClientId(null);
+
+  };
+
+  const handleTransition = () => {
+    setShowAddressForm(true);
+  };
+
+  const handleClientSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const response = await requests.create.client(clientData); //return client id
+      const newClientId = response[0].id;
+      console.log("response", response);
+      console.log(newClientId);
+      setClientId(newClientId);
+
+    } catch (error) {
+      console.error('Error adding client:', error);
+    }
+  };
+
+  const handleAddressSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const addressForm = { ...addressData, clientId };// use client id to connect address table to client table
+      const newAddressId = await requests.create.address(addressForm);
+      console.log("addressId", newAddressId);
+      setAddressId(newAddressId);
+
+
+    } catch (error) {
+      console.error('Error adding client:', error);
+    }
+  };
+
+  console.log("addressData", addressData);
+  console.log("clientData", clientData);
+
   return (
-    <div className="modal" id="newClientModal">
-      <div className="modal-content">
-        <span className="close">&times;</span>
-        <h2>Add Client</h2>
-        <form>
+    <div className="new-client-modal-container" id="newClientModal">
+      <div className="new-client-modal-content">
+        <span className="close" onClick={handleClientModelClose}>&times;</span>
+        <h2>Add Client Info</h2>
+        <form onSubmit={handleClientSubmit}>
+
+          {/* New Client Table*/}
+
           <div className="form-group">
             <label htmlFor="name">Name:</label>
-            <input type="text" id="name" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={clientData.name}
+              onChange={handleClientInputChange}
+              placeholder='required'
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone">Phone:</label>
-            <input type="tel" id="phone" required />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={clientData.email}
+              onChange={handleClientInputChange}
+              placeholder='required'
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="rate">Rate:</label>
-            <input type="number" id="rate" required />
+            <input
+              type="number"
+              id="clientRateCents"
+              name="clientRateCents"
+              value={clientData.clientRateCents}
+              onChange={handleClientInputChange}
+              placeholder='required'
+              required
+            />
           </div>
-          <div className="address-group">
-            <label>Address:</label>
-            <input type="text" placeholder="Line 1" required />
-            <input type="text" placeholder="Line 2" />
-            <input type="text" placeholder="City" required />
-            <input type="text" placeholder="Province" required />
-            <input type="text" placeholder="Country" required />
-            <input type="text" placeholder="Postal Code" required />
+          <div className="form-group">
+            <label htmlFor="companyName">Company Name:</label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={clientData.companyName}
+              onChange={handleClientInputChange}
+              placeholder='optional'
+            />
           </div>
-          <button type="submit">Add Client</button>
+          <div className="form-group">
+            <label htmlFor="phone">Phone:</label>
+            <input
+              type="phone"
+              id="phone"
+              name="phone"
+              value={clientData.phone}
+              onChange={handleClientInputChange}
+              placeholder='optional'
+            />
+          </div>
+
+          <button type="submit">Add Client Info</button>
         </form>
+
+        {/* Transition*/}
+        {clientId && !showAddressForm &&
+          <div>
+            <h3>Client Info Added</h3>
+            <p>Would you like to add client address now?</p>
+            <button onClick={handleTransition}>Yes</button>
+            <button onClick={handleClientModelClose}>No</button>
+          </div>}
+
+        {/* New Address Table*/}
+
+        {showAddressForm &&
+          <form onSubmit={handleAddressSubmit}>
+            <div className="address-group">
+              <label>Add Client Address</label>
+              <input
+                type="text"
+                placeholder="Line 1 (required)"
+                name="line1"
+                value={addressData.line1}
+                onChange={handleAddressInputChange}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Line 2 (optional)"
+                name="line2"
+                value={addressData.line2}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="City (optional)"
+                name="city"
+                value={addressData.city}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Province (optional)"
+                name="province"
+                value={addressData.province}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Country (optional)"
+                name="country"
+                value={addressData.country}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Postal Code (required)"
+                name="postalCode"
+                value={addressData.postalCode}
+                onChange={handleAddressInputChange}
+                required
+              />
+            </div>
+            <button type="submit" onClick={handleTransition}>Add Address</button>
+
+            {addressId &&
+              <div>
+                <h3>Client Address Added</h3>
+                <button onClick={handleClientModelClose}>Close</button>
+              </div>
+            }
+          </form>}
+
       </div>
     </div>
   );

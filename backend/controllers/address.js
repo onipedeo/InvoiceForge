@@ -7,16 +7,16 @@ class AddressController {
       res.status(200).json(address);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+
     }
   }
   async create(req, res) {
     try {
-      const [id] = await addressService.create(req.body);
+      const id = await addressService.create(req.body);
       res.status(201).json(id);
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+      console.log(e)
     }
   }
   async delete(req, res) {
@@ -25,7 +25,7 @@ class AddressController {
       res.status(200).json({ message: 'Address deleted successfully' });
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+
     }
 
   }
@@ -36,7 +36,7 @@ class AddressController {
       res.status(200).json({ message: 'Address updated successfully' });
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
-      console.error(e);
+
     }
   }
 }

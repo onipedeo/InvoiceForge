@@ -50,14 +50,20 @@
   text-decoration: none;
   font-weight: 500;
 
+  .afterlogin {
+    font-size: medium;
+  }
+
   span {
     padding: 2px;
     transition: text-shadow 0.3s ease;
 
+    
+
     &:not(:last-child) {
       padding-right: 8px;
-      margin-right: 8px; /* Add margin between spans */
-      border-right: 1px solid #111;; /* Add a border between spans */
+      margin-right: 8px; 
+      border-right: 1px solid #111;; 
     }
 
     &:hover {

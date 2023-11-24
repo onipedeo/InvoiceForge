@@ -3,7 +3,7 @@ const userService = require("../services/user");
 class UserController {
   async create(req, res) {
     try {
-      const [id] = await userService.create(req.body);
+      const id = await userService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
@@ -11,11 +11,10 @@ class UserController {
   }
   async getByEmail(req, res) {
     try {
-      const user = await userService.getByEmail(req.params.email);
+      const user = await userService.getByEmail(req.body);
       res.status(200).json(user);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
     }
   }
   async getById(req, res) {
@@ -24,7 +23,7 @@ class UserController {
       res.status(200).json(user);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
@@ -34,66 +33,69 @@ class UserController {
       res.status(200).json({ message: "User updated successfully" });
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
-  async getClients(req, res) {
+  async getInvoices(req, res) {
     try {
-      const clients = await userService.getClients(req.params.id);
-      res.status(200).json(clients);
+      const invoice = await userService.getInvoices(
+        req.params.id,
+      );
+      res.status(200).json(invoice);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
   async getAppointments(req, res) {
     try {
-      const appointments = await userService.getAppointments(req.params.id);
-      res.status(200).json(appointments);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-  async getAppointmentsInReview(req, res) {
-    try {
-      const appointments = await userService.getAppointmentsInReview(
-        req.params.id
-      );
-      res.status(200).json(appointments);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-
-  async getInvoices(req, res) {
-    try {
-      const invoices = await userService.getAllInvoices(req.params.id);
-      res.status(200).json(invoices);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-      console.error(e);
-    }
-  }
-
-  async getInvoiceByNumber(req, res) {
-    try {
-      const invoice = await userService.getInvoiceByNumber(
+      const appointments = await userService.getAppointments(
         req.params.id,
-        req.params.number
       );
-      res.status(200).json(invoice);
+      res.status(200).json(appointments);
     } catch (e) {
       res.status(500).json({ error: "Internal server error" });
-      console.error(e);
+
     }
   }
 
+  async getClients(req, res) {
+    try {
+      const clients = await userService.getClients(
+        req.params.id,
+      );
+      res.status(200).json(clients);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+
+    }
+  }
+
+  async getUnreviewed(req, res) {
+    try {
+      const unreviewed = await userService.getUnreviewed(
+        req.params.id,
+      );
+      res.status(200).json(unreviewed);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+
+    }
+  }
+
+  async getObject(req, res) {
+    try {
+      const object = await userService.getObject(
+        req.params.id,
+      );
+      res.status(200).json(object);
+    } catch (e) {
+      res.status(500).json({ error: "Internal server error" });
+
+    }
+  }
 }
 
 module.exports = new UserController();
