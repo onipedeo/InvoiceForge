@@ -53,6 +53,8 @@ export default function NewClientModal(props) {
 
   const handleClientModelClose = () => {
     setClientModelOpen(false);
+    setClientId(null);
+    
   };
 
   const handleTransition = () => {
@@ -164,7 +166,8 @@ export default function NewClientModal(props) {
         
           <button type="submit">Add Client Info</button>
           </form>
-
+         
+          {/* Transition*/}
           {clientId && !showAddressForm &&
           <div>
             <h3>Client Info Added</h3>
@@ -172,6 +175,7 @@ export default function NewClientModal(props) {
             <button onClick={handleTransition}>Yes</button>
             <button onClick={handleClientModelClose}>No</button>
           </div>}
+
           {/* New Address Table*/}
           
           {showAddressForm &&
@@ -223,7 +227,7 @@ export default function NewClientModal(props) {
               required
             />
           </div>
-          <button type="submit">Add Address</button>
+          <button type="submit" onClick={handleTransition}>Add Address</button>
           
           { addressId && 
           <div>
