@@ -73,6 +73,7 @@ const InvoiceGenerator = ({
 
     pdf.autoTable({
       head: [["Description", "Date", "Rate ($)", "Hours", "Total ($)"]],
+
       body: reviewedAppointments
         .filter((appointment) => checkedAppointments.includes(appointment.id))
         .map((appointment) => {
@@ -81,12 +82,14 @@ const InvoiceGenerator = ({
             : clientRate
             ? clientRate
             : userObj.standard_rate_cents;
+
           const total = (rate * appointment.confirmed_hours) / 100;
 
           return [
             appointment.notes,
             appointment.date,
             `${rate / 100}`,
+
             appointment.confirmed_hours,
             `${total}`,
           ];
@@ -110,6 +113,7 @@ const InvoiceGenerator = ({
           : clientRate
           ? clientRate
           : userObj.standard_rate_cents;
+
         return total + (appointment.confirmed_hours * rate) / 100;
       }, 0);
 

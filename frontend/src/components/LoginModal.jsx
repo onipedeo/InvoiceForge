@@ -11,7 +11,8 @@ const LoginModal = (props) => {
     try {
       const user = await requests.get.idByEmail(email);
       setUser(user);
-      const clients = await requests.get.user(user.id).clients
+      const userData = await requests.get.userData(user.id);
+      const { clients } = userData;
       if (clients.length === 0) {
        handleLinkClick(2)
       }
@@ -59,6 +60,3 @@ const LoginModal = (props) => {
 };
 
 export default LoginModal;
-
-
-

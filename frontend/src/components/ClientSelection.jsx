@@ -6,6 +6,7 @@ const ClientSelection = ({ handleClientSelect, clients }) => {
         <option disabled selected value="">
           select a client
         </option>
+
         {clients.map((client) => (
           <option key={client.id} value={client.id}>
             {client.name}
