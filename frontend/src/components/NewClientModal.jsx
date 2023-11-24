@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import "../styles/new-client-modal.scss";
 import requests from '../api/requests';
-import NewAddressModal from './NewAddressModal'
 
 
 export default function NewClientModal(props) {
+   
+  {/* imports */}
   const { setClientModelOpen, user } = props;
 
+   {/* states */}
   const [clientData, setClientData] = useState({
     userId: user.id,
     name: '',
@@ -27,7 +29,13 @@ export default function NewClientModal(props) {
   });
 
   const [clientId, setClientId] = useState(null)
+  const [addressId, setAddressId] = useState(null)
 
+   // State for showing the address form
+   const [showAddressForm, setShowAddressForm] = useState(false);
+
+
+   {/* functions */}
   const handleClientInputChange = (e) => {
     const { name, value } = e.target;
     setClientData((prevData) => ({
@@ -48,19 +56,21 @@ export default function NewClientModal(props) {
     setClientModelOpen(false);
   };
 
+  const handleTransition = () => {
+    setShowAddressForm(true);
+  }
+
   const handleClientSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make routes requests to send the forms data to the backend
+     
       const response = await requests.create.client(clientData) //return client id
       const newClientId = response[0].id
       console.log("response", response)
       console.log(newClientId)
       setClientId(newClientId)
       
-      // Close the modal after successful submission
-      // setClientModelOpen(false);
     } catch (error) {
       console.error('Error adding client:', error);
     }
@@ -70,18 +80,18 @@ export default function NewClientModal(props) {
     e.preventDefault();
 
     try {
-      // Make routes requests to send the forms data to the backend
 
-      const addressForm = {...addressData, clientId}
-      await requests.create.address(addressForm)
+      const addressForm = {...addressData, clientId};// use client id to connect address table to client table
+      const newAddressId = await requests.create.address(addressForm);
+      console.log("addressId", newAddressId);
+      setAddressId(newAddressId);
       
-      
-      // Close the modal after successful submission
-      // setClientModelOpen(false);
+     
     } catch (error) {
       console.error('Error adding client:', error);
     }
   };
+
     console.log("addressData", addressData)
     console.log("clientData", clientData)
 
@@ -89,9 +99,11 @@ export default function NewClientModal(props) {
     <div className="new-client-modal-container" id="newClientModal">
       <div className="new-client-modal-content">
         <span className="close" onClick={handleClientModelClose}>&times;</span>
-        <h2>Add Client</h2>
+        <h2>Add Client Info</h2>
         <form onSubmit={handleClientSubmit}>
-          {/* Client Table Data*/}
+
+          {/* New Client Table*/}
+
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -102,16 +114,6 @@ export default function NewClientModal(props) {
               onChange={handleClientInputChange}
               placeholder='required'
               required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="companyName">Company Name:</label>
-            <input
-              type="text"
-              id="companyName"
-              name="companyName"
-              value={clientData.companyName}
-              onChange={handleClientInputChange}
             />
           </div>
           <div className="form-group">
@@ -127,16 +129,6 @@ export default function NewClientModal(props) {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone:</label>
-            <input
-              type="phone"
-              id="phone"
-              name="phone"
-              value={clientData.phone}
-              onChange={handleClientInputChange}
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="rate">Rate:</label>
             <input
               type="number"
@@ -148,15 +140,48 @@ export default function NewClientModal(props) {
               required
             />
           </div>
-          <button type="submit">Add Client</button>
-          </form>
-          {/* Access Table Data*/}
-          <form onSubmit={handleAddressSubmit}>
-          <div className="address-group">
-            <label>Address:</label>
+          <div className="form-group">
+            <label htmlFor="companyName">Company Name:</label>
             <input
               type="text"
-              placeholder="Line 1 Required"
+              id="companyName"
+              name="companyName"
+              value={clientData.companyName}
+              onChange={handleClientInputChange}
+              placeholder='optional'
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone:</label>
+            <input
+              type="phone"
+              id="phone"
+              name="phone"
+              value={clientData.phone}
+              onChange={handleClientInputChange}
+              placeholder='optional'
+            />
+          </div>
+        
+          <button type="submit">Add Client</button>
+          </form>
+
+          {clientId && !showAddressForm &&
+          <div>
+            <h3>Client Added</h3>
+            <p>Would you like to add client address now?</p>
+            <button onClick={handleTransition}>Yes</button>
+            <button onClick={handleClientModelClose}>No</button>
+          </div>}
+          {/* New Address Table*/}
+          
+          {showAddressForm &&
+          <form onSubmit={handleAddressSubmit}>
+          <div className="address-group">
+            <label>Add Client Address</label>
+            <input
+              type="text"
+              placeholder="Line 1 (required)"
               name="line_1"
               value={addressData.line_1}
               onChange={handleAddressInputChange}
@@ -164,35 +189,35 @@ export default function NewClientModal(props) {
             />
             <input
               type="text"
-              placeholder="Line 2"
+              placeholder="Line 2 (optional)"
               name="line_2"
               value={addressData.line_2}
               onChange={handleAddressInputChange}
             />
             <input
               type="text"
-              placeholder="City"
+              placeholder="City (optional)"
               name="city"
               value={addressData.city}
               onChange={handleAddressInputChange}
             />
             <input
               type="text"
-              placeholder="Province"
+              placeholder="Province (optional)"
               name="province"
               value={addressData.province}
               onChange={handleAddressInputChange}
             />
             <input
               type="text"
-              placeholder="Country"
+              placeholder="Country (optional)"
               name="country"
               value={addressData.country}
               onChange={handleAddressInputChange}
             />
             <input
               type="text"
-              placeholder="Postal Code Required"
+              placeholder="Postal Code (required)"
               name="postalCode"
               value={addressData.postalCode}
               onChange={handleAddressInputChange}
@@ -200,8 +225,10 @@ export default function NewClientModal(props) {
             />
           </div>
           <button type="submit">Add Address</button>
-        </form>
-        {/* { <NewAddressModal setClientModelOpen={setClientModelOpen} user={user} clientId={clientId}/>} */}
+          
+        
+        </form>}
+          
       </div>
     </div>
   );
