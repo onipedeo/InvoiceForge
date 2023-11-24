@@ -27,11 +27,8 @@ class InvoiceDao {
 
   async getById(id) {
     let invoice = await db('invoices').select('*').where({ id }).first();
+    if (!invoice) throw { statusCode: 404, message: 'Invoice not found' };
     return await infuseInvoiceWithData(invoice)
-      .catch((err) => {
-        err.statusCode = 404;
-        throw err;
-      });
   }
 
   async _getNextInvoiceNumber(userId) {
