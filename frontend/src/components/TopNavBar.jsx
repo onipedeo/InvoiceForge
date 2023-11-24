@@ -25,11 +25,11 @@ export default function TopNavBar(props) {
   return (
     <div>
       <nav className="top-nav-bar">
-        <span className="top-nav-bar__logo">InvoiceForge</span>
+        <span onClick={() => handleLinkClick(0)} className="top-nav-bar__logo">InvoiceForge</span>
 
         {user &&
           <div className="top-nav-bar__list">
-            <span>Schedule</span>
+            <span onClick={() => handleLinkClick(1)}>Schedule</span>
             <span onClick={() => handleLinkClick(2)}>Client List</span>
             <span>Appointments in Review</span>
             <span onClick={() => handleLinkClick(4)}>Forge Invoice</span>

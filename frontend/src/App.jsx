@@ -5,6 +5,7 @@ import LandingPage from "./components/Landingpage";
 import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
 import ClientList from "./components/ClientList";
+import Page from "./components/Page";
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -20,8 +21,20 @@ function App() {
 
   return (
     <>
-      {/* <LandingPage /> */}
-      <Page />
+
+      <TopNavBar
+        user={user}
+        setUser={setUser}
+        handleLinkClick={handleLinkClick}
+      />
+      {displayPage === 0 && <LandingPage />}
+      {displayPage === 1 && <Page />}
+      {displayPage === 2 && <ClientList user={user} />}
+      {displayPage === 4 && (
+        <AppointmentContainer user={user} />
+      )}
+      <Footer />
+
     </>
   );
 }
