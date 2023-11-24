@@ -1,31 +1,34 @@
-const AppointmentList = ({ reviewedAppointments, handleAppointmentCheck, checkedAppointments }) => {
-
+const AppointmentList = ({
+  reviewedAppointments,
+  handleAppointmentCheck,
+  checkedAppointments,
+}) => {
   const appointmentList = reviewedAppointments.map((appointment) => (
     <tr key={appointment.id} className="appointment-list-item">
-           <td>{appointment.notes}</td>
-           <td>{appointment.date}</td>
-           <td>{appointment.confirmed_hours} hours</td>
-           <td>
-             <input
-               type="checkbox"
-               checked={checkedAppointments.includes(appointment.id)}
-               onChange={() => handleAppointmentCheck(appointment.id)}
-             />
-           </td>
-        </tr>
+      <td>{appointment.notes}</td>
+      <td>{appointment.date}</td>
+      <td>{appointment.confirmed_hours} hours</td>
+      <td>
+        <input
+          type="checkbox"
+          checked={checkedAppointments.includes(appointment.id)}
+          onChange={() => handleAppointmentCheck(appointment.id)}
+        />
+      </td>
+    </tr>
   ));
 
   return (
     <div>
       <table className="appointment-list">
-      <thead>
-               <tr>
-                 <th>Appointment</th>
-                 <th>Date</th>
-                 <th>Hours</th>
-                 <th>Checkbox</th>
-               </tr>
-             </thead>
+        <thead>
+          <tr>
+            <th>Appointment</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Checkbox</th>
+          </tr>
+        </thead>
         <tbody>{appointmentList}</tbody>
       </table>
     </div>

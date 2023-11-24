@@ -11,8 +11,11 @@ function App() {
     setDisplayPage(pageNumber);
   };
 
+  
   const [user, setUser] = useState(null);
   const [displayPage, setDisplayPage] = useState(0);
+
+
 
 
   return (
@@ -31,7 +34,7 @@ function App() {
         />
       )}
       <Footer />
-      {/* <AppointmentContainer userId={user.id} standardRateCents={user.standard_rate_cents}/> */}
+   
     </>
   );
 }

@@ -4,7 +4,7 @@ import AppointmentList from "./AppointmentList";
 import InvoiceGenerator from "./InvoiceGenerator";
 import requests from "../api/requests";
 
-const AppointmentsContainer = ({ userId, standardRateCents }) => {
+const AppointmentsContainer = ({ userId }) => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [checkedAppointments, setCheckedAppointments] = useState([]);
   const [clients, setClients] = useState([]);
@@ -15,7 +15,6 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
 
   useEffect(() => {
     if (selectedClient) {
-      
       requests.get.client(selectedClient).allData.then((data) => {
         setReviewedAppointments(data.reviewed);
         setClientRate(data.client.client_rate_cents || null);
@@ -66,7 +65,6 @@ const AppointmentsContainer = ({ userId, standardRateCents }) => {
           reviewedAppointments={reviewedAppointments}
           checkedAppointments={checkedAppointments}
           clientRate={clientRate}
-          standardRateCents={standardRateCents}
           clientObj={clientObj}
           userObj={userObj}
         />
