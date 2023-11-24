@@ -22,7 +22,7 @@ module.exports = async function(propertyName, objectWithProp) {
     const propertyId = objectWithProp[propertyName_Id];
 
     const propertyObject = async () => {
-      if (!propertyId) throw new Error(`No ${propertyName} id found.`);
+      if (!propertyId) return null;
       const tableName = makeTableName(propertyName);
       const result = await db(tableName).where({ id: propertyId }).first();
       return result;
