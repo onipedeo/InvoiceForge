@@ -226,7 +226,12 @@ export default function NewClientModal(props) {
           </div>
           <button type="submit">Add Address</button>
           
-        
+          { addressId && 
+          <div>
+            <h3>Address Added</h3>
+            <button onClick={handleClientModelClose}>Close</button>
+          </div>
+          }
         </form>}
           
       </div>
