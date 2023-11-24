@@ -15,11 +15,11 @@ module.exports = {
       ssl: process.env.PG_SSL ? { rejectUnauthorized: false } : false,
     },
     migrations: {
-      directory: './migrations',
+      directory: (__dirname + '/migrations'),
       tableName: 'migrations',
     },
     seeds: {
-      directory: './seeds',
+      directory: (__dirname + '/seeds')
     },
   },
 
