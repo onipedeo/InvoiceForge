@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import requests from '../api/requests'; 
+import requests from '../api/requests';
 import "../styles/client-list.scss";
 import NewClientModal from "./NewClientModal";
 
@@ -7,24 +7,24 @@ export default function ClientList(props) {
   const [isClientModalOpen, setClientModelOpen] = useState(false);
   const [clients, setClients] = useState([]);
 
-  const [clientId, setClientId] = useState(null)
-  const [addressId, setAddressId] = useState(null) 
+  const [clientId, setClientId] = useState(null);
+  const [addressId, setAddressId] = useState(null);
 
   const { user } = props;
 
   useEffect(() => {
     fetchClients();
-  }, [clientId, addressId]); 
+  }, [clientId, addressId]);
 
   const fetchClients = async () => {
     try {
-      const clientData = await requests.get.user(user.id).clients
+      const clientData = await requests.get.user(user.id).clients;
       setClients(clientData);
-     
+
 
     } catch (error) {
       console.error('Error fetching user data:', error);
-    } 
+    }
   };
 
   const handleNewClientModalClick = () => {
@@ -38,31 +38,31 @@ export default function ClientList(props) {
 
       {clients.length > 0 ? (
         <div className="client-list-container">
-      <ul className="client-list">
-        {clients.map((client) => (
-          <li key={client.id} className="client-item">
-           
-              <span className='client-id'>Client ID: {client.id}</span>
-              <span>{client.name}</span>
-              {client.address &&<span>{client.address.line_1}</span>}
-              <span>{client.email}</span>
-              {client.company && <span>Company: {client.company}</span>}
-            
-           </li>
-       
-        ))}
-      </ul> 
-    </div>) : (
+          <ul className="client-list">
+            {clients.map((client) => (
+              <li key={client.id} className="client-item">
+
+                <span className='client-id'>Client ID: {client.id}</span>
+                <span>{client.name}</span>
+                {client.address && <span>{client.address.line1}</span>}
+                <span>{client.email}</span>
+                {client.company && <span>Company: {client.company}</span>}
+
+              </li>
+
+            ))}
+          </ul>
+        </div>) : (
         <div>
-        <h4>Please Add your first client using the "Add New Client" button.</h4>
-        <h4>Your client info will display when you finish adding new client. Here is an exmaple:</h4>
-        <img style={{ maxWidth: '45%' }}
-         src="/clientExample.jpg" alt="example" />
+          <h4>Please Add your first client using the "Add New Client" button.</h4>
+          <h4>Your client info will display when you finish adding new client. Here is an exmaple:</h4>
+          <img style={{ maxWidth: '45%' }}
+            src="/clientExample.jpg" alt="example" />
         </div>
       )}
 
-      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user} 
-      setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId}/>}
+      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
+        setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
     </div>
   );
 }
