@@ -1,12 +1,15 @@
 const getAppointmentsByWhere = require('./getAppointmentsByWhere');
 const replacePropertyWithinObject = require('./replacePropertyWithinObject');
 const db = require('../../db/db');
+const humps = require('humps');
 
 
 module.exports = async function(where) {
   try {
     const invoices = await db('invoices').where(where);
-
+    if (!invoices.length) {
+      return [];
+    }
     const results = await Promise.all(invoices.map(async (invoice) => {
       invoice = await replacePropertyWithinObject('client', invoice);
       invoice = await replacePropertyWithinObject('user', invoice);
@@ -17,7 +20,7 @@ module.exports = async function(where) {
       return invoice;
     }));
 
-    return results;
+    return humps.camelizeKeys(results);
   } catch (error) {
     throw error;
   }
