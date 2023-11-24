@@ -14,5 +14,8 @@ export default (url, body) => {
 
   return fetch(url, options)
     .then((response) => response.json())
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      throw err
+    });
 };
