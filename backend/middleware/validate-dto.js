@@ -6,6 +6,7 @@ function validateDto(schema) {
       next();
     } catch (error) {
       res.status(422)
+        .json({ error: error.message });
       next(error);
     }
   };
