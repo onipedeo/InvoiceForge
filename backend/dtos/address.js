@@ -2,8 +2,8 @@ const yup = require('yup');
 
 module.exports = yup.object().shape({
   // must have one of either userId or clientId but not both
-  userId: yup.number().integer().min(1).notRequired(),
-  clientId: yup.number().integer().min(1).notRequired(),
+  userId: yup.number().integer().min(1).notRequired().default(null),
+  clientId: yup.number().integer().min(1).notRequired().default(null),
   line_1: yup.string().required().trim(),
   line_2: yup.string(),
   city: yup.string(),
