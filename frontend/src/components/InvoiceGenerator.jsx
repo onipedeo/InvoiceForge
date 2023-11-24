@@ -6,7 +6,6 @@ const InvoiceGenerator = ({
   reviewedAppointments,
   checkedAppointments,
   clientRate,
-  standardRateCents,
   clientObj,
   userObj,
 }) => {
@@ -73,7 +72,8 @@ const InvoiceGenerator = ({
     pdf.setFont("sans-serif", "bold");
 
     pdf.autoTable({
-      head: [["Description", "Date", "Rate per Hour", "Hours", "Total"]],
+      head: [["Description", "Date", "Rate ($)", "Hours", "Total ($)"]],
+
       body: reviewedAppointments
         .filter((appointment) => checkedAppointments.includes(appointment.id))
         .map((appointment) => {
@@ -81,13 +81,15 @@ const InvoiceGenerator = ({
             ? appointment.appointment_rate_cents
             : clientRate
             ? clientRate
-            : standardRateCents;
+            : userObj.standard_rate_cents;
+
           const total = (rate * appointment.confirmed_hours) / 100;
 
           return [
             appointment.notes,
             appointment.date,
-            `${appointment.appointment_rate_cents / 100}`,
+            `${rate / 100}`,
+
             appointment.confirmed_hours,
             `${total}`,
           ];
@@ -110,14 +112,15 @@ const InvoiceGenerator = ({
           ? appointment_rate_cents
           : clientRate
           ? clientRate
-          : standardRateCents;
+          : userObj.standard_rate_cents;
+
         return total + (appointment.confirmed_hours * rate) / 100;
       }, 0);
 
     pdf.text(
-      `Grand Total: $${GrandTotalAmount}`,
-      150,
-      pdf.autoTable.previous.finalY + 10
+      `Grand Total: $ ${GrandTotalAmount}.00`,
+      140,
+      pdf.autoTable.previous.finalY + 15
     );
 
     // Save the PDF
