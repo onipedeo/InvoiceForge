@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class AddressDao {
-  async create(userId, clientId, line_1, line_2, city, province, country, postalCode) {
+  async create(idObj, line_1, line_2, city, province, country, postalCode) {
     const [addressId] = await db('addresses').insert({
       line_1,
       line_2,
@@ -11,6 +11,8 @@ class AddressDao {
       postal_code: postalCode
     })
       .returning('id');
+
+    const { userId, clientId } = idObj;
 
     if (userId) {
       const { id } = addressId;
