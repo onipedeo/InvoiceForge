@@ -6,7 +6,7 @@ import requests from '../api/requests';
 export default function NewClientModal(props) {
    
   {/* imports */}
-  const { setClientModelOpen, user } = props;
+  const { setClientModelOpen, user, setAddressId, setClientId, clientId, addressId } = props;
 
    {/* states */}
   const [clientData, setClientData] = useState({
@@ -28,8 +28,7 @@ export default function NewClientModal(props) {
     postalCode: '',
   });
 
-  const [clientId, setClientId] = useState(null)
-  const [addressId, setAddressId] = useState(null)
+ 
 
    // State for showing the address form
    const [showAddressForm, setShowAddressForm] = useState(false);
