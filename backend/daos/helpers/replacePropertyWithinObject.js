@@ -11,7 +11,7 @@ module.exports = async function(propertyName, objectWithProp) {
   try {
     const makeTableName = (propertyName) => {
       return propertyName.endsWith('s') ? propertyName + 'es' :
-      propertyId.endsWith('y') ? propertyName.slice(0, -1) + 'ies' :
+      propertyName.endsWith('y') ? propertyName.slice(0, -1) + 'ies' :
       propertyName + 's';
     };
 
@@ -22,7 +22,7 @@ module.exports = async function(propertyName, objectWithProp) {
     const propertyId = objectWithProp[propertyName_Id];
 
     const propertyObject = async () => {
-      if (!propertyId) return null;
+      if (!propertyId) throw new Error(`No ${propertyName} id found.`);
       const tableName = makeTableName(propertyName);
       const result = await db(tableName).where({ id: propertyId }).first();
       return result;
@@ -33,7 +33,7 @@ module.exports = async function(propertyName, objectWithProp) {
     return { ...rest, [propertyName]: resolvedPropertyObject };
   } catch (err) {
     err.statusCode = 404;
-    err.message = `Could not find ${propertyName} assosciated with that id.`;
+    err.message = err.message || `Could not find ${propertyName}`;
     throw err;
   }
 };
