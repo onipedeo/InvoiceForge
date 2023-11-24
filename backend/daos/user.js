@@ -63,7 +63,9 @@ class UserDao {
 
   async getAppointments(id) {
     let appointments = await db('appointments').where({ user_id: id });
+    console.log(appointments)
     appointments = await Promise.all(appointments.map(async (appointment) => {
+      console.log(appointment.client_id)
       appointment = await replacePropertyWithinObject('client', appointment);
       appointment.client = await replacePropertyWithinObject('address', appointment.client);
       return appointment;
