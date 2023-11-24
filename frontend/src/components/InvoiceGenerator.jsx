@@ -1,6 +1,9 @@
 import { useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+// const {sendInvoiceByEmail} = require('./sendInvoiceByEmail');
+const sendInvoiceByEmail = require("../helpers/sendInvoiceByEmail");
+console.log("sendInvoiceByEmail", sendInvoiceByEmail);
 
 const InvoiceGenerator = ({
   reviewedAppointments,
@@ -68,7 +71,9 @@ const InvoiceGenerator = ({
       BILL TO:
       ${clientObj.name}
       ${clientDetails.line1}
-      ${clientDetails.city} ${clientDetails.city ? ',' : ''} ${clientDetails.province} ${clientDetails.postalCode}
+      ${clientDetails.city} ${clientDetails.city ? "," : ""} ${
+        clientDetails.province
+      } ${clientDetails.postalCode}
       `,
       20,
       55
@@ -88,8 +93,8 @@ const InvoiceGenerator = ({
           const rate = appointment.appointmentRateCents
             ? appointment.appointmentRateCents
             : clientRate
-              ? clientRate
-              : standardRateCents;
+            ? clientRate
+            : standardRateCents;
           const total = (rate * appointment.confirmedHours) / 100;
 
           return [
@@ -118,8 +123,8 @@ const InvoiceGenerator = ({
         const rate = appointmentRateCents
           ? appointmentRateCents
           : clientRate
-            ? clientRate
-            : standardRateCents;
+          ? clientRate
+          : standardRateCents;
         return total + (appointment.confirmedHours * rate) / 100;
       }, 0);
 
@@ -137,7 +142,7 @@ const InvoiceGenerator = ({
   };
 
   const handleConfirmAndSend = () => {
-    alert("invoice sent");
+    // sendInvoiceByEmail(user.firstName, clientObj.name, generatedPDF)
   };
 
   return (
