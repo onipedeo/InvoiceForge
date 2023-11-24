@@ -3,25 +3,23 @@ const humps = require('humps');
 
 class AddressDao {
   async create(idObj, line1, line2, city, province, country, postalCode) {
-    const [addressId] = await db('addresses').insert({
-      line1,
-      line2,
+    const [returnObject] = await db('addresses').insert({
+      line_1: line1,
+      line_2: line2,
       city,
       province,
       country,
       postal_code: postalCode
     })
       .returning('id');
-
+    const addressId = returnObject.id;
     const { userId, clientId } = idObj;
 
     if (userId) {
-      const { id } = addressId;
-      await db('users').update("address_id", id).where({ id: userId });
+      await db('users').update("address_id", addressId).where({ id: userId });
     }
     if (clientId) {
-      const { id } = addressId;
-      await db('clients').update('address_id', id).where({ id: clientId });
+      await db('clients').update('address_id', addressId).where({ id: clientId });
     }
     return addressId;
 
