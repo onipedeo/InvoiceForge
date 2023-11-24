@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import "../styles/top-navbar.scss";
 import LoginModal from "./LoginModal";
-import ClientList from './ClientList';
+
 
 
 export default function TopNavBar(props) {
@@ -44,6 +44,6 @@ export default function TopNavBar(props) {
 
       {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user} handleLinkClick={handleLinkClick} />}
     </nav>
-      </div>
+      </div> 
   );
 }

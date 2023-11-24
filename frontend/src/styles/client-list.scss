@@ -1,23 +1,31 @@
+.client-list-container {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  height: 500px; 
+  overflow-y: scroll; 
+  border: 1px solid rgba(255, 255, 255, 0.458); 
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+
 .client-list {
   list-style-type: none;
-  width: 45%;
-  padding-left: 27vw;
+  width: 50%;
+  padding-left: 22vw;
   
 }
 
 .client-item {
-  border: 1px solid #ddd;
-  margin: 10px 0;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 5px; 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.client-details {
   display: flex;
   flex-direction: column;
- 
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .client-details span {
@@ -30,15 +38,14 @@
 }
 
 .new-client-button {
-  position: fixed;
-  top: 150px; 
-  right: 150px; 
+  top: 110px;
+  right: 645px;
   background-color: darkgray; 
   color: black; 
   border: none;
   border-radius: 10px;
-  width: 200px;
-  height: 100px;
+
+  
   cursor: pointer;
   font-size: large;
 }
