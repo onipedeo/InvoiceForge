@@ -4,32 +4,28 @@ import AppointmentList from "./AppointmentList";
 import InvoiceGenerator from "./InvoiceGenerator";
 import requests from "../api/requests";
 
-const AppointmentsContainer = ({ userId }) => {
+const AppointmentsContainer = ({ user, standardRateCents }) => {
   const [selectedClient, setSelectedClient] = useState(null);
   const [checkedAppointments, setCheckedAppointments] = useState([]);
   const [clients, setClients] = useState([]);
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
   const [clientObj, setClientObj] = useState({});
-  const [userObj, setUserObj] = useState({});
 
   useEffect(() => {
     if (selectedClient) {
+
       requests.get.client(selectedClient).allData.then((data) => {
         setReviewedAppointments(data.reviewed);
-        setClientRate(data.client.client_rate_cents || null);
+        setClientRate(data.client.clientRateCents || null);
         setClientObj(data.client);
       });
     }
   }, [selectedClient]);
 
   useEffect(() => {
-    requests.get.user(userId).clients.then((clients) => {
+    requests.get.user(user.id).clients.then((clients) => {
       setClients(clients);
-    });
-
-    requests.get.user(userId).object.then((userObj) => {
-      setUserObj(userObj);
     });
   }, []);
 
@@ -66,7 +62,7 @@ const AppointmentsContainer = ({ userId }) => {
           checkedAppointments={checkedAppointments}
           clientRate={clientRate}
           clientObj={clientObj}
-          userObj={userObj}
+          user={user}
         />
       )}
     </div>
