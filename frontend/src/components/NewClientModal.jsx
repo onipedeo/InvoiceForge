@@ -4,11 +4,11 @@ import requests from '../api/requests';
 
 
 export default function NewClientModal(props) {
-   
-  {/* imports */}
+
+  {/* imports */ }
   const { setClientModelOpen, user, setAddressId, setClientId, clientId, addressId } = props;
 
-   {/* states */}
+  {/* states */ }
   const [clientData, setClientData] = useState({
     userId: user.id,
     name: '',
@@ -20,21 +20,21 @@ export default function NewClientModal(props) {
 
   const [addressData, setAddressData] = useState({
     userId: user.id,
-    line_1: '',
-    line_2: '',
+    line1: '',
+    line2: '',
     city: '',
     province: '',
     country: '',
     postalCode: '',
   });
 
- 
-
-   // State for showing the address form
-   const [showAddressForm, setShowAddressForm] = useState(false);
 
 
-   {/* functions */}
+  // State for showing the address form
+  const [showAddressForm, setShowAddressForm] = useState(false);
+
+
+  {/* functions */ }
   const handleClientInputChange = (e) => {
     const { name, value } = e.target;
     setClientData((prevData) => ({
@@ -54,24 +54,24 @@ export default function NewClientModal(props) {
   const handleClientModelClose = () => {
     setClientModelOpen(false);
     setClientId(null);
-    
+
   };
 
   const handleTransition = () => {
     setShowAddressForm(true);
-  }
+  };
 
   const handleClientSubmit = async (e) => {
     e.preventDefault();
 
     try {
-     
-      const response = await requests.create.client(clientData) //return client id
-      const newClientId = response[0].id
-      console.log("response", response)
-      console.log(newClientId)
-      setClientId(newClientId)
-      
+
+      const response = await requests.create.client(clientData); //return client id
+      const newClientId = response[0].id;
+      console.log("response", response);
+      console.log(newClientId);
+      setClientId(newClientId);
+
     } catch (error) {
       console.error('Error adding client:', error);
     }
@@ -82,19 +82,19 @@ export default function NewClientModal(props) {
 
     try {
 
-      const addressForm = {...addressData, clientId};// use client id to connect address table to client table
+      const addressForm = { ...addressData, clientId };// use client id to connect address table to client table
       const newAddressId = await requests.create.address(addressForm);
       console.log("addressId", newAddressId);
       setAddressId(newAddressId);
-      
-     
+
+
     } catch (error) {
       console.error('Error adding client:', error);
     }
   };
 
-    console.log("addressData", addressData)
-    console.log("clientData", clientData)
+  console.log("addressData", addressData);
+  console.log("clientData", clientData);
 
   return (
     <div className="new-client-modal-container" id="newClientModal">
@@ -163,12 +163,12 @@ export default function NewClientModal(props) {
               placeholder='optional'
             />
           </div>
-        
+
           <button type="submit">Add Client Info</button>
-          </form>
-         
-          {/* Transition*/}
-          {clientId && !showAddressForm &&
+        </form>
+
+        {/* Transition*/}
+        {clientId && !showAddressForm &&
           <div>
             <h3>Client Info Added</h3>
             <p>Would you like to add client address now?</p>
@@ -176,69 +176,68 @@ export default function NewClientModal(props) {
             <button onClick={handleClientModelClose}>No</button>
           </div>}
 
-          {/* New Address Table*/}
-          
-          {showAddressForm &&
+        {/* New Address Table*/}
+
+        {showAddressForm &&
           <form onSubmit={handleAddressSubmit}>
-          <div className="address-group">
-            <label>Add Client Address</label>
-            <input
-              type="text"
-              placeholder="Line 1 (required)"
-              name="line_1"
-              value={addressData.line_1}
-              onChange={handleAddressInputChange}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Line 2 (optional)"
-              name="line_2"
-              value={addressData.line_2}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="City (optional)"
-              name="city"
-              value={addressData.city}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Province (optional)"
-              name="province"
-              value={addressData.province}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Country (optional)"
-              name="country"
-              value={addressData.country}
-              onChange={handleAddressInputChange}
-            />
-            <input
-              type="text"
-              placeholder="Postal Code (required)"
-              name="postalCode"
-              value={addressData.postalCode}
-              onChange={handleAddressInputChange}
-              required
-            />
-          </div>
-          <button type="submit" onClick={handleTransition}>Add Address</button>
-          
-          { addressId && 
-          <div>
-            <h3>Client Address Added</h3>
-            <button onClick={handleClientModelClose}>Close</button>
-          </div>
-          }
-        </form>}
-          
+            <div className="address-group">
+              <label>Add Client Address</label>
+              <input
+                type="text"
+                placeholder="Line 1 (required)"
+                name="line1"
+                value={addressData.line1}
+                onChange={handleAddressInputChange}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Line 2 (optional)"
+                name="line2"
+                value={addressData.line2}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="City (optional)"
+                name="city"
+                value={addressData.city}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Province (optional)"
+                name="province"
+                value={addressData.province}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Country (optional)"
+                name="country"
+                value={addressData.country}
+                onChange={handleAddressInputChange}
+              />
+              <input
+                type="text"
+                placeholder="Postal Code (required)"
+                name="postalCode"
+                value={addressData.postalCode}
+                onChange={handleAddressInputChange}
+                required
+              />
+            </div>
+            <button type="submit" onClick={handleTransition}>Add Address</button>
+
+            {addressId &&
+              <div>
+                <h3>Client Address Added</h3>
+                <button onClick={handleClientModelClose}>Close</button>
+              </div>
+            }
+          </form>}
+
       </div>
     </div>
   );
 }
-

@@ -97,7 +97,7 @@ const InvoiceGenerator = ({
             appointment.date,
             `${rate / 100}`,
 
-            appointment.confirmed_hours,
+            appointment.confirmedHours,
             `${total}`,
           ];
         }),
