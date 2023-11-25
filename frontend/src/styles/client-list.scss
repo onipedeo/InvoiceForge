@@ -14,28 +14,33 @@
   list-style-type: none;
   width: 40%;
   padding-left: 27vw;
+
+  .client-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  
+    .client-delete-icon {
+      margin-top: -20px;
+      margin-left: 500px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      
+    }
+
+    .client-delete-icon:hover {
+      color: red;
+    }
+  
+  }
   
 }
 
-.client-item {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-  margin: 20px 0;
-  padding: 15px;
-  background-color: white;
-  border-radius: 5px; 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-.client-details span {
-  margin-bottom: 3px;
-}
-
-.client-id {
- margin-right: 300px;
- margin-top:-10px;
-}
 
 .new-client-button {
   top: 110px;
@@ -52,11 +57,6 @@
 
 .new-client-button:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-}
-
-.no-client-msg {
-  font-size:large;
-  font-weight:bold;
 }
 
 

@@ -41,7 +41,7 @@ export default function ClientList(props) {
           <ul className="client-list">
             {clients.map((client) => (
               <li key={client.id} className="client-item">
-
+                <span className="client-delete-icon">&times;</span>
                 <span>{client.name}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
