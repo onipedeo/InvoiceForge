@@ -53,7 +53,7 @@ export default function ClientList(props) {
             ))}
           </ul>
         </div>) : (
-        <div>
+        <div className="client-list-container">
           <h4>Please Add your first client using the "Add New Client" button.</h4>
           <h4>Your client info will display when you finish adding new client. Here is an exmaple:</h4>
           <img style={{ maxWidth: '45%' }}
