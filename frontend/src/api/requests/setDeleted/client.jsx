@@ -7,7 +7,7 @@
 import setDeleted from "../helpers/setDeleted";
 
 export default (clientId) => {
-  const url = `/api/clients/${clientId}/delete`;
+  const url = `/api/client/${clientId}/delete`;
   return setDeleted(url).catch((error) => {
     throw new error("Error deleting client");
   });
