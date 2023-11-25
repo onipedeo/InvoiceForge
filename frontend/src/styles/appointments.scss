@@ -1,10 +1,10 @@
-div .appointment {
+.appointment {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
 }
 
-div .add-edit {
+.add-edit {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -32,7 +32,4 @@ div .add-edit {
   flex-direction: column;
   justify-content: center;
 
-}
-p {
- text-align: left;
 }
