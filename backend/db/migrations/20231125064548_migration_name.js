@@ -13,7 +13,7 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.table('clients', function(table) {
+  return knex.schema.alterTable('clients', function(table) {
     table.dropColumn('deleted');
   });
   
