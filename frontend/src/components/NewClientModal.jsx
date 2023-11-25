@@ -15,7 +15,7 @@ export default function NewClientModal(props) {
     companyName: '',
     email: '',
     phone: '',
-    clientRateCents: 0,
+    clientRateCents: 4000,
   });
 
   const [addressData, setAddressData] = useState({
@@ -99,14 +99,18 @@ export default function NewClientModal(props) {
 
   return (
     <div className="new-client-modal-container" id="newClientModal">
+      <span className="close" onClick={handleClientModelClose}>&times;</span>
+     
       <div className="new-client-modal-content">
-        <span className="close" onClick={handleClientModelClose}>&times;</span>
-        <h2>Add Client Info</h2>
+      
+      
+        {!clientId &&
         <form onSubmit={handleClientSubmit}>
+            <h2>Add Client Info</h2>
 
           {/* New Client Table*/}
 
-          <div className="form-group">
+          <div className="form-group-new-client">
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -118,7 +122,7 @@ export default function NewClientModal(props) {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-new-client">
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -130,30 +134,18 @@ export default function NewClientModal(props) {
               required
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="rate">Rate:</label>
+          <div className="form-group-new-client">
+            <label htmlFor="rate">Rate(¢):</label>
             <input
               type="number"
               id="clientRateCents"
               name="clientRateCents"
               value={clientData.clientRateCents}
               onChange={handleClientInputChange}
-              placeholder='required'
               required
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="companyName">Company Name:</label>
-            <input
-              type="text"
-              id="companyName"
-              name="companyName"
-              value={clientData.companyName}
-              onChange={handleClientInputChange}
-              placeholder='optional'
-            />
-          </div>
-          <div className="form-group">
+          <div className="form-group-new-client">
             <label htmlFor="phone">Phone:</label>
             <input
               type="phone"
@@ -164,26 +156,41 @@ export default function NewClientModal(props) {
               placeholder='optional'
             />
           </div>
+          <div className="form-group-new-client">
+            <label htmlFor="companyName">Business:</label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={clientData.companyName}
+              onChange={handleClientInputChange}
+              placeholder='optional'
+            />
+          </div>
+          
 
-          <button type="submit">Add Client Info</button>
-        </form>
+          <button type="submit" className='new-client-button'>Add Client Info</button>
+        </form>}
 
         {/* Transition*/}
         {clientId && !showAddressForm &&
-          <div>
+          <div >
             <h3>Client Info Added</h3>
             <p>Would you like to add client address now?</p>
-            <button onClick={handleTransition}>Yes</button>
-            <button onClick={handleClientModelClose}>No</button>
+            <div className='info-address-transition'>
+            <button onClick={handleTransition} className='new-client-button'>Yes</button>
+            <button onClick={handleClientModelClose} className='new-client-button'>No</button>
+            </div>
           </div>}
 
         {/* New Address Table*/}
 
-        {showAddressForm &&
+        {showAddressForm && !addressId &&
           <form onSubmit={handleAddressSubmit}>
             <div className="address-group">
-              <label>Add Client Address</label>
-              <input
+            <h3>Client Info Added</h3>
+              <label><h2>Add Client Address</h2></label>
+              <input className="address-input"
                 type="text"
                 placeholder="Line 1 (required)"
                 name="line1"
@@ -191,35 +198,35 @@ export default function NewClientModal(props) {
                 onChange={handleAddressInputChange}
                 required
               />
-              <input
+              <input className="address-input"
                 type="text"
                 placeholder="Line 2 (optional)"
                 name="line2"
                 value={addressData.line2}
                 onChange={handleAddressInputChange}
               />
-              <input
+              <input className="address-input"
                 type="text"
                 placeholder="City (optional)"
                 name="city"
                 value={addressData.city}
                 onChange={handleAddressInputChange}
               />
-              <input
+              <input className="address-input"
                 type="text"
                 placeholder="Province (optional)"
                 name="province"
                 value={addressData.province}
                 onChange={handleAddressInputChange}
               />
-              <input
+              <input className="address-input"
                 type="text"
                 placeholder="Country (optional)"
                 name="country"
                 value={addressData.country}
                 onChange={handleAddressInputChange}
               />
-              <input
+              <input className="address-input"
                 type="text"
                 placeholder="Postal Code (required)"
                 name="postalCode"
@@ -228,15 +235,18 @@ export default function NewClientModal(props) {
                 required
               />
             </div>
-            <button type="submit" onClick={handleTransition}>Add Address</button>
+            <button type="submit" className='new-client-button' onClick={handleTransition}>Add Address</button>
+            
+         
+          </form>}
 
-            {addressId &&
+              {/* Close msg and button*/}
+              {addressId &&
               <div>
                 <h3>Client Address Added</h3>
-                <button onClick={handleClientModelClose}>Close</button>
+                <button onClick={handleClientModelClose} className='new-client-button'>Close</button>
               </div>
             }
-          </form>}
 
       </div>
     </div>
