@@ -14,15 +14,11 @@ export default (url) => {
   };
 
   return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response data
-      console.log(data);
-      return data;
-    })
+    .then((response) => true)
     .catch((error) => {
       // Handle any errors
       console.error(error);
-      throw error;
+      console.log("Error deleting data");
+      throw new Error("Error deleting data");
     });
 };
