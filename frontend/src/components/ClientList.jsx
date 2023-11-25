@@ -57,6 +57,8 @@ export default function ClientList(props) {
     setSelectedClientIdtoDelete(selectedClientId);
   }
 
+ 
+
 
   return (
     <div>
@@ -69,11 +71,11 @@ export default function ClientList(props) {
             {clients.map((client) => (
               <li key={client.id} className="client-item">
                 <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
-                {/*Close confirmation*/}
+                {/*Delete confirmation*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
-                  <p className='delete-msg'>You are about to <span style={{ fontWeight: 'bold' }}>delete</span> this client from your client list.</p>
+                  <p className='delete-msg'>You are about to <span style={{fontWeight:'bold'}}>delete</span> this client from your client list.</p>
                   <div className='delete-confirm'>
-                  <button className='delete-button' onClick={()=>{deleteClient()}}>Confirm</button>
+                  <button className='delete-button' onClick={() => deleteClient(selectedClientIdtoDelete)}>Confirm</button>
                   <button className='delete-button'>Cancel</button>
                   </div>
                   </div>}
