@@ -11,6 +11,9 @@ exports.up = function(knex) {
     })
     .table('clients', function(table) {
       table.dropColumn('user_id');
+    })
+    .table('appointments', function(table) {
+      table.dropColumn('user_id');
     });
 
 };
@@ -22,6 +25,9 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .table('clients', function(table) {
+      table.integer('user_id').references('id').inTable('users').notNullable().defaultTo(1);
+    })
+    .table('appointments', function(table) {
       table.integer('user_id').references('id').inTable('users').notNullable().defaultTo(1);
     })
     .dropTable('clients_users');
