@@ -7,14 +7,18 @@ exports.up = function(knex) {
     .createTable('clients_users', function(table) {
       table.integer('user_id').references('id').inTable('users').notNullable();
       table.integer('client_id').references('id').inTable('clients').notNullable();
-
     })
     .table('clients', function(table) {
       table.dropColumn('user_id');
     })
     .table('appointments', function(table) {
       table.dropColumn('user_id');
+    })
+    .table('invoices', function(table) {
+      table.dropColumn('user_id');
     });
+
+
 
 };
 
@@ -28,6 +32,9 @@ exports.down = function(knex) {
       table.integer('user_id').references('id').inTable('users').notNullable().defaultTo(1);
     })
     .table('appointments', function(table) {
+      table.integer('user_id').references('id').inTable('users').notNullable().defaultTo(1);
+    })
+    .table('invoices', function(table) {
       table.integer('user_id').references('id').inTable('users').notNullable().defaultTo(1);
     })
     .dropTable('clients_users');
