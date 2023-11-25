@@ -28,7 +28,7 @@ exports.seed = async function(knex) {
   const notes = ["sand and prep", 'install vanity', 'demo wall', 'paint', "mud & tape", "demo bathroom"];
 
 
-  //creates 2 reviewed appointments per day for 20 days for each client
+  //creates 2 reviewed appointments per day for 20 day
   for (i = 0; i < 40; i++) {
 
     // get the user id, standard rate, and next invoice number
@@ -47,10 +47,10 @@ exports.seed = async function(knex) {
     appointment.client_id = randomFromArr(clients).client_id;
 
 
-
     // set confirmed hours
     const startTime = moment(appointment.start_time, 'HH:mm:ss');
     const endTime = moment(appointment.end_time, 'HH:mm:ss');
+
     appointment.confirmed_hours = endTime.diff(startTime, 'hours');
     console.log('first appointment', appointment);
     appointments.push(appointment);
@@ -84,6 +84,8 @@ exports.seed = async function(knex) {
     await knex('appointments').insert(appointments);
 
   }
+
+
   // create 10 unreviewed appointments, 2 per day for random clients
   const unreviewedAppointments = [];
   for (let i = 0; i < 10; i++) {
@@ -98,6 +100,8 @@ exports.seed = async function(knex) {
       appointment_rate_cents: randomFromArr(appointment_rate_cents),
       notes: randomFromArr(notes),
     };
+    const endTime = moment(unreviewedAppointment.end_time, 'HH:mm:ss');
+
     // get the client and user ids
     unreviewedAppointment.client_id = randomFromArr(clients).client_id;
     console.log('unreviewed appointment', unreviewedAppointment);
@@ -106,7 +110,6 @@ exports.seed = async function(knex) {
     // the second appointment:
     const secondUnreviewedAppointment = {
       ...unreviewedAppointment,
-
       start_time: endTime.add(1, 'hour').format('HH:mm:ss'),
       end_time: randomFromArr(end_time_afternoon),
       confirmed_hours: null,
