@@ -42,7 +42,6 @@ export default function ClientList(props) {
             {clients.map((client) => (
               <li key={client.id} className="client-item">
 
-                <span className='client-id'>Client ID: {client.id}</span>
                 <span>{client.name}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
