@@ -7,7 +7,7 @@ const AddEditModal = (props) => {
   return (
     props.isOpen && (
 
-      <div className='modal'>
+      <div className='addEditModal'>
         <h2>Book an Appointment</h2>
 
         <form >
@@ -49,7 +49,7 @@ const AddEditModal = (props) => {
             name="notes"
           />
           <br />
-          <button type="submit" >Save Appointment</button>
+          <button className='addEditModalBtn' type="submit" >Save Appointment</button>
         </form>
 
       </div>
