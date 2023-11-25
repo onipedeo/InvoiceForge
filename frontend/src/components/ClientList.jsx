@@ -23,7 +23,7 @@ export default function ClientList(props) {
   
   useEffect(() => {
     fetchClients();
-  }, [clientId, addressId]);
+  }, [clientId, addressId, deleted]);
 
   const fetchClients = async () => {
     try {
@@ -44,9 +44,10 @@ export default function ClientList(props) {
   const deleteClient = async (clientIdForDelete) => {
     try {
       const deletedOrNot = await requests.setDeleted.client(clientIdForDelete)
-      console.log(clientIdForDelete)
-      console.log("deleted?", deletedOrNot)
+      console.log(clientIdForDelete);
+      console.log("deleted?", deletedOrNot);
       setDeleteMsgShow(false);
+      setDeleted(deletedOrNot);
 
     } catch (error) {
       console.error('Error fetching user data:', error);
