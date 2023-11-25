@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import LeftSideBar from './LeftSideBar';
 import '../styles/page.scss';
 import Schedule from './Schedule';
 import AddEditModal from './AddEditModal';
@@ -26,8 +25,6 @@ const Page = (props) => {
           </>
         ) : (
           <>
-            <LeftSideBar />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Schedule />
           </>
         )}
