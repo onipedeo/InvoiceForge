@@ -44,16 +44,16 @@ export default function ClientList(props) {
 
                 <span className='client-id'>Client ID: {client.id}</span>
                 <span>{client.name}</span>
-                {client.address && <span>{client.address.line1}</span>}
-                <span>{client.email}</span>
-                {client.company && <span>Company: {client.company}</span>}
-
+                {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
+                {client.phone && <span>Phone: {client.phone}</span>}
+                {client.companyName && <span>Company: {client.companyName}</span>}
+                {client.clientRateCents && <span>Rate:${client.clientRateCents/100} / hour</span>}
               </li>
 
             ))}
           </ul>
         </div>) : (
-        <div>
+        <div className="client-list-container">
           <h4>Please Add your first client using the "Add New Client" button.</h4>
           <h4>Your client info will display when you finish adding new client. Here is an exmaple:</h4>
           <img style={{ maxWidth: '45%' }}
