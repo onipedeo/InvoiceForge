@@ -33,30 +33,63 @@
       
     }
 
+    .client-delete-container {
+      margin-top: -40px;
+      position: relative; /* Needed for absolute positioning of pseudo-element */
+      -webkit-box-shadow: 0 4px 6px -6px #222;
+      -moz-box-shadow: 0 4px 6px -6px #222;
+      box-shadow: 0 4px 6px -6px #222;
+    
+      .delete-msg {
+        margin-bottom: 0px;
+      }
+
+      .delete-confirm {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    
+      .delete-button {
+        background-color: lightgray;
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        padding:6px;
+        margin-bottom: 5px;
+        margin-top:5px;
+      }
+    }
+
     .client-delete-icon:hover {
       color: red;
+    }
+
+    .delete-button:hover {
+      background-color: #0056b3;
+      color:white;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
   
   }
   
 }
 
-
-.new-client-button {
+.add-new-client-button {
   top: 110px;
   right: 645px;
   background-color: darkgray; 
   color: black; 
   border: none;
   border-radius: 10px;
-
-  
   cursor: pointer;
   font-size: large;
 }
 
-.new-client-button:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+.add-new-client-button:hover {
+  background-color: #0056b3;
+  color:white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 
