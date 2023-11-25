@@ -36,7 +36,6 @@ exports.up = function(knex) {
       table.string('email', 255).notNullable();
       table.string('phone', 15).nullable();
       table.integer('client_rate_cents').nullable().defaultTo(null);
-      table.boolean('deleted').defaultTo(false); //this is for client delete
       table.timestamps(true, true);
     })
     .createTable('invoices', (table) => {
