@@ -4,14 +4,23 @@ import "../styles/client-list.scss";
 import NewClientModal from "./NewClientModal";
 
 export default function ClientList(props) {
+  const { user } = props;
+
+  {/* states set in this Modal for handling Modal open and fetch client info from user*/}
   const [isClientModalOpen, setClientModelOpen] = useState(false);
   const [clients, setClients] = useState([]);
 
+  {/* states set in addNewClientModal upon user submission of client info and address info*/ }
   const [clientId, setClientId] = useState(null);
   const [addressId, setAddressId] = useState(null);
 
-  const { user } = props;
+  {/* states set in this Modal for handling client delete*/}
+  const [deleteMsgShow, setDeleteMsgShow] = useState(false);
+  const [selectedClientIdtoDelete, setSelectedClientIdtoDelete] = useState(null);
+  const [deleted,setDeleted] = useState(false);
+ 
 
+  
   useEffect(() => {
     fetchClients();
   }, [clientId, addressId]);
@@ -25,34 +34,42 @@ export default function ClientList(props) {
       console.error('Error fetching user data:', error);
     }
   };
-
+  
+  const handleNewClientModalClick = () => {
+    setClientModelOpen(true);
+  };
+  
+     {/* functions handling client delete logic*/ }
+  
   const deleteClient = async (clientIdForDelete) => {
     try {
-      const onDelete = await requests.setDeleted.client(clientIdForDelete)
+      const deletedOrNot = await requests.setDeleted.client(clientIdForDelete)
       console.log(clientIdForDelete)
-      console.log("after delete", onDelete)
+      console.log("deleted?", deletedOrNot)
 
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
   };
 
-  const handleNewClientModalClick = () => {
-    setClientModelOpen(true);
-  };
+  const handleClientDeleteClick = (selectedClientId) => {
+    setDeleteMsgShow(true);
+    setSelectedClientIdtoDelete(selectedClientId);
+  }
 
 
   return (
     <div>
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
-      <button className="new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
+      <button className="add-new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
 
       {clients.length > 0 ? (
         <div className="client-list-container">
           <ul className="client-list">
             {clients.map((client) => (
               <li key={client.id} className="client-item">
-                <span className="client-delete-icon" onClick={() => deleteClient(client.id)}>&times;</span>
+                <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
+               
                 <span>{client.name}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
