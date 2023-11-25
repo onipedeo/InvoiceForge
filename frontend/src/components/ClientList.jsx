@@ -23,6 +23,15 @@ export default function ClientList(props) {
   
   useEffect(() => {
     fetchClients();
+
+    if (deleted) {
+      const resetTimeout = setTimeout(() => {
+        setDeleted(false);
+      }, 1000);
+
+      return () => clearTimeout(resetTimeout);
+    }
+    
   }, [clientId, addressId, deleted]);
 
   const fetchClients = async () => {
@@ -35,6 +44,7 @@ export default function ClientList(props) {
     }
   };
   
+  console.log("clientData", clients)
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
   };
@@ -46,8 +56,8 @@ export default function ClientList(props) {
       const deletedOrNot = await requests.setDeleted.client(clientIdForDelete)
       console.log(clientIdForDelete);
       console.log("deleted?", deletedOrNot);
-      setDeleteMsgShow(false);
       setDeleted(deletedOrNot);
+      handleDeleteConfirmPageClose()
 
     } catch (error) {
       console.error('Error fetching user data:', error);
