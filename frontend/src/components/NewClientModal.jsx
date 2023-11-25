@@ -99,7 +99,7 @@ export default function NewClientModal(props) {
 
   return (
     <div className="new-client-modal-container" id="newClientModal">
-      <span className="close" onClick={handleClientModelClose}>&times;</span>
+      <span className="new-client-close" onClick={handleClientModelClose}>&times;</span>
      
       <div className="new-client-modal-content">
       
