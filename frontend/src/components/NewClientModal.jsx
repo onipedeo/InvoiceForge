@@ -54,6 +54,7 @@ export default function NewClientModal(props) {
   const handleClientModelClose = () => {
     setClientModelOpen(false);
     setClientId(null);
+    setAddressId(null);
 
   };
 
