@@ -21,7 +21,17 @@ export default function ClientList(props) {
       const clientData = await requests.get.user(user.id).clients;
       setClients(clientData);
 
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
+  const deleteClient = async (clientIdForDelete) => {
+    try {
+      const onDelete = await requests.destroy.client(clientIdForDelete)
+      console.log(clientIdForDelete)
+      console.log("after delete", onDelete)
+    
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -30,7 +40,8 @@ export default function ClientList(props) {
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
   };
-  console.log('Clients State:', clients);
+
+
   return (
     <div>
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
@@ -41,7 +52,7 @@ export default function ClientList(props) {
           <ul className="client-list">
             {clients.map((client) => (
               <li key={client.id} className="client-item">
-                <span className="client-delete-icon">&times;</span>
+                <span className="client-delete-icon" onClick={() => deleteClient(client.id)}>&times;</span>
                 <span>{client.name}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
