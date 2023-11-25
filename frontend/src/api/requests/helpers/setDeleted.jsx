@@ -11,10 +11,6 @@ export default (url) => {
   //configure the request options
   const requestOptions = {
     method: "PUT", // Change the method to "PUT"
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(Dto),
   };
 
   return fetch(url, requestOptions)
