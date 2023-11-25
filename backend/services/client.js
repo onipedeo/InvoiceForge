@@ -38,6 +38,9 @@ class ClientService {
     return clientDao.getObject(clientId);
   }
   
+  delete(clientId) {
+    return clientDao.delete(clientId);
+  }
 }
 
 module.exports = new ClientService();
