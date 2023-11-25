@@ -28,10 +28,10 @@ export default function ClientList(props) {
 
   const deleteClient = async (clientIdForDelete) => {
     try {
-      const onDelete = await requests.destroy.client(clientIdForDelete)
+      const onDelete = await requests.setDeleted.client(clientIdForDelete)
       console.log(clientIdForDelete)
       console.log("after delete", onDelete)
-    
+
     } catch (error) {
       console.error('Error fetching user data:', error);
     }

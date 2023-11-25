@@ -7,10 +7,10 @@
  * @returns {Promise<object>} - A promise that resolves to the response data.
  * @throws {Error} - If there is an error during the request.
  */
-export default (url, Dto) => {
+export default (url) => {
   //configure the request options
   const requestOptions = {
-    method: "DELETE", // Change the method to "PUT"
+    method: "PUT", // Change the method to "PUT"
     headers: {
       "Content-Type": "application/json",
     },
