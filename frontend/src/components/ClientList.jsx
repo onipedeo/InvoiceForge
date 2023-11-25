@@ -46,6 +46,7 @@ export default function ClientList(props) {
       const deletedOrNot = await requests.setDeleted.client(clientIdForDelete)
       console.log(clientIdForDelete)
       console.log("deleted?", deletedOrNot)
+      setDeleteMsgShow(false);
 
     } catch (error) {
       console.error('Error fetching user data:', error);
