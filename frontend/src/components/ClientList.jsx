@@ -57,7 +57,9 @@ export default function ClientList(props) {
     setSelectedClientIdtoDelete(selectedClientId);
   }
 
- 
+  const handleDeleteConfirmPageClose = () => {
+    setDeleteMsgShow(false);
+  }
 
 
   return (
@@ -76,7 +78,7 @@ export default function ClientList(props) {
                   <p className='delete-msg'>You are about to <span style={{fontWeight:'bold'}}>delete</span> this client from your client list.</p>
                   <div className='delete-confirm'>
                   <button className='delete-button' onClick={() => deleteClient(selectedClientIdtoDelete)}>Confirm</button>
-                  <button className='delete-button'>Cancel</button>
+                  <button className='delete-button' onClick={handleDeleteConfirmPageClose}>Cancel</button>
                   </div>
                   </div>}
                 <span>{client.name}</span>
