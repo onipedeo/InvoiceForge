@@ -29,7 +29,7 @@ exports.seed = async function(knex) {
 
 
   //creates 2 reviewed appointments per day for 20 day
-  for (i = 0; i < 40; i++) {
+  for (i = 0; i < 20; i++) {
 
     // get the user id, standard rate, and next invoice number
     const appointment = {
@@ -78,15 +78,14 @@ exports.seed = async function(knex) {
     date.add(1, 'day');
 
 
-    // insert appointments into db
-    await knex('appointments').insert(appointments);
+
 
   }
 
 
   // create 10 unreviewed appointments, 2 per day for random clients
   const unreviewedAppointments = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     const unreviewedAppointment = {
       client_id: null, // will be set later
       date: date.format('YYYY-MM-DD'),
@@ -122,8 +121,9 @@ exports.seed = async function(knex) {
 
     date.add(1, 'day');
 
-    // insert appointments into db
-    await knex('appointments').insert(unreviewedAppointments);
   }
 
+  // insert appointments into db
+  await knex('appointments').insert(appointments);
+  await knex('appointments').insert(unreviewedAppointments);
 };
