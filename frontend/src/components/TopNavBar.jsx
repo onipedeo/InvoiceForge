@@ -31,7 +31,7 @@ export default function TopNavBar(props) {
           <div className="top-nav-bar__list">
             <span>Schedule</span>
             <span onClick={() => handleLinkClick(2)}>Client List</span>
-            <span>Appointments in Review</span>
+            <span onClick={() => handleLinkClick(3)}>Appointments in Review</span>
             <span onClick={() => handleLinkClick(4)}>Forge Invoice</span>
           </div>}
 
