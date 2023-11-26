@@ -35,7 +35,7 @@ export default function EditClientModal(props) {
     const [isAddressEditConfirmOpen, setAddressEditConfirm] = useState(false);
     
     {/*states end here*/}
-    {/*functions for handling routes for put requests*/}
+    {/*functions for storing input value from eidt forms*/}
 
     const handleClientEditInputChange = (e) => {
       const { name, value } = e.target;
@@ -66,19 +66,25 @@ export default function EditClientModal(props) {
     const handleEditClientModalClose = () => {
       setClientEditModelOpen(false)
       setEdited(null);
+      cleanClientInfoEditInputs();
+      cleanClientAddressEditInputs();
     }
     
     console.log("clientEditData", clientEditData)
     console.log("addressEditData", addressEditData)
 
-
+     {/*functions for calling put routes*/}
     const handleClientEditSubmit = async (e) => {
       e.preventDefault();
   
       try {
         const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); 
         console.log("clientEditResponse", clientEditResponse);
+        //trigger ClientList re-rendering
         setEdited(clientEditResponse)
+        //conditional rendering logics
+        setClientEditFormOpen(false)
+        setClientEditConfirmOpen(true)
       } catch (error) {
         console.error('Error adding client:', error);
       }
@@ -90,15 +96,43 @@ export default function EditClientModal(props) {
         const addressEditForm = { ...addressEditData, selectedClientIdtoEdit };
         const addressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditForm);
         console.log("AddressEditResponse", addressEditResponse);
+        //trigger ClientList re-rendering
         setEdited(addressEditResponse);
+          //conditional rendering logics
+        setAddressEditFormOpen(false)
+        setAddressEditConfirm(true)
       } catch (error) {
         console.error('Error adding client:', error);
       }
     };
+
+     {/*functions for state cleaning after submission*/}
+     const cleanClientInfoEditInputs = () => {
+      setClientEditData({
+        userId: user.id,
+        line1: '',
+        line2: '',
+        city: '',
+        province: '',
+        country: '',
+        postalCode: '',
+      })}
+
+      const cleanClientAddressEditInputs = () => {
+      setAddressEditData({
+        userId: user.id,
+        line1: '',
+        line2: '',
+        city: '',
+        province: '',
+        country: '',
+        postalCode: '',
+      })
+     }
   
   return (
     <div className="edit-client-modal-container" id="editClientModal">
-      <span className="edit-client-close">&times;</span>
+      <span className="edit-client-close" onClick={handleEditClientModalClose}>&times;</span>
      
       <div className="edit-client-modal-content">
       
@@ -166,7 +200,7 @@ export default function EditClientModal(props) {
           <button type="submit" className='edit-client-button'>Change Client Info</button>
         </form>}
 
-        {isClientEditFormOpen && <div>
+        {isClientEditConfirmOpen && <div>
           <h3>Client Info has been changed</h3>
           </div>
          }
@@ -224,7 +258,7 @@ export default function EditClientModal(props) {
             <button type="submit" className='edit-client-button'>Change Address</button>
           </form>}
 
-         {isAddressEditFormOpen && <div>
+         {isAddressEditConfirmOpen && <div>
           <h3>Client address has been changed</h3>
           <button onClick={handleEditClientModalClose}>Close</button>
           </div>
