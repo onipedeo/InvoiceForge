@@ -1,7 +1,9 @@
+import "../styles/clientSelection.scss"
+
 const ClientSelection = ({ handleClientSelect, clients }) => {
   return (
     <div>
-      <label>Client List</label>
+      <label className="select-client-label">Client List</label>
       <select onChange={(e) => handleClientSelect(parseInt(e.target.value))}>
         <option disabled selected value="">
           select a client

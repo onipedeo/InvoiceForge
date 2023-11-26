@@ -1,8 +1,6 @@
 const express = require("express");
 const sendEmailController = require("../controllers/sendEmail");
 const router = express.Router();
-const validateDto = require("../middleware/validate-dto");
-const invoiceEmailDto = require("../dtos/invoiceEmail");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 
