@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import requests from '../api/requests';
 import "../styles/client-list.scss";
 import NewClientModal from "./NewClientModal";
+import EditClientModal from "./EditClientModal"
 
 export default function ClientList(props) {
   const { user } = props;
@@ -85,7 +86,7 @@ export default function ClientList(props) {
             {clients.map((client) => (
               <li key={client.id} className="client-item">
                 <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
-                {/*Delete confirmation*/}
+                {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
                   <p className='delete-msg'>You are about to <span style={{fontWeight:'bold'}}>delete</span> this client from your client list.</p>
                   <div className='delete-confirm'>
@@ -93,6 +94,7 @@ export default function ClientList(props) {
                   <button className='delete-button' onClick={handleDeleteConfirmPageClose}>Cancel</button>
                   </div>
                   </div>}
+                   {/*Delete confirmation div end*/}
                 <span>{client.name}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
