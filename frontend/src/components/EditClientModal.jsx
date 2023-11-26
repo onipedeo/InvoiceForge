@@ -3,8 +3,9 @@ import "../styles/edit-client-modal.scss";
 import requests from '../api/requests';
 
 export default function NewClientModal(props) {
-  const {selectedClientIdtoEdit, user} = props
-  console.log("state in edit modal", selectedClientIdtoEdit)
+  const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit} = props
+  console.log(" selectedClientIdtoEdit", selectedClientIdtoEdit)
+  console.log("selectedAddressIdtoEdit", selectedAddressIdtoEdit)
 
     {/* states */ }
     const [clientEditData, setClientEditData] = useState({
@@ -51,7 +52,7 @@ export default function NewClientModal(props) {
   
       try {
   
-        const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); //return client id
+        const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); 
    
         console.log("clientEditResponse", clientEditResponse);
   
@@ -60,13 +61,13 @@ export default function NewClientModal(props) {
       }
     };
 
-    const handleAddressSubmit = async (e) => {
+    const handleAddressEditSubmit = async (e) => {
       e.preventDefault();
   
       try {
-        const AddressEditResponse = await requests.update.address(addressId, addressEditData);
+
+        const AddressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditData);
         console.log("AddressEditResponse", AddressEditResponse);
-  
   
       } catch (error) {
         console.error('Error adding client:', error);
@@ -80,7 +81,7 @@ export default function NewClientModal(props) {
       <div className="edit-client-modal-content">
       
         
-        <form>
+        <form onSubmit={handleClientEditSubmit}>
             <h2>Edit Client Info</h2>
 
           {/* New Client Table*/}
@@ -147,22 +148,10 @@ export default function NewClientModal(props) {
           <button type="submit" className='edit-client-button'>Edit Client Info</button>
         </form>
 
-        {/* Transition*/}
-       
-          <div >
-            <h3>Client Info Edited</h3>
-            <p>Would you like to edit client address now?</p>
-            <div className='info-address-transition-edit'>
-            <button className='edit-client-button'>Yes</button>
-            <button className='edit-client-button'>No</button>
-            </div>
-          </div>
-
         {/* Edit Address Table*/}
 
-          <form>
+          <form onSubmit={handleAddressEditSubmit}>
             <div className="address-group-edit">
-            <h3>Client Info Edited</h3>
               <label><h2>Edit Client Address</h2></label>
               <input className="address-input-edit"
                 type="text"
