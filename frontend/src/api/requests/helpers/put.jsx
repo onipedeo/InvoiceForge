@@ -20,7 +20,7 @@ export default (url, Dto) => {
     .then((response) => response.json())
     .catch((error) => {
       // Handle any errors
-      if (error.status === 404) { throw error; }
+      if (error.status === 401) { throw error; }
       else {
         console.log(error);
         throw error;

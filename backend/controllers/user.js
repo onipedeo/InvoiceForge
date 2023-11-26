@@ -17,7 +17,7 @@ class UserController {
     } catch (e) {
       console.log(e);
       if (e.message === "User not found") {
-        res.status(404).json({ error: "User not found" });
+        res.status(401).json({ error: "Unauthorized Credentials" });
       } else {
       res.status(500).json({ error: "Internal server error" });
       console.log(e)
