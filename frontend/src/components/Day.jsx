@@ -39,17 +39,25 @@ const Day = () => {
     fetchData();
   }, [])
 
+  const minTime = new Date();
+  minTime.setHours(5, 30, 0);
+  const maxTime = new Date();
+  maxTime.setHours(20, 30, 0);
+
   return (
-    <>
-      <div className="myCustomHeight" style={{ height: "80vh" }}>
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-        />
-      </div>
-    </>
+    <div className="myCustomHeight" style={{ height: "80vh" }}>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        defaultView='week'
+        views={['month', 'week', 'day']}
+        min={minTime}
+        max={maxTime}
+      />
+    </div>
+
   );
 };
 
