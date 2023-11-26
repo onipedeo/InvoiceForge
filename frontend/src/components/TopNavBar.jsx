@@ -42,7 +42,7 @@ export default function TopNavBar(props) {
           {!user && (<span>Sign Up</span>)}
         </div>
 
-        {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user} handleLinkClick={handleLinkClick} />}
+        {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} handleLinkClick={handleLinkClick} />}
       </nav>
     </div>
   );
