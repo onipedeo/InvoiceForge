@@ -1,12 +1,17 @@
 import { React, useState } from 'react';
 import '../styles/page.scss';
-import Schedule from './Schedule';
 import AddEditModal from './AddEditModal';
+import Day from './Day';
 
 
 const Page = (props) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [formData, setFormData] = useState(
+    {
+
+    }
+  )
 
   const openModal = () => {
     setModalOpen(true);
@@ -17,20 +22,20 @@ const Page = (props) => {
   };
 
   return (
-    <div>
-      <div className='fullPage'>
-        {isModalOpen ? (
-          <>
-            <AddEditModal isOpen={isModalOpen} onClose={closeModal} />
-          </>
-        ) : (
-          <>
-            <Schedule />
-          </>
-        )}
-        <button id='floating-add-button' onClick={openModal}>➕</button>
-      </div>
+
+    <div className='fullPage'>
+      {isModalOpen ? (
+        <>
+          <AddEditModal isOpen={isModalOpen} onClose={closeModal} />
+        </>
+      ) : (
+        <>
+          <Day />
+        </>
+      )}
+      <button id='floating-add-button' onClick={openModal}>➕</button>
     </div>
+
   );
 };
 
