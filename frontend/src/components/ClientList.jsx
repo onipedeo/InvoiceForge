@@ -102,7 +102,7 @@ export default function ClientList(props) {
             {clients.map((client) => (
               <li key={client.id} className="client-item">
                   {/*edit icon and delete icons*/}
-                <span className='client-edit-icon' onClick={()=> {handleClientEditModalClick(client.id, client.address.id)}}> &#9998;</span>
+                <span className='client-edit-icon' onClick={()=> {handleClientEditModalClick(client.clientId, client.address.id)}}> &#9998;</span>
                 <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
                 {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
