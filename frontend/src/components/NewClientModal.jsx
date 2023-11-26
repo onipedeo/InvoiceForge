@@ -175,7 +175,7 @@ export default function NewClientModal(props) {
         {/* Transition*/}
         {clientId && !showAddressForm &&
           <div >
-            <h3>Client Info Added</h3>
+            <h3>☑️ Client Info Added</h3>
             <p>Would you like to add client address now?</p>
             <div className='info-address-transition'>
             <button onClick={handleTransition} className='new-client-button'>Yes</button>
@@ -188,7 +188,6 @@ export default function NewClientModal(props) {
         {showAddressForm && !addressId &&
           <form onSubmit={handleAddressSubmit}>
             <div className="address-group">
-            <h3>Client Info Added</h3>
               <label><h2>Add Client Address</h2></label>
               <input className="address-input"
                 type="text"
@@ -243,7 +242,7 @@ export default function NewClientModal(props) {
               {/* Close msg and button*/}
               {addressId &&
               <div>
-                <h3>Client Address Added</h3>
+                <h3>☑️ Client Address Added</h3>
                 <button onClick={handleClientModelClose} className='new-client-button'>Close</button>
               </div>
             }

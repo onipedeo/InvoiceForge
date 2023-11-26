@@ -136,7 +136,7 @@ export default function EditClientModal(props) {
      
       <div className="edit-client-modal-content">
       
-      <h2 onClick ={handleEditClientFormShow}>+ Edit Client Info</h2>
+      <h2 onClick ={handleEditClientFormShow}>➕ Edit Client Info</h2>
        {/* Edit Client Table*/}
        {isClientEditFormOpen &&
         <form onSubmit={handleClientEditSubmit}>
@@ -201,12 +201,12 @@ export default function EditClientModal(props) {
         </form>}
 
         {isClientEditConfirmOpen && <div>
-          <h3>Client Info has been changed</h3>
+          <h3>☑️ Client Info has been changed</h3>
           </div>
          }
 
         {/* Edit Address Table*/}
-        <h2 onClick ={handleEditAddresssFormShow}> + Edit Address Info</h2>
+        <h2 onClick ={handleEditAddresssFormShow}>➕ Edit Address Info</h2>
         {isAddressEditFormOpen &&
           <form onSubmit={handleAddressEditSubmit}>
             <div className="address-group-edit">
@@ -259,8 +259,8 @@ export default function EditClientModal(props) {
           </form>}
 
          {isAddressEditConfirmOpen && <div>
-          <h3>Client address has been changed</h3>
-          <button onClick={handleEditClientModalClose}>Close</button>
+          <h3>☑️ Client address has been changed</h3>
+          <button onClick={handleEditClientModalClose} className='edit-client-button'>Close</button>
           </div>
          }
       </div>
