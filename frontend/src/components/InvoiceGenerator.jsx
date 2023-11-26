@@ -1,9 +1,6 @@
 import { useState } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-// const {sendInvoiceByEmail} = require('./sendInvoiceByEmail');
-const sendInvoiceByEmail = require("../helpers/sendInvoiceByEmail");
-console.log("sendInvoiceByEmail", sendInvoiceByEmail);
 
 const InvoiceGenerator = ({
   reviewedAppointments,
@@ -14,6 +11,8 @@ const InvoiceGenerator = ({
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [generatedAttachment, setGeneratedAttachment] = useState(null);
+
   const standardRateCents = user.standardRateCents;
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
@@ -137,12 +136,29 @@ const InvoiceGenerator = ({
     // Save the PDF
     const generatedPDFData = pdf.output("blob");
     setGeneratedPDF(URL.createObjectURL(generatedPDFData));
+    setGeneratedAttachment(
+      new File([generatedPDFData], "invoice.pdf", { type: "application/pdf" })
+    );
 
     setErrorMessage("");
   };
 
   const handleConfirmAndSend = () => {
-    // sendInvoiceByEmail(user.firstName, clientObj.name, generatedPDF)
+    const email = "olamidejr21@gmail.com";
+    const userName = user.firstName;
+    const clientName = clientObj.name;
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("userName", userName);
+    formData.append("clientName", clientName);
+    formData.append("pdf", generatedAttachment);
+
+    const requestOptions = {
+      method: "POST",
+      body: formData,
+    };
+    fetch("/api/send_email/invoice", requestOptions);
   };
 
   return (
