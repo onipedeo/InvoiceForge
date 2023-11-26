@@ -52,7 +52,6 @@ exports.seed = async function(knex) {
     const endTime = moment(appointment.end_time, 'HH:mm:ss');
 
     appointment.confirmed_hours = endTime.diff(startTime, 'hours');
-    console.log('first appointment', appointment);
     appointments.push(appointment);
 
     // the second appointment:
@@ -74,7 +73,6 @@ exports.seed = async function(knex) {
     const secondEndTime = moment(secondAppointment.end_time, 'HH:mm:ss');
     secondAppointment.confirmed_hours = secondEndTime.diff(secondStartTime, 'hours');
 
-    console.log('second appointment', secondAppointment);
     appointments.push(secondAppointment);
 
     date.add(1, 'day');
@@ -104,7 +102,6 @@ exports.seed = async function(knex) {
 
     // get the client and user ids
     unreviewedAppointment.client_id = randomFromArr(clients).client_id;
-    console.log('unreviewed appointment', unreviewedAppointment);
     unreviewedAppointments.push(unreviewedAppointment);
 
     // the second appointment:
@@ -121,7 +118,6 @@ exports.seed = async function(knex) {
       secondUnreviewedAppointment.notes = randomFromArr(notes);
     }
 
-    console.log('second unreviewed appointment', secondUnreviewedAppointment);
     unreviewedAppointments.push(secondUnreviewedAppointment);
 
     date.add(1, 'day');
