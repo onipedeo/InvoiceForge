@@ -31,12 +31,14 @@ class appointmentDao {
     return await db('appointments').where({ id }).del();
   }
 
-  async edit(id, date, startTime, endTime, appointmentRateCents, notes) {
+  async edit({id, date, startTime, endTime, appointmentRateCents, notes, confirmedHours}) {
+    if (confirmedHours > 0) {
+      await this.confirmHours(id, confirmedHours);
+    }
     return await db('appointments').where({ id }).update({
       date,
       start_time: startTime,
       end_time: endTime,
-      client_id: clientId,
       appointment_rate_cents: appointmentRateCents,
       notes
     });
