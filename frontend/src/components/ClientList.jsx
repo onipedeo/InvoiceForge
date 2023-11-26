@@ -135,7 +135,7 @@ export default function ClientList(props) {
         setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
       
       {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} 
-      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user}/>}
+      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen}/>}
     </div>
   );
 }
