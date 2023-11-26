@@ -44,6 +44,34 @@ export default function NewClientModal(props) {
     
     console.log("clientEditData", clientEditData)
     console.log("addressEditData", addressEditData)
+
+
+    const handleClientEditSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+  
+        const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); //return client id
+   
+        console.log("clientEditResponse", clientEditResponse);
+  
+      } catch (error) {
+        console.error('Error adding client:', error);
+      }
+    };
+
+    const handleAddressSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const AddressEditResponse = await requests.update.address(addressId, addressEditData);
+        console.log("AddressEditResponse", AddressEditResponse);
+  
+  
+      } catch (error) {
+        console.error('Error adding client:', error);
+      }
+    };
   
   return (
     <div className="edit-client-modal-container" id="editClientModal">
