@@ -4,18 +4,23 @@ const humps = require('humps');
 
 module.exports = async function (where) {
   if (!!where.user_id) {
-    const {user_id, ...where} = where;
-    const clients = await db('clients_users').where({ user_id });
+    const {user_id, ...newWhere} = where;
+    const clientIds = await db('clients_users').where({ user_id }).pluck('client_id');
    // generate array of unique client ids
-   const clientIds = clients.map(client => client.client_id);
    const uniqueClientIds = [...new Set(clientIds)];
+   console.log('uniqueClientIds', uniqueClientIds);
 
-   // retrieve all invoices for each client
+   // retrieve appointments for each client
    const appointments = await Promise.all(uniqueClientIds.map(async (clientId) => {
-     return await db('appointments').where({ client_id: clientId });
+     const thisWhere = { ...newWhere, client_id: clientId };
+     return await db('appointments').where(thisWhere);
+
    }));
 
-  return humps.camelizeKeys(appointments);
+    const flattenedAppointments = appointments.reduce((acc, val) => acc.concat(val), []);
+   console.log('flattenedAppointments', flattenedAppointments);
+
+  return flattenedAppointments
   } else {
     const appointments = await db('appointments').where(where);
     return humps.camelizeKeys(appointments);
