@@ -18,7 +18,7 @@ class AddressService {
 
   edit(id, addressDto) {
     const { line1, line2, city, province, country, postalCode } = addressDto;
-    return addressDao.edit(id, line1, line2, city, province, country, postalCode);
+    return addressDao.edit({id, line1, line2, city, province, country, postalCode});
   }
 }
 
