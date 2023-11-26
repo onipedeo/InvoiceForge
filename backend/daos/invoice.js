@@ -6,7 +6,6 @@ class InvoiceDao {
     const invoiceNumber = await this._getNextInvoiceNumber(userId);
     const [id] = await db('invoices').insert({
       invoice_number: invoiceNumber,
-      user_id: userId,
       client_id: clientId,
       due_date: dueDate,
       total_cents: totalCents
@@ -30,6 +29,7 @@ class InvoiceDao {
     if (!invoice) throw { statusCode: 404, message: 'Invoice not found' };
     return await infuseInvoiceWithData(invoice)
   }
+
 
   async _getNextInvoiceNumber(userId) {
     return await db('users').select('next_invoice_number').where({ id: userId }).first().then(user => user.next_invoice_number);
