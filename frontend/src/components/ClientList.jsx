@@ -19,9 +19,11 @@ export default function ClientList(props) {
   const [deleteMsgShow, setDeleteMsgShow] = useState(false);
   const [selectedClientIdtoDelete, setSelectedClientIdtoDelete] = useState(null);
   const [deleted,setDeleted] = useState(false);
+
+  {/* states for EditClientsModal*/}
+  const [isClientEditModalOpen, setClientEditModelOpen] = useState(false);
  
 
-  
   useEffect(() => {
     fetchClients();
 
@@ -35,6 +37,8 @@ export default function ClientList(props) {
     
   }, [clientId, addressId, deleted]);
 
+    {/* functions handling get clients logic*/ }
+
   const fetchClients = async () => {
     try {
       const clientData = await requests.get.user(user.id).clients;
@@ -46,6 +50,7 @@ export default function ClientList(props) {
   };
   
   console.log("clientData", clients)
+
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
   };
@@ -74,6 +79,13 @@ export default function ClientList(props) {
     setDeleteMsgShow(false);
   }
 
+  {/* functions handling client edit logic*/ }
+
+  const handleClientEditModalClick = () => {
+    setClientEditModelOpen(true)
+  }
+
+  
 
   return (
     <div>
@@ -85,6 +97,7 @@ export default function ClientList(props) {
           <ul className="client-list">
             {clients.map((client) => (
               <li key={client.id} className="client-item">
+                <span className='client-edit-icon' onClick={handleClientEditModalClick}> &#9998;</span>
                 <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
                 {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
@@ -115,6 +128,8 @@ export default function ClientList(props) {
 
       {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
         setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
+      
+      {isClientEditModalOpen && <EditClientModal/>}
     </div>
   );
 }
