@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import requests from '../api/requests';
-import '../styles/login-modal.scss';
+import '../styles/login-modal.scss'; 
 
 
 const LoginModal = (props) => {
@@ -28,15 +28,15 @@ const LoginModal = (props) => {
 
   return (
     <div className="login-container">
-      <div className="modal" id="loginModal">
-        <span className="close" onClick={props.onClose}>
+      <div className="login-modal" id="loginModal">
+        <span className="login-close" onClick={props.onClose}>
           &times;
         </span>
         <div className="modal-content">
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="login-form">
-              <div className="form-group">
+              <div className="login-form-group">
                 <label htmlFor="email">Email:</label>
                 <input
                   type="email"
@@ -46,11 +46,11 @@ const LoginModal = (props) => {
                   required
                 />
               </div>
-              <div className="form-group">
+              <div className="login-form-group">
                 <label htmlFor="password">Password:</label>
                 <input type="password" id="password" />
               </div>
-              <button type="submit">Login</button>
+              <button className='login-button' type="submit">Login</button>
             </div>
           </form>
         </div>

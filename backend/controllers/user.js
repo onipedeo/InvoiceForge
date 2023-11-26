@@ -6,6 +6,7 @@ class UserController {
       const id = await userService.create(req.body);
       res.status(201).json(id);
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
@@ -14,6 +15,7 @@ class UserController {
       const user = await userService.getByEmail(req.body);
       res.status(200).json(user);
     } catch (e) {
+      console.log(e);
       res.status(500).json({ error: "Internal server error" });
     }
   }
@@ -22,6 +24,7 @@ class UserController {
       const user = await userService.getById(req.params.id);
       res.status(200).json(user);
     } catch (e) {
+      console.log(e);
       res.status(500).json({ error: "Internal server error" });
 
     }
@@ -32,6 +35,7 @@ class UserController {
       const id = await userService.edit(req.params.id, req.body);
       res.status(200).json({ message: "User updated successfully" });
     } catch (e) {
+      console.log(e);
       res.status(500).json({ error: "Internal server error" });
 
     }
@@ -44,6 +48,7 @@ class UserController {
       );
       res.status(200).json(invoice);
     } catch (e) {
+      console.log(e);
       res.status(500).json({ error: "Internal server error" });
 
     }
@@ -56,46 +61,50 @@ class UserController {
       );
       res.status(200).json(appointments);
     } catch (e) {
+      console.log(e);
       res.status(500).json({ error: "Internal server error" });
 
     }
   }
 
-  async getClients(req, res) {
-    try {
-      const clients = await userService.getClients(
-        req.params.id,
-      );
-      res.status(200).json(clients);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
 
+    async getClients(req, res) {
+      try {
+        const clients = await userService.getClients(
+          req.params.id,
+        );
+        res.status(200).json(clients);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+
+    async getUnreviewed(req, res) {
+      try {
+        const unreviewed = await userService.getUnreviewed(
+          req.params.id,
+        );
+        res.status(200).json(unreviewed);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Internal server error" });
+
+      }
+    }
+
+    async getObject(req, res) {
+      try {
+        const object = await userService.getObject(
+          req.params.id,
+        );
+        res.status(200).json(object);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Internal server error" });
+
+      }
     }
   }
 
-  async getUnreviewed(req, res) {
-    try {
-      const unreviewed = await userService.getUnreviewed(
-        req.params.id,
-      );
-      res.status(200).json(unreviewed);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-
-    }
-  }
-
-  async getObject(req, res) {
-    try {
-      const object = await userService.getObject(
-        req.params.id,
-      );
-      res.status(200).json(object);
-    } catch (e) {
-      res.status(500).json({ error: "Internal server error" });
-
-    }
-  }
-}
-
-module.exports = new UserController();
+  module.exports = new UserController();

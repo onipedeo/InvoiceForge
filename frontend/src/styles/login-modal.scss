@@ -6,7 +6,7 @@
   width: 20%;
 }
 
-.modal {
+.login-modal {
   position: relative; 
   display: flex;
   flex-direction: column;
@@ -18,9 +18,14 @@
 }
 
 .modal-content {
+
    width: 100%;
 
-  .form-group {
+   h2 {
+    margin-bottom: 10px;
+  }
+
+  .login-form-group {
     width: 100%; 
     margin-bottom: 20px; 
     
@@ -31,7 +36,7 @@
     }
 
     input {
-      width: calc(100% - 10px); 
+      width: 90%;
       padding: 10px; 
       background-color: lightgray;
       border: 1px solid #ccc; 
@@ -40,7 +45,7 @@
   }
 }
 
-.close {
+.login-close {
   position: absolute;
   right: 10px;
   cursor: pointer;
@@ -49,16 +54,14 @@
 }
 
 
-h2 {
-  margin-bottom: 10px;
-}
+
 
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 
-  button {
+  .login-button {
     background-color: gray;
   }
 }
