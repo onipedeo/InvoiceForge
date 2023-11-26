@@ -7,26 +7,18 @@
  * @returns {Promise<object>} - A promise that resolves to the response data.
  * @throws {Error} - If there is an error during the request.
  */
-export default (url, Dto) => {
+export default (url) => {
   //configure the request options
   const requestOptions = {
-    method: "DELETE", // Change the method to "PUT"
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(Dto),
+    method: "PUT", // Change the method to "PUT"
   };
 
   return fetch(url, requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-      // Handle the response data
-      console.log(data);
-      return data;
-    })
+    .then((response) => true)
     .catch((error) => {
       // Handle any errors
       console.error(error);
-      throw error;
+      console.log("Error deleting data");
+      throw new Error("Error deleting data");
     });
 };

@@ -73,6 +73,17 @@ class ClientController {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+  
+  async delete(req, res) {
+    try {
+      const client = await clientService.delete(req.params.id);
+      res.status(200).json(client);
+    } catch (e) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  
 
 }
 module.exports = new ClientController();

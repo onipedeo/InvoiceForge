@@ -40,4 +40,8 @@ router.put('/:id/address/:addressId', (req, res) => {
   clientController.setAddressId(req, res);
 });
 
+router.put('/:id/delete', (req, res) => {
+  clientController.delete(req, res);
+});
+
 module.exports = router;

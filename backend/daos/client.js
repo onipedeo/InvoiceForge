@@ -73,6 +73,18 @@ class ClientDao {
     client = await replacePropertyWithinObject('address', client);
     return  humps.camelizeKeys(client);
   }
+
+  // update the database with {deleted: true} where {client_id: id}
+  async delete(clientId) {
+      await db('clients')
+      .where({ id: clientId })
+      .update({
+        deleted: true
+      })
+  }
 }
+
+
+
 
 module.exports = new ClientDao();

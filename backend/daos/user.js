@@ -81,7 +81,7 @@ class UserDao {
   }
 
   async getClients(id) {
-    const dirtyClients = await db('clients').where({ user_id: id });
+    const dirtyClients = await db('clients').where({ user_id: id, deleted: false }).orderBy('updated_at', 'desc');
     const clients = await Promise.all(dirtyClients.map(async (client) => {
       return await replacePropertyWithinObject('address', client);
     }
