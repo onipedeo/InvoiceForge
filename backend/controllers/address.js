@@ -36,6 +36,7 @@ class AddressController {
       res.status(200).json({ message: 'Address updated successfully' });
     } catch (e) {
       res.status(500).json({ error: 'Internal server error' });
+      console.log(e)
 
     }
   }
