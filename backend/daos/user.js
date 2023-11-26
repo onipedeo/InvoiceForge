@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const client = require('./client');
 const { replacePropertyWithinObject, getAppointmentsByWhere, getInvoicesByWhere } = require('./helpers');
 const humps = require('humps');
 class UserDao {
@@ -81,7 +82,10 @@ class UserDao {
   }
 
   async getClients(id) {
-    const dirtyClients = await db('clients').where({ user_id: id, deleted: false }).orderBy('updated_at', 'desc');
+    // get list of clients by joining clients_users table with clients table
+    const dirtyClients = await db('clients_users')
+    .join('clients', 'clients_users.client_id', '=', 'clients.id')
+    .where({ user_id: id });
     const clients = await Promise.all(dirtyClients.map(async (client) => {
       return await replacePropertyWithinObject('address', client);
     }
