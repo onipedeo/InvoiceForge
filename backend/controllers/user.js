@@ -110,6 +110,19 @@ class UserController {
 
       }
     }
+
+    async getReviewed(req, res) {
+      try {
+        const reviewed = await userService.getReviewed(
+          req.params.id,
+        );
+        res.status(200).json(reviewed);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Internal server error" });
+
+      }
+    }
   }
 
   module.exports = new UserController();
