@@ -13,24 +13,31 @@ const AddEditModal = (props) => {
         <form >
           <button className="close-modal" type='submit' onClick={props.onClose}>❌</button>
           <label htmlFor="Title">
-            Title:
+            Client Name:
           </label>
           <input
             type="text"
-            name="title"
+            name="name"
+          />
+          <label>
+            Date:
+          </label>
+          <input
+            type="date"
+            name="date"
           />
           <label>
             Start Time:
           </label>
           <input
-            type="datetime-local"
+            type="time"
             name="startTime"
           />
           <label>
             End Time:
           </label>
           <input
-            type="datetime-local"
+            type="time"
             name="endTime"
           />
           <label>
