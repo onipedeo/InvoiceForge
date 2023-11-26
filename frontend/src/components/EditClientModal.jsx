@@ -2,12 +2,14 @@ import { useState } from 'react';
 import "../styles/edit-client-modal.scss";
 import requests from '../api/requests';
 
-export default function NewClientModal(props) {
-  const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit} = props
-  console.log(" selectedClientIdtoEdit", selectedClientIdtoEdit)
-  console.log("selectedAddressIdtoEdit", selectedAddressIdtoEdit)
+export default function EditClientModal(props) {
 
-    {/* states */ }
+  const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit, setClientEditModelOpen} = props
+  console.log("selectedClientIdtoEdit", selectedClientIdtoEdit)
+  console.log("selectedAddressIdtoEdit", selectedAddressIdtoEdit)
+    
+
+    {/*states*/}
     const [clientEditData, setClientEditData] = useState({
       userId: user.id,
       name: '',
@@ -27,6 +29,12 @@ export default function NewClientModal(props) {
       postalCode: '',
     });
     
+    const [isClientEditFormOpen, setClientEditFormOpen] = useState(false);
+    const [isAddressEditFormOpen, setAddressEditFormOpen] = useState(false);
+    
+    {/*states end here*/}
+    {/*functions for handling routes for put requests*/}
+
     const handleClientEditInputChange = (e) => {
       const { name, value } = e.target;
       setClientEditData((prevData) => ({
@@ -42,6 +50,20 @@ export default function NewClientModal(props) {
         [name]: value,
       }));
     };
+
+     {/*functions for conditional rendering*/}
+
+    const handleEditClientFormShow = () => {
+      setClientEditFormOpen(true);
+    }
+
+    const handleEditAddresssFormShow = () => {
+      setAddressEditFormOpen(true)
+    }
+
+    const handleEditClientModalClose = () => {
+      setClientEditModelOpen(false)
+    }
     
     console.log("clientEditData", clientEditData)
     console.log("addressEditData", addressEditData)
@@ -51,11 +73,8 @@ export default function NewClientModal(props) {
       e.preventDefault();
   
       try {
-  
         const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); 
-   
         console.log("clientEditResponse", clientEditResponse);
-  
       } catch (error) {
         console.error('Error adding client:', error);
       }
@@ -63,12 +82,10 @@ export default function NewClientModal(props) {
 
     const handleAddressEditSubmit = async (e) => {
       e.preventDefault();
-  
       try {
-
-        const AddressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditData);
+        const addressEditForm = { ...addressEditData, selectedClientIdtoEdit };
+        const AddressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditForm);
         console.log("AddressEditResponse", AddressEditResponse);
-  
       } catch (error) {
         console.error('Error adding client:', error);
       }
@@ -80,12 +97,10 @@ export default function NewClientModal(props) {
      
       <div className="edit-client-modal-content">
       
-        
+      <h2 onClick ={handleEditClientFormShow}>+ Edit Client Info</h2>
+       {/* Edit Client Table*/}
+       {isClientEditFormOpen &&
         <form onSubmit={handleClientEditSubmit}>
-            <h2>Edit Client Info</h2>
-
-          {/* New Client Table*/}
-
           <div className="form-group-edit-client">
             <label htmlFor="name">Name:</label>
             <input
@@ -145,14 +160,15 @@ export default function NewClientModal(props) {
           </div>
           
 
-          <button type="submit" className='edit-client-button'>Edit Client Info</button>
-        </form>
+          <button type="submit" className='edit-client-button'>Change Client Info</button>
+        </form>}
 
         {/* Edit Address Table*/}
-
+        <h3>Client Info has been changed</h3>
+        <h2 onClick ={handleEditAddresssFormShow}> + Edit Address Info</h2>
+        {isAddressEditFormOpen &&
           <form onSubmit={handleAddressEditSubmit}>
             <div className="address-group-edit">
-              <label><h2>Edit Client Address</h2></label>
               <input className="address-input-edit"
                 type="text"
                 placeholder="Line 1 (required)"
@@ -199,18 +215,13 @@ export default function NewClientModal(props) {
               />
             </div>
             <button type="submit" className='edit-client-button'>Change Address</button>
-            
-         
-          </form>
+          </form>}
 
-              {/* Close msg and button*/}
-            
-              <div>
-                <h3>Client Address Changed</h3>
-                <button className='edit-client-button'>Close</button>
-              </div>
-            
-
+         {isAddressEditFormOpen && <div>
+          <h3>Client address has been changed</h3>
+          <button onClick={handleEditClientModalClose}>Close</button>
+          </div>
+         }
       </div>
     </div>
   );
