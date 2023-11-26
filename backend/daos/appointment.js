@@ -2,14 +2,13 @@ const db = require('../db/db');
 const { replacePropertyWithinObject } = require('./helpers');
 const humps = require('humps');
 class appointmentDao {
-  async create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes) {
+  async create(date, startTime, endTime, clientId, appointmentRateCents, notes) {
     try {
       const [id] = await db('appointments').insert({
         date,
         start_time: startTime,
         end_time: endTime,
         client_id: clientId,
-        user_id: userId,
         appointment_rate_cents: appointmentRateCents,
         notes
       })
@@ -32,13 +31,12 @@ class appointmentDao {
     return await db('appointments').where({ id }).del();
   }
 
-  async edit(id, date, startTime, endTime, clientId, userId, appointmentRateCents, notes) {
+  async edit(id, date, startTime, endTime, appointmentRateCents, notes) {
     return await db('appointments').where({ id }).update({
       date,
       start_time: startTime,
       end_time: endTime,
       client_id: clientId,
-      user_id: userId,
       appointment_rate_cents: appointmentRateCents,
       notes
     });

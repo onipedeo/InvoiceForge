@@ -4,9 +4,8 @@ const humps = require('humps');
 
 class ClientDao {
   async create(userId, name, companyName, email, phone, clientRateCents) {
-    const id = await db('clients')
+    const [id] = await db('clients')
       .insert({
-        user_id: userId,
         name,
         company_name: companyName,
         email,
@@ -14,6 +13,8 @@ class ClientDao {
         client_rate_cents: clientRateCents
       })
       .returning('id');
+
+    await db('clients_users').insert({ client_id: id, user_id: userId });
 
     return id;
   }

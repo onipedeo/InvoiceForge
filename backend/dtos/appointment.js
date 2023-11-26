@@ -4,7 +4,6 @@ moment().format();
 
 module.exports = yup.object().shape({
   invoiceId: yup.number().integer().positive().nullable().default(null),
-  userId: yup.number().integer().positive().required(),
   clientId: yup.number().integer().positive().required(),
   date: yup.date().required(),
   startTime: yup.string().required(),
