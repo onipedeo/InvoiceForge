@@ -24,6 +24,7 @@ class appointmentDao {
     let appointment = await db('appointments').select('*').where({ id }).first();
     appointment = await replacePropertyWithinObject('client', appointment, 'appointment');
     appointment = await replacePropertyWithinObject('user', appointment, 'appointment');
+    appointment.client = await replacePropertyWithinObject('address', appointment.client);
     return humps.camelizeKeys(appointment);
   }
 
