@@ -1,10 +1,12 @@
+import ReviewAppointments from "./components/ReviewAppointments/ReviewAppointments";
 import AppointmentContainer from "./components/AppointmentContainer";
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import LandingPage from "./components/Landingpage";
 import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
 import ClientList from "./components/ClientList";
+import { ReviewAppointmentsProvider } from "./components/ReviewAppointments/UseReviewAppointmentsContext";
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -26,13 +28,19 @@ function App() {
         setUser={setUser}
         handleLinkClick={handleLinkClick}
       />
-      {displayPage === 0 && <LandingPage />}
-      {displayPage === 2 && <ClientList user={user}/>}
-      {displayPage === 4 && (
-        <AppointmentContainer user={user} />
-      )}
+      <section className="page-content">
+        {displayPage === 0 && <LandingPage />}
+        {displayPage === 2 && <ClientList user={user} />}
+        {displayPage === 3 &&
+          <ReviewAppointmentsProvider user={user}>
+            <ReviewAppointments setDisplayPage={setDisplayPage} />
+          </ReviewAppointmentsProvider>
+        }
+        {displayPage === 4 && (
+          <AppointmentContainer user={user} />
+        )}
+      </section>
       <Footer />
-
     </>
   );
 }
