@@ -5,7 +5,7 @@ import '../styles/login-modal.scss';
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const { setUser, handleLinkClick } = props;
 
   const fetchUser = async () => {
@@ -15,7 +15,7 @@ const LoginModal = (props) => {
       if (!user.error) {
         console.log('user', user);
         setUser(user);
-        setError(null);
+        setLoginError(null);
         // check that a user was retrieved and that they have clients
         const clients = await requests.get.user(user.id).clients;
         if (clients.length === 0) {
@@ -24,10 +24,10 @@ const LoginModal = (props) => {
       }
       else {
         // if no user was retrieved, set error to true
-        setError(true);
+        setLoginError(true);
       }
     } catch (error) {
-      console.log(error);
+    console.log(error);
     }
   };
 
@@ -63,7 +63,7 @@ const LoginModal = (props) => {
               <button className='login-button' type="submit">Login</button>
             </div>
           </form>
-          {error && <div className="error-message">{"Login Failed"}</div>}
+          {loginError && <div className="error-message">{"Login Failed"}</div>}
         </div>
       </div>
     </div>
