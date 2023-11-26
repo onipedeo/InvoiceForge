@@ -16,7 +16,12 @@ class UserController {
       res.status(200).json(user);
     } catch (e) {
       console.log(e);
+      if (e.message === "User not found") {
+        res.status(404).json({ error: "User not found" });
+      } else {
       res.status(500).json({ error: "Internal server error" });
+      console.log(e)
+      }
     }
   }
   async getById(req, res) {

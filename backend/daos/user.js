@@ -36,6 +36,9 @@ class UserDao {
 
   async getByEmail(email) {
     let user = await db('users').where({ email }).first();
+    if (!user) {
+      throw new Error('User not found');
+    }
     user = await replacePropertyWithinObject('address', user);
     return humps.camelizeKeys(user);
   }
