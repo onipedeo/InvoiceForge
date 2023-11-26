@@ -24,6 +24,7 @@ export default function ClientList(props) {
   const [isClientEditModalOpen, setClientEditModelOpen] = useState(false);
   const [selectedClientIdtoEdit, setSelectedClientIdtoEdit] = useState(null);
   const [selectedAddressIdtoEdit, setSelectedAddressIdtoEdit] = useState(null);
+  const [edited, setEdited] = useState(null);
  
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function ClientList(props) {
       return () => clearTimeout(resetTimeout);
     }
     
-  }, [clientId, addressId, deleted]);
+  }, [clientId, addressId, deleted, edited]);
 
     {/* functions handling get clients logic*/ }
 
@@ -134,7 +135,7 @@ export default function ClientList(props) {
       {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
         setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
       
-      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} 
+      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} setEdited={setEdited}
       selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen}/>}
     </div>
   );
