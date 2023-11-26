@@ -23,6 +23,7 @@ export default function ClientList(props) {
   {/* states for EditClientsModal*/}
   const [isClientEditModalOpen, setClientEditModelOpen] = useState(false);
   const [selectedClientIdtoEdit, setSelectedClientIdtoEdit] = useState(null);
+  const [selectedAddressIdtoEdit, setSelectedAddressIdtoEdit] = useState(null);
  
 
   useEffect(() => {
@@ -82,12 +83,13 @@ export default function ClientList(props) {
 
   {/* functions handling client edit logic*/ }
 
-  const handleClientEditModalClick = (selectedClientId) => {
+  const handleClientEditModalClick = (selectedClientId, selectedAddressId) => {
     setClientEditModelOpen(true);
     setSelectedClientIdtoEdit(selectedClientId);
+    setSelectedAddressIdtoEdit(selectedAddressId)
   }
   
-
+ 
   return (
     <div>
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
@@ -99,7 +101,7 @@ export default function ClientList(props) {
             {clients.map((client) => (
               <li key={client.id} className="client-item">
                   {/*edit icon and delete icons*/}
-                <span className='client-edit-icon' onClick={()=> {handleClientEditModalClick(client.id)}}> &#9998;</span>
+                <span className='client-edit-icon' onClick={()=> {handleClientEditModalClick(client.id, client.address.id)}}> &#9998;</span>
                 <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
                 {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
@@ -111,6 +113,7 @@ export default function ClientList(props) {
                   </div>}
                    {/*Delete confirmation div end*/}
                 <span>{client.name}</span>
+                <span>{client.email}</span>
                 {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
                 {client.phone && <span>Phone: {client.phone}</span>}
                 {client.companyName && <span>Company: {client.companyName}</span>}
@@ -131,7 +134,8 @@ export default function ClientList(props) {
       {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
         setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
       
-      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} user={user}/>}
+      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} 
+      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user}/>}
     </div>
   );
 }
