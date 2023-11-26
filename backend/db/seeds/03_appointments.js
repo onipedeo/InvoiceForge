@@ -7,7 +7,7 @@ const moment = require('moment');
 exports.seed = async function(knex) {
   // Deletes ALL existing appointments and invoices
   await knex('appointments').del();
-  await knex('invoices').del();
+  await knex.raw('ALTER SEQUENCE appointments_id_seq RESTART WITH 1');
 
   const randomFromArr = (arr) => {
     const randomElement = arr[Math.floor(Math.random() * arr.length)];
