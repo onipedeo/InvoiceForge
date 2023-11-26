@@ -68,7 +68,7 @@ export default function NewClientModal(props) {
     try {
 
       const response = await requests.create.client(clientData); //return client id
-      const newClientId = response[0].id;
+      const newClientId = response;
       console.log("response", response);
       console.log(newClientId);
       setClientId(newClientId);
@@ -100,10 +100,10 @@ export default function NewClientModal(props) {
   return (
     <div className="new-client-modal-container" id="newClientModal">
       <span className="new-client-close" onClick={handleClientModelClose}>&times;</span>
-     
+
       <div className="new-client-modal-content">
-      
-      
+
+
         {!clientId &&
         <form onSubmit={handleClientSubmit}>
             <h2>Add Client Info</h2>
@@ -167,7 +167,7 @@ export default function NewClientModal(props) {
               placeholder='optional'
             />
           </div>
-          
+
 
           <button type="submit" className='new-client-button'>Add Client Info</button>
         </form>}
@@ -236,8 +236,8 @@ export default function NewClientModal(props) {
               />
             </div>
             <button type="submit" className='new-client-button' onClick={handleTransition}>Add Address</button>
-            
-         
+
+
           </form>}
 
               {/* Close msg and button*/}

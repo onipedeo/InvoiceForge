@@ -14,13 +14,13 @@ class ClientDao {
       })
       .returning('id');
 
-    await db('clients_users').insert({ client_id: id, user_id: userId });
+    await db('clients_users').insert({ client_id: id.id, user_id: userId });
 
     return id;
   }
 
   async update(clientId, name, companyName, email, phone, clientRateCents) {
-    const id = await db('clients')
+    const [id] = await db('clients')
       .where({ id: clientId })
       .update({
         name,
@@ -82,6 +82,7 @@ class ClientDao {
       .update({
         deleted: true
       })
+      return true;
   }
 }
 
