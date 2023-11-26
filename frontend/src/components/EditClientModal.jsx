@@ -4,7 +4,7 @@ import requests from '../api/requests';
 
 export default function EditClientModal(props) {
 
-  const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit, setClientEditModelOpen} = props
+  const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit, setClientEditModelOpen, setEdited} = props
   console.log("selectedClientIdtoEdit", selectedClientIdtoEdit)
   console.log("selectedAddressIdtoEdit", selectedAddressIdtoEdit)
     
@@ -30,7 +30,9 @@ export default function EditClientModal(props) {
     });
     
     const [isClientEditFormOpen, setClientEditFormOpen] = useState(false);
+    const [isClientEditConfirmOpen, setClientEditConfirmOpen] = useState(false);
     const [isAddressEditFormOpen, setAddressEditFormOpen] = useState(false);
+    const [isAddressEditConfirmOpen, setAddressEditConfirm] = useState(false);
     
     {/*states end here*/}
     {/*functions for handling routes for put requests*/}
@@ -63,6 +65,7 @@ export default function EditClientModal(props) {
 
     const handleEditClientModalClose = () => {
       setClientEditModelOpen(false)
+      setEdited(null);
     }
     
     console.log("clientEditData", clientEditData)
@@ -75,6 +78,7 @@ export default function EditClientModal(props) {
       try {
         const clientEditResponse = await requests.update.client(selectedClientIdtoEdit, clientEditData); 
         console.log("clientEditResponse", clientEditResponse);
+        setEdited(clientEditResponse)
       } catch (error) {
         console.error('Error adding client:', error);
       }
@@ -84,8 +88,9 @@ export default function EditClientModal(props) {
       e.preventDefault();
       try {
         const addressEditForm = { ...addressEditData, selectedClientIdtoEdit };
-        const AddressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditForm);
-        console.log("AddressEditResponse", AddressEditResponse);
+        const addressEditResponse = await requests.update.address(selectedAddressIdtoEdit, addressEditForm);
+        console.log("AddressEditResponse", addressEditResponse);
+        setEdited(addressEditResponse);
       } catch (error) {
         console.error('Error adding client:', error);
       }
@@ -158,13 +163,15 @@ export default function EditClientModal(props) {
               placeholder='optional'
             />
           </div>
-          
-
           <button type="submit" className='edit-client-button'>Change Client Info</button>
         </form>}
 
+        {isClientEditFormOpen && <div>
+          <h3>Client Info has been changed</h3>
+          </div>
+         }
+
         {/* Edit Address Table*/}
-        <h3>Client Info has been changed</h3>
         <h2 onClick ={handleEditAddresssFormShow}> + Edit Address Info</h2>
         {isAddressEditFormOpen &&
           <form onSubmit={handleAddressEditSubmit}>
