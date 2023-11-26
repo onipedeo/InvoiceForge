@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react';
-import './Appointment.scss';
 import { ReviewAppointmentsContext, actions } from '../../UseReviewAppointmentsContext';
 import moment from 'moment';
 
@@ -38,11 +37,10 @@ const Appointment = ({ appointment }) => {
       <td>{date}</td>
       <td>{
         confirmedHours ||
-        <div className="hours-input">
-          <input type="number" value={hours} onChange={(e) => {
-            setHours(e.target.value);
-          }} />
-        </div>
+        <input type="number" value={hours} onChange={(e) => {
+          setHours(e.target.value);
+        }} />
+
       }</td>
       <td>
         <button
@@ -52,7 +50,7 @@ const Appointment = ({ appointment }) => {
             }
           }
         >
-          <i className="fas fa-clock icon-white"></i>
+          confirm
         </button>
       </td>
     </tr>

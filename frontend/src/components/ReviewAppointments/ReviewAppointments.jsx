@@ -1,5 +1,4 @@
 import { useContext} from 'react';
-import './ReviewAppointments.scss';
 
 import AppointmentList from './AppointmentList/AppointmentList';
 // import ReviewModal from './ReviewModal';

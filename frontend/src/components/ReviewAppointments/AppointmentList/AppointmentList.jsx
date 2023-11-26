@@ -1,4 +1,3 @@
-import "./AppointmentList.scss";
 import { useEffect, useState } from 'react';
 // import ReviewModal from '../childComponents/ReviewModal';
 import Appointment from "./Appointment/Appointment";
