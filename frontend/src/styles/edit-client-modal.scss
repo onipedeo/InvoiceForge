@@ -1,5 +1,5 @@
 .edit-client-modal-container {
-  margin-top: -450px;
+  margin-top: -480px;
   margin-left:1050px;
   width: 20%;
   position: relative;
@@ -8,3 +8,71 @@
   padding: 20px;
   border-radius: 8px;
 }
+
+.edit-client-modal-content {
+  position: relative;
+  margin-top: -30px;
+  margin-bottom: -15px;
+}
+
+.eidt-client-close {
+  position: absolute;
+  top: -1px;
+  right: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.form-group-edit-client {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+
+  label {
+    display: block;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: left;
+  }
+
+  input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: lightgray;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+}
+
+.edit-client-button {
+  background-color: darkgray;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-client-button:hover {
+  background-color: #0056b3;
+}
+
+.address-group-edit {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  .address-input-edit {
+    margin-top: 10px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: lightgray;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+}
+
+
