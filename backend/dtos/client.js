@@ -1,7 +1,7 @@
 const yup = require('yup');
 
 module.exports = yup.object().shape({
-  user_id: yup.number().integer().positive().required(),
+  userId: yup.number().integer().positive().required(),
   name: yup.string().max(50).required(),
   companyName: yup.string().max(50).nullable().default(null),
   email: yup.string().email().required(),
