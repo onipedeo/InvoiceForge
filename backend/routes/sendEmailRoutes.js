@@ -7,7 +7,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 //post route
 router.post("/invoice", upload.single("pdf"), (req, res) => {
   sendEmailController.invoice(req, res);
-  console.log("req.file from route", req.file);
 });
 
 module.exports = router;
