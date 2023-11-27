@@ -18,7 +18,7 @@ module.exports = async function (where) {
    }));
 
     const flattenedAppointments = appointments.reduce((acc, val) => acc.concat(val), []);
-   console.log('flattenedAppointments', flattenedAppointments);
+  //  console.log('flattenedAppointments', flattenedAppointments);
 
   return flattenedAppointments
   } else {

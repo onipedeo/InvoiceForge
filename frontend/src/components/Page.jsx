@@ -21,11 +21,11 @@ const Page = (props) => {
     <div className='fullPage'>
       {isModalOpen ? (
         <>
-          <AddEditModal isOpen={isModalOpen} onClose={closeModal} />
+          <AddEditModal user={props.user} isOpen={isModalOpen} onClose={closeModal} />
         </>
       ) : (
         <>
-          <Day />
+          <Day user={props.user}/>
         </>
       )}
       <button id='floating-add-button' onClick={openModal}>➕</button>

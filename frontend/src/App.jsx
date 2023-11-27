@@ -28,7 +28,7 @@ function App() {
         handleLinkClick={handleLinkClick}
       />
       {displayPage === 0 && <LandingPage />}
-      {displayPage === 1 && <Page />}
+      {displayPage === 1 && <Page user={user}/>}
       {displayPage === 2 && <ClientList user={user} />}
       {displayPage === 4 && (
         <AppointmentContainer user={user} />
