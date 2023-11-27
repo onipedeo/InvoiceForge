@@ -1,5 +1,7 @@
-@import "./styles/_mixins.scss";
-html, body {
+@import "./scss/styles/_mixins.scss";
+
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -8,11 +10,22 @@ html, body {
   width: 100%;
   margin: 0;
   text-align: center;
+  height: 100%;
   @include main-colours;
 }
 
 .page-content {
-  padding-top: 72px;  /* This should be equal to the height of the navbar */
+  position: relative;
+  top: 72px;
+  /* This should be equal to the height of the navbar */
   display: flex;
-  min-height: 100%;
+  height: calc(100vh - 72px);
+  /* This should be equal to the height of the navbar */
+  width: 100vw;
+
+  // @media (max-width: 1400px) { /* Adjust this value based on when you want the tables to stack */
+  //   position: static;
+  //   overflow-y: scroll;
+  //   max-height: 100vh;
+  // }
 }
