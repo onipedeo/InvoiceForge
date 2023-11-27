@@ -18,7 +18,7 @@ exports.seed = async function(knex) {
   ]);
   await knex('clients')
   .insert([
-    { name: "Nadia Willhelm", email: "nathanwilespainting@gmail.com", client_rate_cents: 5000, address_id: 5 },
+    { name: "Nadia Willhelm", email: "nathanawiles@gmail.com", client_rate_cents: 5000, address_id: 5 },
       { name: "Anthony Lester", email: "andrew.li.12138@gmail.com", client_rate_cents: 4500, address_id: 6 },
       { name: "Tanya Olereno", email: "tobionipede2021@gmail.com", address_id: 7 },
       { name: "Caspar Opal", email: "olamidejr21@yahoo.com", address_id: 8 },
