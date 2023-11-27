@@ -1,7 +1,7 @@
 .client-list-container {
-  margin-top: 30px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-top: 3vw;
+  margin-left: 2vw;
+  margin-right: 3vw;
   height: 500px; 
   overflow-y: scroll; 
   border: 1px solid rgba(255, 255, 255, 0.458); 
@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
-    margin: 10px 0;
+    margin: 1vw 0;
     padding-top: 15px;
     padding-bottom: 20px;
     background-color: white;
@@ -27,10 +27,11 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   
     .client-delete-icon {
-      margin-top: -38px;
-      margin-left: 500px;
+      margin-top: -2.5vw;
+      margin-left: 34vw;
       font-size: 1.5rem;
       cursor: pointer;
+      position: relative;
     }
 
     .client-delete-icon:hover {
@@ -39,8 +40,9 @@
     }
 
     .client-edit-icon {
-      margin-top: -20px;
-      margin-left: 450px;
+      position: relative;
+      margin-top: -1vw;
+      margin-left: 30vw;
       font-size: 1.5rem;
       cursor: pointer;
     }
@@ -51,14 +53,14 @@
     }
 
     .client-delete-container {
-      margin-top: -40px;
+      margin-top: -2.5vw;
       position: relative; /* Needed for absolute positioning of pseudo-element */
       -webkit-box-shadow: 0 4px 6px -6px #222;
       -moz-box-shadow: 0 4px 6px -6px #222;
       box-shadow: 0 4px 6px -6px #222;
     
       .delete-msg {
-        margin-bottom: 0px;
+        margin-bottom: 0vw;
       }
 
       .delete-confirm {
