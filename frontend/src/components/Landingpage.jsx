@@ -1,16 +1,27 @@
-import "../styles/landing-page.scss"
+import "../scss/styles/landing-page.scss";
 
 export default function LandingPage(props) {
   return (
     <div className="landing-container">
-    <div className="landing-text-box">
-      <h3>Master Your Schedule and Billing with Invoice Forge!</h3>
-      <p>
-        Effortlessly manage your appointments and streamline billing with Invoice Forge, an intuitive app designed for contractors. Create accounts, add clients, and navigate your schedule effortlessly. Edit, review, and bill appointments seamlessly.
-        Our automatic invoicing ensures accurate, hassle-free transactions. Join today for a simplified approach to client management and billing.
-      </p>
+      <div className="landing-text-box">
+        <h3>Master your schedule with:</h3>
+        <span className="langing-page__logo">Invoice Forge</span>
+        <ul>
+          <li>
+            Create an account, add clients, and navigate your schedule intuitively!
+          </li>
+          <li>
+            Edit, review, and bill appointments with ease!
+          </li>
+          <li>
+            Generate accurate invoices with a few clicks!
+          </li>
+
+        </ul>
+        <p>Join today for a simplified approach to time management and billing!</p>
+
+      </div>
+      <img className="landing-image" src="/landing.jpg" alt="landing" />
     </div>
-    <img className="landing-image" src="/landing.jpg" alt="landing" />
-  </div>
-)
+  );
 };
