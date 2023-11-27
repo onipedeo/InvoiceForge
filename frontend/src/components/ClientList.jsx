@@ -51,8 +51,6 @@ export default function ClientList(props) {
       console.error('Error fetching user data:', error);
     }
   };
-  
-  console.log("clientData", clients)
 
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
