@@ -7,7 +7,7 @@ import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
 import ClientList from "./components/ClientList";
 import { ReviewAppointmentsProvider } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
-
+import ConfirmationWizard from "./components/ReviewAppointments/Modals/confirmationWizard/confirmationWizard";
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -23,8 +23,8 @@ function App() {
 
   return (
     <>
-
-      <TopNavBar
+      <ConfirmationWizard />
+      {/* <TopNavBar
         user={user}
         setUser={setUser}
         handleLinkClick={handleLinkClick}
@@ -41,7 +41,7 @@ function App() {
           <AppointmentContainer user={user} />
         )}
       </section>
-      <Footer />
+      <Footer /> */}
     </>
   );
 }
