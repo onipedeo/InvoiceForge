@@ -34,10 +34,10 @@ class AddressDao {
     return await db('addresses').where({ id }).del();
   }
 
-  async edit(id, { line1, line2, city, province, country, postalCode }) {
+  async edit({ id, line1, line2, city, province, country, postalCode }) {
     return await db('addresses').where({ id }).update({
-      line1,
-      line2,
+      line_1: line1,
+      line_2: line2,
       city,
       province,
       country,

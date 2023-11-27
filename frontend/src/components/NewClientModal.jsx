@@ -68,7 +68,7 @@ export default function NewClientModal(props) {
     try {
 
       const response = await requests.create.client(clientData); //return client id
-      const newClientId = response[0].id;
+      const newClientId = response;
       console.log("response", response);
       console.log(newClientId);
       setClientId(newClientId);
@@ -100,10 +100,10 @@ export default function NewClientModal(props) {
   return (
     <div className="new-client-modal-container" id="newClientModal">
       <span className="new-client-close" onClick={handleClientModelClose}>&times;</span>
-     
+
       <div className="new-client-modal-content">
-      
-      
+
+
         {!clientId &&
         <form onSubmit={handleClientSubmit}>
             <h2>Add Client Info</h2>
@@ -167,7 +167,7 @@ export default function NewClientModal(props) {
               placeholder='optional'
             />
           </div>
-          
+
 
           <button type="submit" className='new-client-button'>Add Client Info</button>
         </form>}
@@ -175,7 +175,7 @@ export default function NewClientModal(props) {
         {/* Transition*/}
         {clientId && !showAddressForm &&
           <div >
-            <h3>Client Info Added</h3>
+            <h3>✔️ Client Info Added</h3>
             <p>Would you like to add client address now?</p>
             <div className='info-address-transition'>
             <button onClick={handleTransition} className='new-client-button'>Yes</button>
@@ -188,7 +188,6 @@ export default function NewClientModal(props) {
         {showAddressForm && !addressId &&
           <form onSubmit={handleAddressSubmit}>
             <div className="address-group">
-            <h3>Client Info Added</h3>
               <label><h2>Add Client Address</h2></label>
               <input className="address-input"
                 type="text"
@@ -228,7 +227,7 @@ export default function NewClientModal(props) {
               />
               <input className="address-input"
                 type="text"
-                placeholder="Postal Code (required)"
+                placeholder="Postal Code (required). No Space Needed."
                 name="postalCode"
                 value={addressData.postalCode}
                 onChange={handleAddressInputChange}
@@ -236,14 +235,14 @@ export default function NewClientModal(props) {
               />
             </div>
             <button type="submit" className='new-client-button' onClick={handleTransition}>Add Address</button>
-            
-         
+
+
           </form>}
 
               {/* Close msg and button*/}
               {addressId &&
               <div>
-                <h3>Client Address Added</h3>
+                <h3>✔️ Client Address Added</h3>
                 <button onClick={handleClientModelClose} className='new-client-button'>Close</button>
               </div>
             }

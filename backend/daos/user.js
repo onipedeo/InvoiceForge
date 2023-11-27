@@ -1,4 +1,5 @@
 const db = require('../db/db');
+const client = require('./client');
 const { replacePropertyWithinObject, getAppointmentsByWhere, getInvoicesByWhere } = require('./helpers');
 const humps = require('humps');
 class UserDao {
@@ -62,15 +63,11 @@ class UserDao {
   }
 
   async getAppointments(id) {
-    let appointments = await db('appointments').where({ user_id: id });
-    console.log(appointments)
+    let appointments = await getAppointmentsByWhere({ user_id: id });
     appointments = await Promise.all(appointments.map(async (appointment) => {
-      console.log(appointment.client_id)
       appointment = await replacePropertyWithinObject('client', appointment);
       appointment.client = await replacePropertyWithinObject('address', appointment.client);
       return appointment;
-
-
     }));
     return humps.camelizeKeys(appointments);
   }
@@ -81,7 +78,10 @@ class UserDao {
   }
 
   async getClients(id) {
-    const dirtyClients = await db('clients').where({ user_id: id, deleted: false }).orderBy('updated_at', 'desc');
+    // get list of clients by joining clients_users table with clients table
+    const dirtyClients = await db('clients_users')
+    .join('clients', 'clients_users.client_id', '=', 'clients.id')
+    .where({ user_id: id, deleted: false}).orderBy('created_at', 'desc');
     const clients = await Promise.all(dirtyClients.map(async (client) => {
       return await replacePropertyWithinObject('address', client);
     }

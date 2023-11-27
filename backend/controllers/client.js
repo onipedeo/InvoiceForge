@@ -4,7 +4,7 @@ class ClientController {
   async create(req, res) {
     try {
       const id = await clientService.create(req.body);
-      res.status(201).json(id);
+      res.status(201).json(id.id);
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
@@ -73,7 +73,7 @@ class ClientController {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
-  
+
   async delete(req, res) {
     try {
       const client = await clientService.delete(req.params.id);
@@ -83,7 +83,7 @@ class ClientController {
     }
   }
 
-  
+
 
 }
 module.exports = new ClientController();
