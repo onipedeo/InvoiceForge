@@ -1,33 +1,46 @@
-import { useEffect, useState } from 'react';
-// import ReviewModal from '../childComponents/ReviewModal';
+import { useEffect, useState, useContext } from 'react';
 import Appointment from "./Appointment/Appointment";
+import "./AppointmentList.scss";
+import { ReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
 
-const AppointmentList = ({ appointments }) => {
-  const [isLoading, setIsLoading] = useState(true);
+const AppointmentList = ({ mode }) => {
+  const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
+  //get the appointments from the context based on the mode
+  const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
 
   useEffect(() => {
-    if (Array.isArray(appointments) && appointments.length > 0) {
-      setIsLoading(false);
-    }
-    else {
-      setIsLoading(true);
-    }
-  }, [appointments]);
+    const timeout = setInterval(() => {
+      if (appointments !== null && appointments !== undefined) {
+        dispatch({ type: actions.setIsLoading, payload: false });
+        clearInterval(timeout);
+      }
+    }, 2000);
 
-  const Appointments = () => appointments.map((appointment) => (
-    <Appointment
-      key={appointment.id}
-      props={{
-        appointment,
-      }}
-    />
-  ));
 
+    return () => clearInterval(timeout);
+  }, [appointments, dispatch]);
+
+  const componentAppointments = () => {
+    if (appointments !== null && appointments !== undefined && appointments.length > 0) {
+      return appointments.map((appointment) => (
+        <Appointment
+          key={appointment.id}
+          appointment={appointment}
+        />
+      ));
+    } else {
+      return (
+        <tr>
+          <td colSpan="5">Up to date, nothing to see here.</td>
+        </tr>
+      );
+    }
+  };
 
   return (
-    <section className='list-envelope'>
-      <table className="appointment-list">
-        <thead className="header-row">
+    <section className='container mt-3 card'>
+      <table className="table table-striped">
+        <thead className="thead-dark">
           <tr>
             <th>Client</th>
             <th>Notes</th>
@@ -36,13 +49,15 @@ const AppointmentList = ({ appointments }) => {
             <th></th>
           </tr>
         </thead>
-        {!isLoading &&
-          <tbody>
-            {Appointments()}
-          </tbody>
-        }
+        <tbody>
+          {componentAppointments()}
+        </tbody>
       </table>
-      {isLoading &&  <div className="spinner"></div>}
+      {state.isLoading && (
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      )}
     </section>
   );
 };
