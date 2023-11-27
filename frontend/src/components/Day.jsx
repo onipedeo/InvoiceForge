@@ -12,12 +12,16 @@ const localizer = momentLocalizer(moment);
 const Day = () => {
 
   const [events, setevents] = useState([]);
+  const [clientData, setClientData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const appointments = await requests.get.user(1).appointments;
         const sortedEvents = [];
+        const clients = await requests.get.user(1).clients;
+
+        console.log('clients', clients);
 
         const appointmentEvents = appointments.map((app) => {
 

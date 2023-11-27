@@ -7,11 +7,6 @@ import Day from './Day';
 const Page = (props) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [formData, setFormData] = useState(
-    {
-
-    }
-  )
 
   const openModal = () => {
     setModalOpen(true);
