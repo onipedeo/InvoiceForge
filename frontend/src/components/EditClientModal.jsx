@@ -5,10 +5,7 @@ import requests from '../api/requests';
 export default function EditClientModal(props) {
 
   const {selectedClientIdtoEdit, user, selectedAddressIdtoEdit, setClientEditModelOpen, setEdited} = props
-  console.log("selectedClientIdtoEdit", selectedClientIdtoEdit)
-  console.log("selectedAddressIdtoEdit", selectedAddressIdtoEdit)
-    
-
+  
     {/*states*/}
     const [clientEditData, setClientEditData] = useState({
       userId: user.id,
@@ -77,9 +74,6 @@ export default function EditClientModal(props) {
       cleanClientInfoEditInputs();
       cleanClientAddressEditInputs();
     }
-    
-    console.log("clientEditData", clientEditData)
-    console.log("addressEditData", addressEditData)
 
      {/*functions for calling put routes*/}
     const handleClientEditSubmit = async (e) => {
