@@ -1,7 +1,6 @@
-
-import React from 'react';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import React from "react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const GeneratePDF = ({
   reviewedAppointments,
@@ -13,7 +12,6 @@ const GeneratePDF = ({
   setGeneratedAttachment,
   setErrorMessage,
 }) => {
-
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
       setErrorMessage(

@@ -1,4 +1,4 @@
-import "../styles/clientSelection.scss"
+import "../styles/clientSelection.scss";
 
 const ClientSelection = ({ handleClientSelect, clients }) => {
   return (
