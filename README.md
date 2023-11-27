@@ -36,8 +36,8 @@
 ```
 4. run the following commands in the terminal:
 ```sh
-    npx run db:migrate
-    npx run db:seed
+    npm run db:migrate
+    npm run db:seed
 ```
 5. You should see two message in the terminal that confirm that the migration and seeding were successful
 ```sh
