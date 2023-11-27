@@ -1,0 +1,96 @@
+@mixin main-colours {
+  background-color: lightgray;
+  color: black;
+}
+
+@mixin accent-colours {
+  background-color: darkgoldenrod;
+  color: #fff;
+}
+@mixin center-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin link-styles {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: lightgray;
+  }
+}
+
+@mixin scrollable-container {
+  overflow-y: scroll;
+  height: 60vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@mixin crispy-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  overflow-y: hidden;
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f5f5f5;
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    &:nth-child(odd) {
+      background-color: #e9e9e9;
+    }
+  }
+  border-radius: 10px;
+  overflow: scroll;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  thead th {
+    height: 32px;
+    @include top-stick;
+  }
+  tbody {
+    padding-top: 32px;
+  }
+}
+
+@mixin top-stick {
+  position: sticky;
+  top: 0;
+  background: #fff; // Add a background color to prevent cells from showing through
+  z-index: 1; // Optional: Increase z-index to ensure the header overlays the table rows when scrolling
+}
+
+@mixin spinner {
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+}
