@@ -1,0 +1,36 @@
+.table-container {
+  flex: column;
+  justify-content: space-evenly;
+  max-height: 60vh;
+  max-width: 44vw;
+  overflow-y: auto;
+  margin-bottom: 0;
+  /* Reduce empty space under the table */
+}
+
+.table-container::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbars */
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+article {
+  .col {
+    /* Prevent the container from moving up and down */
+    position: sticky;
+    top: 0;
+
+  }
+}
+
+.container {
+  .row {
+    margin-bottom: 5vh;
+  }
+}
