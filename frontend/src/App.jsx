@@ -6,7 +6,8 @@ import LandingPage from "./components/Landingpage";
 import TopNavBar from "./components/TopNavBar";
 import Footer from "./components/footer";
 import ClientList from "./components/ClientList";
-import { ReviewAppointmentsProvider } from "./components/ReviewAppointments/UseReviewAppointmentsContext";
+import { ReviewAppointmentsProvider } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
+
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -14,8 +15,8 @@ function App() {
   };
 
 
-  const [user, setUser] = useState(null);
-  const [displayPage, setDisplayPage] = useState(0);
+  const [user, setUser] = useState({ id: 1, firstName: "John", lastName: "Doe" });
+  const [displayPage, setDisplayPage] = useState(3);
 
 
 
