@@ -3,7 +3,7 @@ import { ReviewAppointmentsContext, actions } from '../../Context/UseReviewAppoi
 import moment from 'moment';
 import './Appointment.scss';
 import { FaCheck } from 'react-icons/fa';
-import requests from '../../../../api/requests';
+import request from '../../../../api/requests';
 
 const Appointment = ({ appointment }) => {
   const { state, dispatch } = useContext(ReviewAppointmentsContext);
@@ -13,35 +13,43 @@ const Appointment = ({ appointment }) => {
 
   // Extract values from the appointment prop
   const { confirmedHours, date, client, notes, startTime, endTime, id } = appointment;
-  const [refresh, setRefresh] = useState(false);
-  useEffect(() => {
-    if (refresh) setRefresh(false);
-  }, [refresh]);
 
+  // helper for setting loading state
+  const setloading = (bool) => {
+    dispatch({ type: actions.setIsLoading, payload: bool });
+  }
+
+
+  // Set the hours to the confirmed hours if they exist
   useEffect(() => {
-    if (typeof appointment === 'object' && Object.keys(appointment).length > 0) {
-      if (confirmedHours) {
+    if (typeof appointment === 'object') {
+      if (confirmedHours === null || confirmedHours === undefined) {
         const { startTime, endTime } = appointment;
         const estimatedHours = moment.duration(moment(endTime, "HH:mm:ss").diff(moment(startTime, "HH:mm:ss"))).asHours();
         const roundedEstimatedHours = Math.round(estimatedHours / 0.25) * 0.25;
         setHours(roundedEstimatedHours);
+        console.log(roundedEstimatedHours);
       }
     }
   }, [appointment]);
 
+  // Handle updating the appointment
   const handleUpdate = () => {
-    dispatch({ type: actions.setIsLoading, payload: true });
-    const formObject = {
-      ...appointment,
-      confirmedHours: hours,
-      clientId: appointment.client.id,
-    };
 
-    requests.update.appointment(id, formObject).then(() => {
+    setloading(true);
+
+    request.update.confirmHours(id, hours).then((res) => {
+      // If the response is not 200, throw an error
+      if (res.status !== 200) {
+        setloading(false);
+        throw new Error("Error updating appointment");
+      }
+      // set the appointment to reviewed
       dispatch({ type: actions.moveToReviewed, payload: formObject });
-      setRefresh(true);
+
     }).catch((e) => {
-      console.log(e);
+      // Set the error message and open the alert
+      setloading(false);
       dispatch({ type: actions.setErrMessage, payload: "Sorry, there was an issue updating your appointment" });
       dispatch({ type: actions.openAlert });
     });
