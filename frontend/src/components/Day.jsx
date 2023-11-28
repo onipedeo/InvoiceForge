@@ -11,6 +11,7 @@ const localizer = momentLocalizer(moment);
 const Day = (props) => {
 	const [events, setevents] = useState([]);
 	const [clientData, setClientData] = useState([]);
+	const [selectedEvent, setSelectedEvent] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -40,8 +41,13 @@ const Day = (props) => {
 	}, []);
 
 	//function to handle edit
-	const handleSelectEvent = () => {
+	const handleSelectedEvent = (event) => {
 		alert("event clicked");
+		console.info("[handleSelected - event]", event);
+		console.log("selectedEvent", selectedEvent);
+
+		setSelectedEvent(event)
+		console.log("selectedEvent", selectedEvent);
 	};
 
 	const minTime = new Date();
