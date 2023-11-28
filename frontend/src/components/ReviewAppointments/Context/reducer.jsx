@@ -24,12 +24,6 @@ export default function reducer(state, action) {
      return { ...state, modalIsOpen: false };
    case 'SET_MODAL_APPOINTMENT':
      return { ...state, modalAppointment: action.payload };
-   case 'SUMBIT_PUT_REQUEST':
-     requests.update.appointment(action.payload).then((res) => {
-     }).catch((e) => {
-       dispatch({ type: 'SET_ERR_MESSAGE', payload: "Sorry, there was an issue updating your appointment" });
-       dispatch({ type: 'OPEN_ALERT' });
-     });
    case 'MOVE_TO_REVIEWED':
      const newReviewed = [action.payload, ...state.reviewed];
      const newUnreviewed = state.unreviewed.filter((item) => item.id !== action.payload.id);
