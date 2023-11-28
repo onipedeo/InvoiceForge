@@ -13,7 +13,11 @@ import put from '../../helpers/put';
  * @throws {Error} - If there is an error updating the appointment.
  */
 export default (id, formData) => {
-  if (typeof formData === 'object' && Object.keys(formData).length === 1 && Object.keys(formData)[0] === 'confirmedHours') {
+  if (
+    typeof formData === 'object'
+    && formData.confirmedHours
+    && formData.confirmedHours > 0
+  ) {
     return confirmHours(id, formData.confirmedHours);
   }
 
