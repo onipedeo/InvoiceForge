@@ -17,17 +17,19 @@ const Appointment = ({ appointment }) => {
   // helper for setting loading state
   const setloading = (bool) => {
     dispatch({ type: actions.setIsLoading, payload: bool });
-  }
+  };
 
 
   // Set the hours to the confirmed hours if they exist
   useEffect(() => {
     if (typeof appointment === 'object') {
       if (confirmedHours === null || confirmedHours === undefined) {
-        const { startTime, endTime } = appointment;
+
         const estimatedHours = moment.duration(moment(endTime, "HH:mm:ss").diff(moment(startTime, "HH:mm:ss"))).asHours();
         const roundedEstimatedHours = Math.round(estimatedHours / 0.25) * 0.25;
+
         setHours(roundedEstimatedHours);
+
         console.log(roundedEstimatedHours);
       }
     }
@@ -38,17 +40,28 @@ const Appointment = ({ appointment }) => {
 
     setloading(true);
 
-    request.update.confirmHours(id, hours).then((res) => {
+    // define the request options
+    const requestOptions
+      = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ confirmedHours: hours })
+    };
+
+
+    // Make the request to update the appointment
+    fetch(`api/appointment/${id}/hours`, requestOptions).then((res) => {
       // If the response is not 200, throw an error
       if (res.status !== 200) {
         setloading(false);
         throw new Error("Error updating appointment");
       }
       // set the appointment to reviewed
-      dispatch({ type: actions.moveToReviewed, payload: formObject });
+      dispatch({ type: actions.moveToReviewed, payload: {...appointment, confirmedHours: hours, reviewed:true} });
 
     }).catch((e) => {
       // Set the error message and open the alert
+      console.log(e);
       setloading(false);
       dispatch({ type: actions.setErrMessage, payload: "Sorry, there was an issue updating your appointment" });
       dispatch({ type: actions.openAlert });
