@@ -12,7 +12,6 @@ import reducer from './reducer';
  * @property {string} closeAlert - Action to close an alert.
  * @property {string} openModal - Action to open a modal.
  * @property {string} closeModal - Action to close a modal.
- * @property {string} setModalAppointment - Action to set the modal appointment.
  * @property {string} moveToReviewed - Action to move an appointment to reviewed.
  * @property {string} setIsLoading - Action to set the loading state.
  */
@@ -42,6 +41,7 @@ const ReviewAppointmentsContext = createContext();
 const ReviewAppointmentsProvider = ({ children, user }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Fetch unreviewed and reviewed appointments
   useEffect(() => {
     dispatch({ type: 'SET_IS_LOADING', payload: true });
     Promise.all([
@@ -58,6 +58,7 @@ const ReviewAppointmentsProvider = ({ children, user }) => {
       });
   }, []);
 
+  // Close any alerts and set loading to false when unreviewed and reviewed appointments are set
   useEffect(() => {
     if (state.unreviewed && state.reviewed) {
       dispatch({ type: actions.setIsLoading, payload: false });
@@ -65,7 +66,9 @@ const ReviewAppointmentsProvider = ({ children, user }) => {
     }
   }
     , [state.unreviewed, state.reviewed]);
-    
+
+
+
   return (
     <ReviewAppointmentsContext.Provider value={{ state, dispatch, actions, user }}>
       {children}
