@@ -8,7 +8,7 @@ module.exports = async function (where) {
     const clientIds = await db('clients_users').where({ user_id }).pluck('client_id');
    // generate array of unique client ids
    const uniqueClientIds = [...new Set(clientIds)];
-   console.log('uniqueClientIds', uniqueClientIds);
+  //  console.log('uniqueClientIds', uniqueClientIds);
 
    // retrieve appointments for each client
    const appointments = await Promise.all(uniqueClientIds.map(async (clientId) => {
@@ -18,7 +18,7 @@ module.exports = async function (where) {
    }));
 
     const flattenedAppointments = appointments.reduce((acc, val) => acc.concat(val), []);
-   console.log('flattenedAppointments', flattenedAppointments);
+  //  console.log('flattenedAppointments', flattenedAppointments);
 
   return flattenedAppointments
   } else {

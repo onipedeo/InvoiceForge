@@ -32,6 +32,8 @@ class appointmentDao {
   }
 
   async edit(id, date, startTime, endTime, appointmentRateCents, notes) {
+    const appointment = await db.appointment.where({id})
+    console.log("appointment", appointment);
     return await db('appointments').where({ id }).update({
       date,
       start_time: startTime,
