@@ -1,16 +1,15 @@
 .landing-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin: 50px;
+  height: 100%;
 }
 
 .landing-text {
   max-width: 50%;
   font-size: medium;
   font-weight: 400;
-  margin-right: 50px;
   padding: 20px;
   border: 2px solid #333;
   border-radius: 8px;
@@ -19,7 +18,8 @@
 
 
 .landing-image {
-  max-width: 40%;
+  max-width: 50%;
+  margin: 20px;
   border: 2px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
