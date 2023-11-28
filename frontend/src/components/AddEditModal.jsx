@@ -26,7 +26,7 @@ const AddEditModal = (props) => {
 			);
 			setFormData((formData) => ({
 				...formData,
-				clientId: selectedClient ? selectedClient.id : "", // Update clientId
+				clientId: selectedClient ? selectedClient.id : "", 
 			}));
 		} else {
 			setFormData((formData) => ({
