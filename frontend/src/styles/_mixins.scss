@@ -94,3 +94,18 @@
   }
 
 }
+
+@mixin button-colours {
+  background-color: #4e4caff5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4e4cafff;
+  }
+}
