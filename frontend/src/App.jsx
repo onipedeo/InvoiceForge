@@ -1,13 +1,18 @@
+// standard imports
+import "./App.scss";
+import { useState, useEffect, useContext } from "react";
+
+// import contexts and providers
+import { ReviewAppointmentsProvider, ReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
+
+// import components
 import ReviewAppointments from "./components/ReviewAppointments/ReviewAppointments";
 import AppointmentContainer from "./components/AppointmentContainer";
-import { useState, useEffect } from "react";
-import "./App.scss";
-import LandingPage from "./components/Landingpage";
-import TopNavBar from "./components/TopNavBar";
-import Footer from "./components/footer";
-import ClientList from "./components/ClientList";
-import { ReviewAppointmentsProvider, ReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
 import AlertModal from "./components/ReviewAppointments/Modals/AlertModal";
+import ClientList from "./components/ClientList";
+import TopNavBar from "./components/TopNavBar";
+import LandingPage from "./components/Landingpage";
+import Footer from "./components/footer";
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -40,10 +45,12 @@ function App() {
 
         {displayPage === 2 && <ClientList user={user} />}
         {displayPage === 3 &&
-          <ReviewAppointmentsProvider user={user}>
-            <ReviewAppointments setDisplayPage={setDisplayPage} />
-            <AlertModal context={ReviewAppointmentsContext} />
-          </ReviewAppointmentsProvider>
+
+            <ReviewAppointmentsProvider user={user}>
+              <ReviewAppointments setDisplayPage={setDisplayPage} />
+              <AlertModal context={ReviewAppointmentsContext} />
+            </ReviewAppointmentsProvider>
+
         }
         {displayPage === 4 && (
           <AppointmentContainer user={user} />
