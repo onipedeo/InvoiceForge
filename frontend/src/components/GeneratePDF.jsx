@@ -1,6 +1,7 @@
 import React from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import "../styles/InvoiceGeneratedModal.scss";
 
 const GeneratePDF = ({
   reviewedAppointments,
@@ -11,7 +12,9 @@ const GeneratePDF = ({
   setGeneratedPDF,
   setGeneratedAttachment,
   setErrorMessage,
+  setGrandTotal
 }) => {
+
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
       setErrorMessage(
@@ -33,10 +36,7 @@ const GeneratePDF = ({
     pdf.setFontSize(24);
     pdf.setTextColor(0, 0, 0);
 
-    const text = "InvoiceForge";
-    const textX = 20;
-    const textY = 32;
-    pdf.text(textX, textY, text);
+    pdf.text(20, 32, "InvoiceForge");
 
     // user details
     const userDetails = user.address;
@@ -107,13 +107,8 @@ const GeneratePDF = ({
       theme: "striped",
     });
 
-    // Reset styles
-    pdf.setFillColor(255, 255, 255);
-    pdf.setFont("sans-serif", "bold");
-    pdf.setFontSize(14);
-
     // Calculate and add the total amount
-    const GrandTotalAmount = reviewedAppointments
+    const subTotalAmount = reviewedAppointments
       .filter((appointment) => checkedAppointments.includes(appointment.id))
       .reduce((total, appointment) => {
         const { appointmentRateCents } = appointment;
@@ -125,12 +120,42 @@ const GeneratePDF = ({
         return total + (appointment.confirmedHours * rate) / 100;
       }, 0);
 
+    const gstRate = 0.05;
+    const gstAmount = subTotalAmount * gstRate;
+
+    // Add GST to the grand total
+    const grandTotal = subTotalAmount + gstAmount;
+    const grandTotalCents = grandTotal * 100;
+    setGrandTotal(grandTotalCents);
+
+    pdf.text(`Subtotal`, 140, pdf.autoTable.previous.finalY + 15);
+
     pdf.text(
-      `Grand Total: $ ${GrandTotalAmount}.00`,
-      140,
+      `$${subTotalAmount.toFixed(2)}`,
+      170,
       pdf.autoTable.previous.finalY + 15
     );
 
+    // Add GST information
+    pdf.text(`Tax (5%)`, 140, pdf.autoTable.previous.finalY + 25);
+
+    pdf.text(
+      `$${gstAmount.toFixed(2)}`,
+      170,
+      pdf.autoTable.previous.finalY + 25
+    );
+
+    pdf.setFillColor(255, 255, 255);
+    pdf.setFont("sans-serif", "bold");
+    pdf.setFontSize(14);
+
+    pdf.text(`Grand Total`, 140, pdf.autoTable.previous.finalY + 35);
+
+    pdf.text(
+      `$${grandTotal.toFixed(2)}`,
+      170,
+      pdf.autoTable.previous.finalY + 35
+    );
     // Save the PDF
     const generatedPDFData = pdf.output("blob");
     setGeneratedPDF(URL.createObjectURL(generatedPDFData));
