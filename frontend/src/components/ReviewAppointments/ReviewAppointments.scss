@@ -29,8 +29,31 @@ article {
   }
 }
 
+.table {
+  /* Prevent the container from moving up and down */
+  position: sticky;
+  top: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+  thead th {
+    height: 32px;
+  }
+
+  tbody {
+    padding-top: 32px;
+  }
+}
+
 .container {
   .row {
     margin-bottom: 5vh;
+  }
+}
+
+.review-appointments {
+  .modal-content {
+    width: fit-content max-height 60vh;
   }
 }
