@@ -1,10 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
-import Appointment from "./Appointment/Appointment";
 import "./AppointmentList.scss";
 import { ReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
 import renderAppointments from './helpers/renderAppointments';
 
-const AppointmentList = ({ mode }) => {
+const AppointmentList = ({ mode, setDisplayPage}) => {
   const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
   //get the appointments from the context based on the mode
   const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
@@ -21,7 +20,7 @@ const AppointmentList = ({ mode }) => {
   }, [appointments, dispatch]);
 
   // function to render the appointments
-  const componentAppointments = renderAppointments(mode);
+  const componentAppointments = renderAppointments(mode, setDisplayPage);
 
   return (
     <>
@@ -39,11 +38,6 @@ const AppointmentList = ({ mode }) => {
           {componentAppointments}
         </tbody>
       </table>
-      {state.isLoading && (
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      )}
     </>
   );
 };
