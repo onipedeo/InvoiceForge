@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import Appointment from "./Appointment/Appointment";
 import "./AppointmentList.scss";
 import { ReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
+import renderAppointments from './helpers/renderAppointments';
 
 const AppointmentList = ({ mode }) => {
   const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
@@ -10,7 +11,7 @@ const AppointmentList = ({ mode }) => {
 
   useEffect(() => {
     const timeout = setInterval(() => {
-      //if the appointments are not null or undefined, then we can stop the loading spinner
+      //if the appointments are not null or undefined, then we can set loading to false and clear the interval
       if (appointments !== null && appointments !== undefined) {
         dispatch({ type: actions.setIsLoading, payload: false });
         clearInterval(timeout);
@@ -19,21 +20,45 @@ const AppointmentList = ({ mode }) => {
     return () => clearInterval(timeout);
   }, [appointments, dispatch]);
 
+  // function to render the appointments
   const componentAppointments = () => {
+    // check if appointments is null or undefined.
     if (appointments !== null && appointments !== undefined && appointments.length > 0) {
+      // if not, then map the appointments to the Appointment component
       return appointments.map((appointment) => (
         <Appointment
           key={appointment.id}
           appointment={appointment}
         />
       ));
-    } else {
+      // if empty array, display a message
+    }
+    if (Array.isArray(appointments) && appointments.length === 0) {
       return (
         <tr>
-          <td colSpan="5">Up to date, nothing to see here.</td>
+          <td className="text-center align-middle" colSpan="5">
+            <h3>You have no {mode} appointments.</h3>
+            <p> What next?</p>
+            <span className="btn btn-primary">Generate Invoice</span>
+            <p>Or</p>
+            <span className="btn btn-primary">Schedule more appointments</span>
+
+
+          </td>
         </tr>
       );
     }
+    // if appointments is null or undefined, then display a spinner
+    return (
+      <tr>
+        {state.isLoading && (
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
+        <td colSpan="5">Loading...</td>
+      </tr>
+    );
   };
 
   return (
