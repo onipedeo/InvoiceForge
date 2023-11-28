@@ -13,7 +13,7 @@
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
   height: 72px;
-  z-index: 10000; // Ensure the navbar stays on top of other elements
+  z-index: 1000; // Ensure the navbar stays on top of other elements except the modal
   @include accent-colours;
 }
 
