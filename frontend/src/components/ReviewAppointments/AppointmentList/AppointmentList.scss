@@ -1,22 +1,24 @@
-
-@import "~bootstrap/scss/bootstrap"; // Import Bootstrap SCSS
-
 .table-container {
   max-height: 70vh;
   overflow-y: auto;
   margin-bottom: 0;
 }
 
-.table-container thead th {
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 10;
+.table-container {
+
+  thead th,
+  thead-dark th {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+  }
 }
 
 .container {
   display: flex;
   justify-content: space-evenly;
+
   @media screen and (max-width: 1400px) {
     flex-direction: column;
     max-height: 100vh;

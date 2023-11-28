@@ -10,13 +10,12 @@ const AppointmentList = ({ mode }) => {
 
   useEffect(() => {
     const timeout = setInterval(() => {
+      //if the appointments are not null or undefined, then we can stop the loading spinner
       if (appointments !== null && appointments !== undefined) {
         dispatch({ type: actions.setIsLoading, payload: false });
         clearInterval(timeout);
       }
     }, 2000);
-
-
     return () => clearInterval(timeout);
   }, [appointments, dispatch]);
 
@@ -38,7 +37,7 @@ const AppointmentList = ({ mode }) => {
   };
 
   return (
-    <section className='container mt-3 card'>
+    <>
       <table className="table table-striped">
         <thead className="thead-dark">
           <tr>
@@ -58,7 +57,7 @@ const AppointmentList = ({ mode }) => {
           <span className="sr-only">Loading...</span>
         </div>
       )}
-    </section>
+    </>
   );
 };
 
