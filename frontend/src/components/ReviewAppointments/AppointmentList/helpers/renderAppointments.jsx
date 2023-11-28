@@ -29,20 +29,21 @@ export default (mode) => {
           <p>Or</p>
           <span className="btn btn-primary">Schedule more appointments</span>
 
-
         </td>
       </tr>
     );
   }
   // if appointments is null or undefined, then display a spinner
-  return (
-    <tr>
-      {state.isLoading && (
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      )}
-      <td colSpan="5">Loading...</td>
-    </tr>
-  );
+  if (state.isLoading) {
+    return (
+      <tr>
+        <td colSpan="5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </td>
+      </tr>
+    );
+  }
+  
 };
