@@ -1,37 +1,68 @@
-import { React, useState } from 'react';
-import '../styles/page.scss';
-import AddEditModal from './AddEditModal';
-import Day from './Day';
-
+import { React, useEffect, useState } from "react";
+import "../styles/page.scss";
+import AddEditModal from "./AddEditModal";
+import Day from "./Day";
 
 const Page = (props) => {
+	const [isModalOpen, setModalOpen] = useState(false);
+	const [selectedEvent, setSelectedEvent] = useState(null);
+	
 
-  const [isModalOpen, setModalOpen] = useState(false);
+	const [formData, setFormData] = useState({
+		appointmentRateCents: "",
+		date: "",
+		endTime: "",
+		notes: "",
+		startTime: "",
+		clientId: "",
+		clientName: "",
+	});
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
+	useEffect(() => {
+		console.log(selectedEvent);
+		if (selectedEvent) {
+		}
+	}, [selectedEvent]);
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+	const openModal = () => {
+    setFormData({});
+    setSelectedEvent(null);
+		setModalOpen(true);
+	};
 
-  return (
+	const closeModal = () => {
+		setFormData({});
+    setSelectedEvent(null);
+		setModalOpen(false);
+	};
 
-    <div className='fullPage'>
-      {isModalOpen ? (
-        <>
-          <AddEditModal user={props.user} isOpen={isModalOpen} onClose={closeModal} />
-        </>
-      ) : (
-        <>
-          <Day user={props.user}/>
-        </>
-      )}
-      <button id='floating-add-button' onClick={openModal}>➕</button>
-    </div>
-
-  );
+	return (
+		<div className="fullPage">
+			{isModalOpen ? (
+				<>
+					<AddEditModal
+						formData={formData}
+						setFormData={setFormData}
+						selectedEvent={selectedEvent}
+						user={props.user}
+						isOpen={isModalOpen}
+						onClose={closeModal}
+					/>
+				</>
+			) : (
+				<>
+					<Day
+						setSelectedEvent={setSelectedEvent}
+						setModalOpen={setModalOpen}
+						user={props.user}
+					/>
+				</>
+			)}
+			<button id="floating-add-button" onClick={openModal}>
+				➕
+			</button>
+		</div>
+	);
 };
 
 export default Page;
