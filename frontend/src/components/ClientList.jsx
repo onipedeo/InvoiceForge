@@ -90,7 +90,7 @@ export default function ClientList(props) {
 
 
   return (
-    <div>
+    <>
     {/* modals first for styling */}
     {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
       setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
@@ -120,17 +120,15 @@ export default function ClientList(props) {
                 </div>}
                 {/*Delete confirmation div end*/}
                 <div className="client-item-info card list-unstyled">
-                  {client.companyName && <li>{client.companyName}</li>}
-                  {!client.companyName && <li>{client.name}</li>}
-                  <li>{client.email}</li>
-                  {client.address && <li>{client.address.line1} {client.address.postalCode}</li>}
-                
-                  {client.phone && <li>{client.phone}</li>}
-                  {client.clientRateCents && <li>Rate:${client.clientRateCents / 100} / hour</li>}
+                  {client.companyName && <span>{client.companyName}</span>}
+                  {!client.companyName && <span>{client.name}</span>}
+                  <span>{client.email}</span>
+                  {client.address && <span>{client.address.line1} {client.address.postalCode}</span>}
+    
+                  {client.phone && <span>{client.phone}</span>}
+                  {client.clientRateCents && <span>Rate:${client.clientRateCents / 100} / hour</span>}
                 </div>
-
               </li>
-
             ))}
           </ul>
         </div>) : (
@@ -142,6 +140,6 @@ export default function ClientList(props) {
         </div>
       )}
 
-    </div>
+    </>
   );
 }
