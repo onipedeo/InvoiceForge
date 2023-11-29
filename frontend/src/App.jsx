@@ -13,6 +13,8 @@ import ClientList from "./components/ClientList";
 import TopNavBar from "./components/TopNavBar";
 import LandingPage from "./components/Landingpage";
 import Footer from "./components/footer";
+import ClientList from "./components/ClientList";
+import Page from "./components/Page";
 
 function App() {
   const handleLinkClick = (pageNumber) => {
@@ -43,7 +45,8 @@ function App() {
       <section className="page-content">
         {displayPage === 0 && <LandingPage />}
 
-        {displayPage === 2 && <ClientList user={user} />}
+        {displayPage === 1 && <Page user={user}/>}
+      {displayPage === 2 && <ClientList user={user}  />}
         {displayPage === 3 &&
 
             <ReviewAppointmentsProvider user={user}>
