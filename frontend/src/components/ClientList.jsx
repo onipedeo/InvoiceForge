@@ -88,15 +88,7 @@ export default function ClientList(props) {
     setSelectedAddressIdtoEdit(selectedAddressId);
   };
 
-  {/* functions handling client edit logic*/ }
 
-  const handleClientEditModalClick = (selectedClientId, selectedAddressId) => {
-    setClientEditModelOpen(true);
-    setSelectedClientIdtoEdit(selectedClientId);
-    setSelectedAddressIdtoEdit(selectedAddressId)
-  }
-  
- 
   return (
     <>
     {/* modals first for styling */}
