@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import requests from '../api/requests';
 import "../styles/client-list.scss";
 import NewClientModal from "./NewClientModal";
-import EditClientModal from "./EditClientModal"
+import EditClientModal from "./EditClientModal";
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 export default function ClientList(props) {
   const { user } = props;
 
-  {/* states set in this Modal for handling Modal open and fetch client info from user*/}
+  {/* states set in this Modal for handling Modal open and fetch client info from user*/ }
   const [isClientModalOpen, setClientModelOpen] = useState(false);
   const [clients, setClients] = useState([]);
 
@@ -15,17 +16,17 @@ export default function ClientList(props) {
   const [clientId, setClientId] = useState(null);
   const [addressId, setAddressId] = useState(null);
 
-  {/* states set in this Modal for handling client delete*/}
+  {/* states set in this Modal for handling client delete*/ }
   const [deleteMsgShow, setDeleteMsgShow] = useState(false);
   const [selectedClientIdtoDelete, setSelectedClientIdtoDelete] = useState(null);
-  const [deleted,setDeleted] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
-  {/* states for EditClientsModal*/}
+  {/* states for EditClientsModal*/ }
   const [isClientEditModalOpen, setClientEditModelOpen] = useState(false);
   const [selectedClientIdtoEdit, setSelectedClientIdtoEdit] = useState(null);
   const [selectedAddressIdtoEdit, setSelectedAddressIdtoEdit] = useState(null);
   const [edited, setEdited] = useState(null);
- 
+
 
   useEffect(() => {
     fetchClients();
@@ -37,10 +38,10 @@ export default function ClientList(props) {
 
       return () => clearTimeout(resetTimeout);
     }
-    
+
   }, [clientId, addressId, deleted, edited]);
 
-    {/* functions handling get clients logic*/ }
+  {/* functions handling get clients logic*/ }
 
   const fetchClients = async () => {
     try {
@@ -55,16 +56,16 @@ export default function ClientList(props) {
   const handleNewClientModalClick = () => {
     setClientModelOpen(true);
   };
-  
-     {/* functions handling client delete logic*/ }
-  
+
+  {/* functions handling client delete logic*/ }
+
   const deleteClient = async (clientIdForDelete) => {
     try {
-      const deletedOrNot = await requests.setDeleted.client(clientIdForDelete)
+      const deletedOrNot = await requests.setDeleted.client(clientIdForDelete);
       console.log(clientIdForDelete);
       console.log("deleted?", deletedOrNot);
       setDeleted(deletedOrNot);
-      handleDeleteConfirmPageClose()
+      handleDeleteConfirmPageClose();
 
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -74,49 +75,60 @@ export default function ClientList(props) {
   const handleClientDeleteClick = (selectedClientId) => {
     setDeleteMsgShow(true);
     setSelectedClientIdtoDelete(selectedClientId);
-  }
+  };
 
   const handleDeleteConfirmPageClose = () => {
     setDeleteMsgShow(false);
-  }
+  };
 
   {/* functions handling client edit logic*/ }
 
   const handleClientEditModalClick = (selectedClientId, selectedAddressId) => {
     setClientEditModelOpen(true);
     setSelectedClientIdtoEdit(selectedClientId);
-    setSelectedAddressIdtoEdit(selectedAddressId)
-  }
-  
- 
+    setSelectedAddressIdtoEdit(selectedAddressId);
+  };
+
+
   return (
-    <div>
+    <>
+    {/* modals first for styling */}
+    {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
+      setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
+
+    {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} setEdited={setEdited}
+      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen} />}
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
-      <button className="add-new-client-button" onClick={handleNewClientModalClick}>Add New Client</button>
+      <button className="add-new-client-button btn btn-block" onClick={handleNewClientModalClick}>Add New Client</button>
 
       {clients.length > 0 ? (
         <div className="client-list-container">
           <ul className="client-list">
             {clients.map((client) => (
               <li key={client.id} className="client-item">
-                  {/*edit icon and delete icons*/}
-                <span className='client-edit-icon' onClick={()=> {handleClientEditModalClick(client.clientId, client.address.id)}}> &#9998;</span>
-                <span className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)}>&times;</span>
+                {/*edit icon and delete icons*/}
+                <nav className="client-item-nav">
+                  <FaEdit className='client-edit-icon' onClick={() => { handleClientEditModalClick(client.clientId, client.address.id); }} />
+                  <FaTrash className="client-delete-icon" onClick={() => handleClientDeleteClick(client.id)} />
+                </nav>
                 {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
-                  <p className='delete-msg'>You are about to <span style={{fontWeight:'bold'}}>delete</span> this client from your client list.</p>
+                  <p className='delete-msg'>You are about to <span style={{ fontWeight: 'bold' }}>delete</span> this client from your client list.</p>
                   <div className='delete-confirm'>
-                  <button className='delete-button' onClick={() => deleteClient(selectedClientIdtoDelete)}>Confirm</button>
-                  <button className='delete-button' onClick={handleDeleteConfirmPageClose}>Cancel</button>
+                    <button className='delete-button' onClick={() => deleteClient(selectedClientIdtoDelete)}>Confirm</button>
+                    <button className='delete-button' onClick={handleDeleteConfirmPageClose}>Cancel</button>
                   </div>
-                  </div>}
-                   {/*Delete confirmation div end*/}
-                <span>{client.name}</span>
-                <span>{client.email}</span>
-                {client.address && <span>{client.address.line1}, {client.address.postalCode}</span>}
-                {client.phone && <span>Phone: {client.phone}</span>}
-                {client.companyName && <span>Company: {client.companyName}</span>}
-                {client.clientRateCents && <span>Rate:${client.clientRateCents/100} / hour</span>}
+                </div>}
+                {/*Delete confirmation div end*/}
+                <div classname="client-item-info card list-unstyled">
+                  {client.companyName && <li>{client.companyName}</li>}
+                  {!client.companyName && <li>{client.name}</li>}
+                  <li>{client.email}</li>
+                  {client.address && <li>{client.address.line1}, </li>}
+                  {client.postalCode && <li>{client.postalCode}</li>}
+                  {client.phone && <li>{client.phone}</li>}
+                  {client.clientRateCents && <li>Rate:${client.clientRateCents / 100} / hour</li>}
+                </div>
               </li>
 
             ))}
@@ -130,11 +142,6 @@ export default function ClientList(props) {
         </div>
       )}
 
-      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
-        setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
-      
-      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} setEdited={setEdited}
-      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen}/>}
-    </div>
+    </>
   );
 }
