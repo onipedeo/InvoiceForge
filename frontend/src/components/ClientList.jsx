@@ -88,7 +88,7 @@ export default function ClientList(props) {
     setSelectedAddressIdtoEdit(selectedAddressId);
   };
 
-
+   console.log("clientList clients", clients)
   return (
     <>
     {/* modals first for styling */}
@@ -123,8 +123,8 @@ export default function ClientList(props) {
                   {client.companyName && <li>{client.companyName}</li>}
                   {!client.companyName && <li>{client.name}</li>}
                   <li>{client.email}</li>
-                  {client.address && <li>{client.address.line1}, </li>}
-                  {client.postalCode && <li>{client.postalCode}</li>}
+                  {client.address && <li>{client.address.line1}</li>}
+                  {client.address.postalCode && <li>{client.address.postalCode}</li>}
                   {client.phone && <li>{client.phone}</li>}
                   {client.clientRateCents && <li>Rate:${client.clientRateCents / 100} / hour</li>}
                 </div>
