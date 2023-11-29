@@ -20,6 +20,11 @@ const AppointmentsContainer = ({ user }) => {
         setClientObj(data.client);
       });
     }
+    if (!selectedClient) {
+      setReviewedAppointments([]);
+      setClientRate(null);
+      setClientObj({});
+    }
   }, [selectedClient]);
 
   useEffect(() => {
@@ -49,7 +54,6 @@ const AppointmentsContainer = ({ user }) => {
       />
       {selectedClient && (
         <AppointmentList
-          selectedClient={selectedClient}
           reviewedAppointments={reviewedAppointments}
           handleAppointmentCheck={handleAppointmentCheck}
           checkedAppointments={checkedAppointments}
@@ -60,8 +64,11 @@ const AppointmentsContainer = ({ user }) => {
           reviewedAppointments={reviewedAppointments}
           checkedAppointments={checkedAppointments}
           clientRate={clientRate}
+          selectedClient={selectedClient}
           clientObj={clientObj}
           user={user}
+          setSelectedClient={setSelectedClient}
+          setCheckedAppointments={setCheckedAppointments}
         />
       )}
     </div>
