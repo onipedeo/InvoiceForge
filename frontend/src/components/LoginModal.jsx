@@ -13,7 +13,6 @@ const LoginModal = (props) => {
       const user = await requests.get.idByEmail(email);
 
       if (!user.error) {
-        console.log('user', user);
         setUser(user);
         setLoginError(null);
         // check that a user was retrieved and that they have clients
