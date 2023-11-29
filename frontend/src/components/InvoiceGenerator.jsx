@@ -11,6 +11,7 @@ const InvoiceGenerator = ({
   setSelectedClient,
   setCheckedAppointments,
 }) => {
+  console.log("user", user)
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [generatedAttachment, setGeneratedAttachment] = useState(null);
