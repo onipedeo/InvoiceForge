@@ -5,6 +5,7 @@ import NewClientModal from "./NewClientModal";
 import EditClientModal from "./EditClientModal";
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
+
 export default function ClientList(props) {
   const { user } = props;
 
@@ -22,11 +23,11 @@ export default function ClientList(props) {
   const [deleted, setDeleted] = useState(false);
 
   {/* states for EditClientsModal*/ }
+
   const [isClientEditModalOpen, setClientEditModelOpen] = useState(false);
   const [selectedClientIdtoEdit, setSelectedClientIdtoEdit] = useState(null);
   const [selectedAddressIdtoEdit, setSelectedAddressIdtoEdit] = useState(null);
   const [edited, setEdited] = useState(null);
-
 
   useEffect(() => {
     fetchClients();
@@ -38,11 +39,9 @@ export default function ClientList(props) {
 
       return () => clearTimeout(resetTimeout);
     }
-
   }, [clientId, addressId, deleted, edited]);
 
   {/* functions handling get clients logic*/ }
-
   const fetchClients = async () => {
     try {
       const clientData = await requests.get.user(user.id).clients;
@@ -89,7 +88,15 @@ export default function ClientList(props) {
     setSelectedAddressIdtoEdit(selectedAddressId);
   };
 
+  {/* functions handling client edit logic*/ }
 
+  const handleClientEditModalClick = (selectedClientId, selectedAddressId) => {
+    setClientEditModelOpen(true);
+    setSelectedClientIdtoEdit(selectedClientId);
+    setSelectedAddressIdtoEdit(selectedAddressId)
+  }
+  
+ 
   return (
     <>
     {/* modals first for styling */}
@@ -129,6 +136,7 @@ export default function ClientList(props) {
                   {client.phone && <li>{client.phone}</li>}
                   {client.clientRateCents && <li>Rate:${client.clientRateCents / 100} / hour</li>}
                 </div>
+
               </li>
 
             ))}
