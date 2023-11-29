@@ -7,7 +7,7 @@
  */
 import setDeleted from "../helpers/setDeleted";
 export default (appointmentId) => {
-  const url = `/api/appointments/${appointmentId}/delete`;
+  const url = `/api/appointment/${appointmentId}`;
   return setDeleted(url).catch((error) => {
     throw new Error("Error deleting appointment", error);
   });
