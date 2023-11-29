@@ -1,0 +1,13 @@
+@import "../../../../styles/mixins";
+
+input.number-input {
+  width: 3rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: rgba(43, 40, 40, 0.208);
+}
+
+button.check-btn {
+  @include button-colours;
+}

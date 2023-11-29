@@ -20,9 +20,7 @@ export default (url, Dto) => {
     .then((response) => response.json())
     .catch((error) => {
       // Handle any errors
-      console.error(error);
-      throw error;
+        console.log(error);
+        throw error;
     });
 };
-
-

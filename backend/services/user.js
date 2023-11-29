@@ -39,6 +39,10 @@ class UserService {
     return userDao.getObject(id);
   }
 
+  getReviewed(id) {
+    return userDao.getReviewed(id);
+  }
+
 }
 
 module.exports = new UserService();

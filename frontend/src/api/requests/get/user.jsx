@@ -47,10 +47,18 @@ class UserData {
 
   /**
    * Retrieves the user's unreviewed data.
-   * @returns {Promise} - A promise that resolves to the user's unreviewed data.
+   * @returns {Promise} - A promise that resolves to the user's unreviewed appointments.
    */
   get unreviewed() {
     return get(`/api/user/${this.id}/unreviewed`);
+  }
+
+  /**
+   * Retrieves the user's reviewed data.
+   * @returns {Promise} - A promise that resolves to the user's reviewed appointments.
+   */
+  get reviewed() {
+    return get(`/api/user/${this.id}/reviewed`);
   }
 
   /**
@@ -60,6 +68,7 @@ class UserData {
   get invoices() {
     return get(`/api/user/${this.id}/invoices`);
   }
+
 }
 
 /**

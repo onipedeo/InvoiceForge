@@ -31,6 +31,7 @@ class AppointmentController {
       res.status(200).json({ message: "Appointment updated successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
+      console.log(error);
     }
   }
 
