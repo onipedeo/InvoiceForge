@@ -13,7 +13,6 @@ import ClientList from "./components/ClientList";
 import TopNavBar from "./components/TopNavBar";
 import LandingPage from "./components/Landingpage";
 import Footer from "./components/footer";
-import ClientList from "./components/ClientList";
 import Page from "./components/Page";
 
 function App() {
