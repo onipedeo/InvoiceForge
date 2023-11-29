@@ -23,12 +23,45 @@ function App() {
   const [user, setUser] = useState(null);
   const [displayPage, setDisplayPage] = useState(0);
 
+  //handle rendering of ReviewAppointments modal
   useEffect(() => {
     if (displayPage === 3) {
       ReviewAppointmentsContext.openModal = true;
       ReviewAppointmentsContext.setIsLoading = true;
     };
   }, [displayPage]);
+
+
+  //handle redirect to client list if no clients
+  useEffect(() => {
+    if (user) {
+      fetch(`/api/user/${user.id}/clients`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.length === 0) {
+            setDisplayPage(2);
+          } else {
+            setDisplayPage(1); //change 1 to your page numbet to redirect on login for debugging
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  },[user]);
+
+  // Auto login for testing. set the userId to whichever user you want to login as:
+  // 1: "Nathan"
+  // 2: "Andrew"
+  // 3: "Tobi"
+  // 4: "Caroline"
+  useEffect(() => {
+    const id = 1;
+    fetch(`/api/user/${id}/object`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+      });
+  }, []);
 
 
 
@@ -43,15 +76,13 @@ function App() {
       <section className="page-content">
         {displayPage === 0 && <LandingPage />}
 
-        {displayPage === 1 && <Page user={user}/>}
-      {displayPage === 2 && <ClientList user={user}  />}
+        {displayPage === 1 && <Page user={user} />}
+        {displayPage === 2 && <ClientList user={user} />}
         {displayPage === 3 &&
-
-            <ReviewAppointmentsProvider user={user}>
-              <ReviewAppointments setDisplayPage={setDisplayPage} />
-              <AlertModal context={ReviewAppointmentsContext} />
-            </ReviewAppointmentsProvider>
-
+          <ReviewAppointmentsProvider user={user}>
+            <ReviewAppointments setDisplayPage={setDisplayPage} />
+            <AlertModal context={ReviewAppointmentsContext} />
+          </ReviewAppointmentsProvider>
         }
         {displayPage === 4 && (
           <AppointmentContainer user={user} />
