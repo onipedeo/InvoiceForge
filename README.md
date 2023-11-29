@@ -76,3 +76,7 @@ Follow the guide found here: https://vitest.dev/guide/
 # Creating Cypress Tests (frontend)
 
 Follow the guide found here: https://docs.cypress.io/guides/overview/why-cypress
+
+# Setting up App password to authenticate gmail
+follow the instruction on this link and apply changes to backend dotenv
+https://support.google.com/accounts/answer/185833?visit_id=638364070840582656-2264851718&p=InvalidSecondFactor&rd=1

@@ -19,7 +19,6 @@ function App() {
     setDisplayPage(pageNumber);
   };
 
-
   const [user, setUser] = useState(null);
   const [displayPage, setDisplayPage] = useState(0);
 

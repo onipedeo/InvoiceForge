@@ -2,7 +2,7 @@ const db = require('../db/db');
 const infuseInvoiceWithData = require('./helpers/infuseInvoiceWithData');
 
 class InvoiceDao {
-  async create(userId, clientId, dueDate, totalCents) {
+  async create(userId, clientId, dueDate, totalCents, appointmentIds) {
     const invoiceNumber = await this._getNextInvoiceNumber(userId);
     const [id] = await db('invoices').insert({
       invoice_number: invoiceNumber,
@@ -10,9 +10,11 @@ class InvoiceDao {
       due_date: dueDate,
       total_cents: totalCents
     }).returning('id');
-
+ 
     appointmentIds.map(async appointmentId => {
-      await db('appointments').where({ id: appointmentId }).update({ invoiced: true, invoice_id: id });
+    
+      await db('appointments').where({ id: appointmentId }).update({ invoiced: true, invoice_id: id[id] });
+    
     });
 
     await db('users').where({ id: userId }).increment('next_invoice_number', 1);
