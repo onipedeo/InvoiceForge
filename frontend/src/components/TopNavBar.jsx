@@ -31,7 +31,7 @@ export default function TopNavBar(props) {
           <div className="top-nav-bar__list">
             <span>Schedule</span>
             <span onClick={() => handleLinkClick(2)}>Client List</span>
-            <span>Appointments in Review</span>
+            <span onClick={() => handleLinkClick(3)}>Appointments in Review</span>
             <span onClick={() => handleLinkClick(4)}>Forge Invoice</span>
           </div>}
 
@@ -42,7 +42,7 @@ export default function TopNavBar(props) {
           {!user && (<span>Sign Up</span>)}
         </div>
 
-        {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} user={user} handleLinkClick={handleLinkClick} />}
+        {isLoginModalOpen && !user && <LoginModal onClose={handleModalClose} setUser={setUser} handleLinkClick={handleLinkClick} />}
       </nav>
     </div>
   );

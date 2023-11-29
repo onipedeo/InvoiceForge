@@ -46,6 +46,10 @@ router.get('/:id/unreviewed/', (req, res) => {
   userController.getUnreviewed(req, res);
 });
 
+router.get('/:id/reviewed/', (req, res) => {
+  userController.getReviewed(req, res);
+});
+
 
 
 module.exports = router;

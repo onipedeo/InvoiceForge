@@ -16,7 +16,12 @@ class UserController {
       res.status(200).json(user);
     } catch (e) {
       console.log(e);
+      if (e.message === "User not found") {
+        res.status(401).json({ error: "Unauthorized Credentials" });
+      } else {
       res.status(500).json({ error: "Internal server error" });
+      console.log(e)
+      }
     }
   }
   async getById(req, res) {
@@ -99,6 +104,19 @@ class UserController {
           req.params.id,
         );
         res.status(200).json(object);
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ error: "Internal server error" });
+
+      }
+    }
+
+    async getReviewed(req, res) {
+      try {
+        const reviewed = await userService.getReviewed(
+          req.params.id,
+        );
+        res.status(200).json(reviewed);
       } catch (e) {
         console.log(e);
         res.status(500).json({ error: "Internal server error" });

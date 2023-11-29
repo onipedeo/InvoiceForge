@@ -36,6 +36,9 @@ class UserDao {
 
   async getByEmail(email) {
     let user = await db('users').where({ email }).first();
+    if (!user) {
+      throw new Error('User not found');
+    }
     user = await replacePropertyWithinObject('address', user);
     return humps.camelizeKeys(user);
   }
@@ -58,7 +61,13 @@ class UserDao {
   }
 
   async getUnreviewed(id) {
-    const unreviewed = await getAppointmentsByWhere({ user_id: id, reviewed: false });
+    let unreviewed = await getAppointmentsByWhere({ user_id: id, reviewed: false });
+    //map over unreviewed and replace client_id with client object
+    unreviewed = await Promise.all(unreviewed.map(async (appointment) => {
+      appointment = await replacePropertyWithinObject('client', appointment);
+      appointment.client = await replacePropertyWithinObject('address', appointment.client);
+      return appointment;
+    }));
     return humps.camelizeKeys(unreviewed);
   }
 
@@ -73,7 +82,12 @@ class UserDao {
   }
 
   async getReviewed(id) {
-    const reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false })
+    let reviewed = await getAppointmentsByWhere({ user_id: id, reviewed: true, invoiced: false })
+    reviewed = await Promise.all(reviewed.map(async (appointment) => {
+      appointment = await replacePropertyWithinObject('client', appointment);
+      appointment.client = await replacePropertyWithinObject('address', appointment.client);
+      return appointment;
+    }));
     return humps.camelizeKeys(reviewed);
   }
 

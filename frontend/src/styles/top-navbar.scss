@@ -1,6 +1,10 @@
+@import "./mixins";
 .top-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
-  margin-left: -10px;
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;
@@ -9,6 +13,8 @@
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
   height: 72px;
+  z-index: 1000; // Ensure the navbar stays on top of other elements except the modal
+  @include accent-colours;
 }
 
 .top-nav-bar__logo {
@@ -18,8 +24,8 @@
   color: #111;
   text-underline-position: auto;
   margin-left: 24px;
-  font-family: 'YourLogoFont', sans-serif; 
-  letter-spacing: 2px; 
+  font-family: 'YourLogoFont', sans-serif;
+  letter-spacing: 2px;
 }
 
 .top-nav-bar__list {
@@ -33,14 +39,14 @@
   font-weight: 500;
 
   span {
-    display: inline-block; 
-    padding: 0.3px; 
-    transition: text-shadow 0.3s ease; 
+    display: inline-block;
+    padding: 0.3px;
+    transition: text-shadow 0.3s ease;
   }
-  
+
   span:hover {
-    text-shadow: 2px 2px 5px rgba(4, 4, 4, 0.5); 
-    cursor: pointer; 
+    text-shadow: 2px 2px 5px rgba(4, 4, 4, 0.5);
+    cursor: pointer;
   }
 }
 
@@ -58,12 +64,12 @@
     padding: 2px;
     transition: text-shadow 0.3s ease;
 
-    
+
 
     &:not(:last-child) {
       padding-right: 8px;
-      margin-right: 8px; 
-      border-right: 1px solid #111;; 
+      margin-right: 8px;
+      border-right: 1px solid #111;;
     }
 
     &:hover {

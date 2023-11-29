@@ -1,0 +1,71 @@
+.table-container {
+  flex: column;
+  justify-content: space-evenly;
+  max-height: 60vh;
+  max-width: 44vw;
+  overflow-y: auto;
+  margin-bottom: 0;
+  /* Reduce empty space under the table */
+}
+
+.table-container::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbars */
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+article {
+  .col {
+    /* Prevent the container from moving up and down */
+    position: sticky;
+    top: 0;
+
+  }
+}
+
+.table {
+  /* Prevent the container from moving up and down */
+  position: sticky;
+  top: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+
+  thead th {
+    height: 32px;
+  }
+
+  tbody {
+    padding-top: 32px;
+  }
+}
+
+.container {
+  .row {
+    margin-bottom: 5vh;
+  }
+}
+
+.review-appointments {
+  .modal-content {
+    width: fit-content max-height 60vh;
+  }
+}
+
+.review-modal {
+  &.fade .modal-backdrop {
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+  }
+}

@@ -11,8 +11,8 @@ class AppointmentService {
   }
 
   edit(appointmentId, appointmentDto) {
-    const { date, startTime, endTime, clientId, userId, appointmentRateCents, notes } = appointmentDto;
-    return appointmentDao.edit(appointmentId, date, startTime, endTime, clientId, userId, appointmentRateCents, notes);
+    const { date, startTime, confirmedHours, endTime, clientId, appointmentRateCents, notes } = appointmentDto;
+    return appointmentDao.edit({appointmentId, date, startTime, confirmedHours, endTime, clientId, appointmentRateCents, notes});
   }
 
   delete(appointmentId) {

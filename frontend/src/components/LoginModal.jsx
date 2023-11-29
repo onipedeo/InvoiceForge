@@ -1,23 +1,33 @@
 import { useState, useEffect } from 'react';
 import requests from '../api/requests';
-import '../styles/login-modal.scss'; 
+import '../styles/login-modal.scss';
 
 
 const LoginModal = (props) => {
   const [email, setEmail] = useState('');
-  const { setUser, user, handleLinkClick} = props;
+  const [loginError, setLoginError] = useState(false);
+  const { setUser, handleLinkClick } = props;
 
   const fetchUser = async () => {
     try {
       const user = await requests.get.idByEmail(email);
-      setUser(user);
-      const userData = await requests.get.userData(user.id);
-      const { clients } = userData;
-      if (clients.length === 0) {
-       handleLinkClick(2)
+
+      if (!user.error) {
+        console.log('user', user);
+        setUser(user);
+        setLoginError(null);
+        // check that a user was retrieved and that they have clients
+        const clients = await requests.get.user(user.id).clients;
+        if (clients.length === 0) {
+          handleLinkClick(2);
+        }
+      }
+      else {
+        // if no user was retrieved, set error to true
+        setLoginError(true);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+    console.log(error);
     }
   };
 
@@ -53,6 +63,7 @@ const LoginModal = (props) => {
               <button className='login-button' type="submit">Login</button>
             </div>
           </form>
+          {loginError && <div className="error-message">{"Login Failed"}</div>}
         </div>
       </div>
     </div>

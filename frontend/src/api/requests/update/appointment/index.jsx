@@ -13,9 +13,14 @@ import put from '../../helpers/put';
  * @throws {Error} - If there is an error updating the appointment.
  */
 export default (id, formData) => {
-  if (formData.confirmedHours) {
+  if (
+    typeof formData === 'object'
+    && formData.confirmedHours
+    && formData.confirmedHours > 0
+  ) {
     return confirmHours(id, formData.confirmedHours);
   }
+
   return put(`/api/appointment/${id}`, formData).catch((error) => {
     throw new Error("Error updating appointment", error);
   });
