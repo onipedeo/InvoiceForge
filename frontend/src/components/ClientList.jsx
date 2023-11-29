@@ -90,7 +90,7 @@ export default function ClientList(props) {
 
 
   return (
-    <>
+    <div>
     {/* modals first for styling */}
     {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
       setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
@@ -119,12 +119,12 @@ export default function ClientList(props) {
                   </div>
                 </div>}
                 {/*Delete confirmation div end*/}
-                <div classname="client-item-info card list-unstyled">
+                <div className="client-item-info card list-unstyled">
                   {client.companyName && <li>{client.companyName}</li>}
                   {!client.companyName && <li>{client.name}</li>}
                   <li>{client.email}</li>
-                  {client.address && <li>{client.address.line1}</li>}
-                  {client.address.postalCode && <li>{client.address.postalCode}</li>}
+                  {client.address && <li>{client.address.line1} {client.address.postalCode}</li>}
+                
                   {client.phone && <li>{client.phone}</li>}
                   {client.clientRateCents && <li>Rate:${client.clientRateCents / 100} / hour</li>}
                 </div>
@@ -142,6 +142,6 @@ export default function ClientList(props) {
         </div>
       )}
 
-    </>
+    </div>
   );
 }
