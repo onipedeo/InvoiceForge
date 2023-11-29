@@ -1,10 +1,10 @@
 @import "./mixins";
-
 .new-client-modal-container {
-  margin-top: -30vw;
-  margin-left:5vw;
-  width: 20%;
-  position: relative;
+  max-height: 65vh;
+  top: 190px;
+  left: 1vw;
+  min-width: 29vw;
+  position: absolute;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -12,22 +12,24 @@
 }
 
 .new-client-modal-content {
+  width: 25vw;
   position: relative;
   margin-top: -1.5vw;
   margin-bottom: -1px;
 }
 
 .new-client-close {
+  height: 0;
   position: absolute;
-  top: -1px;
-  right: 10px;
-  font-size: 2rem;
+  top: .5rem;
+  right: .5rem;
   cursor: pointer;
 }
 
 .form-group-new-client {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 10px;
 
   label {
@@ -38,7 +40,7 @@
   }
 
   input {
-    width: 100%;
+    width: 15vw;
     padding: 5px;
     box-sizing: border-box;
     @include main-colours;
@@ -48,8 +50,7 @@
 }
 
 .new-client-button {
-  background-color: darkgray;
-  color: white;
+  @include accent-colours;
   border: none;
   border-radius: 4px;
   cursor: pointer;
