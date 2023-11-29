@@ -1,8 +1,10 @@
+@import "./mixins";
 .edit-client-modal-container {
-  margin-top: -30vw;
-  margin-left:68vw;
-  width: 20%;
-  position: relative;
+  max-height: 65vh;
+  top: 190px;
+  left: 75vw;
+  min-width: 20vw;
+  position: absolute;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -11,7 +13,7 @@
 
 .edit-client-modal-content {
   position: relative;
-  margin-top: -1vw;
+  margin-top: 0vw;
   margin-bottom: -1px;
 }
 
