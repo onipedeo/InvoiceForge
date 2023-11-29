@@ -9,6 +9,7 @@ const InvoiceGenerator = ({
   clientObj,
   user,
 }) => {
+  console.log("user", user)
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const standardRateCents = user.standardRateCents;
