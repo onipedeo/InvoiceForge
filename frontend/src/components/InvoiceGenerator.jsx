@@ -8,16 +8,19 @@ const InvoiceGenerator = ({
   clientRate,
   clientObj,
   user,
+  setSelectedClient,
+  setCheckedAppointments,
 }) => {
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [generatedAttachment, setGeneratedAttachment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [grandTotal, setGrandTotal] = useState(0);
+ 
 
   const handleConfirmAndSend = async () => {
     try {
-      const email = "clientObj.email";
+      const email = clientObj.email;
       const userName = user.firstName;
       const clientName = clientObj.name;
 
@@ -54,7 +57,6 @@ const InvoiceGenerator = ({
       setIsModalOpen(true);
       // Wait for the email sending request to complete
       await fetch("/api/send_email/invoice", requestOptions);
-
     } catch (error) {
       console.error("Error:", error);
     }
@@ -63,6 +65,8 @@ const InvoiceGenerator = ({
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setGeneratedPDF(null);
+    setSelectedClient(null);
+    setCheckedAppointments([]);
   };
 
   const handleBackToAppointments = () => {
