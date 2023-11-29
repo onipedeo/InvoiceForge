@@ -2,6 +2,7 @@ const invoiceService = require('../services/invoice');
 
 class InvoiceController {
   async create(req, res) {
+   
     try {
       const id = await invoiceService.create(req.body);
       res.status(201).json(id);

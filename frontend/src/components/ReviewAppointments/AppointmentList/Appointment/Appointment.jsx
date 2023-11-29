@@ -30,7 +30,6 @@ const Appointment = ({ appointment }) => {
 
         setHours(roundedEstimatedHours);
 
-        console.log(roundedEstimatedHours);
       }
     }
   }, [appointment]);

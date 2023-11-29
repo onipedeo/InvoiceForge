@@ -21,8 +21,7 @@ function App() {
     setDisplayPage(pageNumber);
   };
 
-
-  const [user, setUser] = useState({ id: 1, firstName: "John", lastName: "Doe" });
+  const [user, setUser] = useState(null);
   const [displayPage, setDisplayPage] = useState(0);
 
   useEffect(() => {
