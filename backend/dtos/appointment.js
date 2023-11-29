@@ -18,4 +18,7 @@ module.exports = yup.object().shape({
   invoiced: yup.boolean().required().default(false),
   appointmentRateCents: yup.number().integer().positive().nullable().default(null),
   notes: yup.string().nullable().default(null)
+})
+.test('id-clientId', 'must have either an id or a clientId', function(value) {
+  return !!(value.Id || value.clientId);
 });
