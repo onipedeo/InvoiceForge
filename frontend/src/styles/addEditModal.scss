@@ -1,0 +1,32 @@
+form {
+  display: inline-flex;
+  height: auto;
+  flex-direction: column;
+  width: 40vw;
+  color: black;
+
+
+  label {
+    align-content: left;
+    display: flex;
+    font-weight: 500;
+  }
+}
+
+.addEditModal {
+  align-content: center;
+  background-color: rgba(255, 192, 203, 0.568);
+  color: black;
+  padding: 20px;
+}
+
+.close-modal {
+  display: flex;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.addEditModalBtn {
+  display: flex;
+  align-self: center
+}

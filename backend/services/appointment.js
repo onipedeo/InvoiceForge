@@ -3,7 +3,7 @@ class AppointmentService {
 
   create(appointmentDto) {
     const { date, startTime, endTime, clientId, userId, appointmentRateCents, notes } = appointmentDto;
-    return appointmentDao.create(date, startTime, endTime, clientId, userId, appointmentRateCents, notes);
+    return appointmentDao.create(date, startTime, endTime, clientId, appointmentRateCents, notes);
   }
 
   getById(appointmentId) {
