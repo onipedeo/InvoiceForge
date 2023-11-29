@@ -34,7 +34,7 @@ export default (mode, setDisplayPage) => {
           </span>
           <p>Or</p>
           <span
-            onClick={() => setDisplayPage(0)}
+            onClick={() => setDisplayPage(1)}
             className="btn btn-primary"
           >
             Schedule more appointments
