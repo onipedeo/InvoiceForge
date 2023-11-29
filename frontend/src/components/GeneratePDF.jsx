@@ -166,7 +166,7 @@ const GeneratePDF = ({
     setErrorMessage("");
   };
 
-  return <div onClick={generateInvoice}>Generate Invoice</div>;
+  return <button className="btn btn-primary" onClick={generateInvoice}>Generate Invoice</button>;
 };
 
 export default GeneratePDF;
