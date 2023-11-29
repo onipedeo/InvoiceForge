@@ -88,7 +88,7 @@ export default function ClientList(props) {
     setSelectedAddressIdtoEdit(selectedAddressId);
   };
 
-   console.log("clientList clients", clients)
+
   return (
     <>
     {/* modals first for styling */}

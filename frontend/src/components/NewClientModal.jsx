@@ -94,9 +94,6 @@ export default function NewClientModal(props) {
     }
   };
 
-  console.log("addressData", addressData);
-  console.log("clientData", clientData);
-
   return (
     <div className="new-client-modal-container" id="newClientModal">
       <span className="new-client-close" onClick={handleClientModelClose}>&times;</span>
