@@ -22,6 +22,6 @@ exports.seed = async function(knex) {
     { first_name: "Nathan", last_name: "Wiles", email: "nathanawiles@gmail.com", password: "password", standard_rate_cents: 3500, address_id: 1 },
     { first_name: "Andrew", last_name: "Li", email: "andrew.li.12138@gmail.com", password: "password", standard_rate_cents: 3500, address_id: 2 },
     { first_name: "Tobi", last_name: "Onipede", email: "tobionipede2021@gmail.com", password: "password", standard_rate_cents: 3500, address_id: 3 },
-    { first_name: "Caroline", last_name: "Olagungu", email: "olamidejr21@yahoo.com", password: "password", standard_rate_cents: 3500, address_id: 4 },
+    { first_name: "Caroline", last_name: "Olagunju", email: "olamidejr21@yahoo.com", password: "password", standard_rate_cents: 3500, address_id: 4 },
   ]);
 };
