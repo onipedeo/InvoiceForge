@@ -8,9 +8,11 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 const Day = (props) => {
+	const setModalOpen = props.setModalOpen;
+	const setSelectedEvent = props.setSelectedEvent;
+
 	const [events, setevents] = useState([]);
 	const [clientData, setClientData] = useState([]);
-	const [selectedEvent, setSelectedEvent] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -26,7 +28,9 @@ const Day = (props) => {
 					const evt = {
 						start: moment(`${app.date}T${app.startTime}`).toDate(),
 						end: moment(`${app.date}T${app.endTime}`).toDate(),
-						title: `${app.notes}`,
+						title: app.notes,
+						id: app.id,
+						appointment: {...app}
 					};
 					sortedEvents.push(evt);
 				});
@@ -42,11 +46,11 @@ const Day = (props) => {
 	//function to handle edit
 	const handleSelectedEvent = (event) => {
 		alert("event clicked");
-		console.info("[handleSelected - event]", event);
-		console.log("selectedEvent", selectedEvent);
 
-		setSelectedEvent(event)
-		console.log("selectedEvent", selectedEvent);
+		console.info("[handleSelected - event]", event);
+
+		setSelectedEvent(event);
+		setModalOpen(true);
 	};
 
 	const minTime = new Date();
@@ -66,7 +70,7 @@ const Day = (props) => {
 				min={minTime}
 				max={maxTime}
 				onSelectEvent={handleSelectedEvent}
-				selected={selectedEvent}
+				
 			/>
 		</div>
 	);
