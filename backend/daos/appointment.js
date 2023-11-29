@@ -31,7 +31,7 @@ class appointmentDao {
     return await db('appointments').where({ id }).del();
   }
 
-  async edit(id, date, startTime, endTime, appointmentRateCents, notes) {
+  async edit(id, date, startTime, endTime, clientId, appointmentRateCents, notes) {
     return await db('appointments').where({ id }).update({
       date,
       start_time: startTime,
