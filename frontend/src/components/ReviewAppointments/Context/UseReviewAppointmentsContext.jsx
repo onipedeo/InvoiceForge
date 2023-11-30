@@ -1,6 +1,7 @@
-import React, { useReducer, useEffect, createContext } from 'react';
+import React, { useReducer, useEffect, createContext, useContext } from 'react';
 import requests from '../../../api/requests';
 import reducer from './reducer';
+import { useUserContext } from '../../../contextProviders/useUserContext';
 
 /**
  * Actions for the ReviewAppointments context.
@@ -38,11 +39,13 @@ const initialState = {
 };
 
 const ReviewAppointmentsContext = createContext();
-const ReviewAppointmentsProvider = ({ children, user }) => {
+const ReviewAppointmentsProvider = ({ children }) => {
+  const {user} = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Fetch unreviewed and reviewed appointments
   useEffect(() => {
+    if (!user) return;
     dispatch({ type: 'SET_IS_LOADING', payload: true });
     Promise.all([
       requests.get.user(user.id).unreviewed,
@@ -53,10 +56,11 @@ const ReviewAppointmentsProvider = ({ children, user }) => {
         dispatch({ type: actions.setUnreviewed, payload: unreviewed });
       })
       .catch((e) => {
+        // open the alert modal if there is an error
         dispatch({ type: actions.setErrMessage, payload: "Sorry, there was an issue retrieving your appointments" });
         dispatch({ type: actions.openAlert });
       });
-  }, []);
+  }, [user]);
 
   // Close any alerts and set loading to false when unreviewed and reviewed appointments are set
   useEffect(() => {
@@ -64,16 +68,20 @@ const ReviewAppointmentsProvider = ({ children, user }) => {
       dispatch({ type: actions.setIsLoading, payload: false });
       dispatch({ type: actions.closeAlert });
     }
+  }, [state.unreviewed, state.reviewed]);
+
+
+  const openReviewModal = () => {
+    dispatch({ type: actions.openModal });
   }
-    , [state.unreviewed, state.reviewed]);
-
-
-
   return (
-    <ReviewAppointmentsContext.Provider value={{ state, dispatch, actions, user }}>
+    <ReviewAppointmentsContext.Provider value={{ state, dispatch, actions, openReviewModal }}>
       {children}
     </ReviewAppointmentsContext.Provider>
   );
 };
 
-export { ReviewAppointmentsContext, ReviewAppointmentsProvider };
+const UseReviewAppointmentsContext = () => {
+  return useContext(ReviewAppointmentsContext);
+}
+export { ReviewAppointmentsContext, ReviewAppointmentsProvider, UseReviewAppointmentsContext};
