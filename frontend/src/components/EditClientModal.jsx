@@ -188,7 +188,7 @@ export default function EditClientModal(props) {
               placeholder='optional'
             />
           </div>
-          <div className="form-group-new-client">
+          <div className="form-group-edit-client">
             <label htmlFor="companyName">Business:</label>
             <input
               type="text"
