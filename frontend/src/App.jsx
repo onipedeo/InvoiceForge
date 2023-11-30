@@ -3,12 +3,13 @@ import "./App.scss";
 import { useState, useEffect, useContext } from "react";
 
 // import contexts and providers
-import { ReviewAppointmentsProvider, ReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
+import { UseReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
+import { useUserContext } from "./contextProviders/useUserContext";
 
 // import components
-import ReviewAppointments from "./components/ReviewAppointments/ReviewAppointments";
+import ReviewAppointmentsModal from "./components/ReviewAppointments/ReviewAppointments";
 import AppointmentContainer from "./components/AppointmentContainer";
-import AlertModal from "./components/ReviewAppointments/Modals/AlertModal";
+import AlertModal from "./Modals/AlertModal";
 import ClientList from "./components/ClientList";
 import TopNavBar from "./components/TopNavBar";
 import LandingPage from "./components/Landingpage";
@@ -16,20 +17,23 @@ import Footer from "./components/footer";
 import Page from "./components/Page";
 
 function App() {
+
   const handleLinkClick = (pageNumber) => {
-    setDisplayPage(pageNumber);
+    // adjust so that modal doesn't redirect to blank background
+    if (pageNumber === 3) {
+      openReviewModal();
+    }
+    else {
+      setDisplayPage(pageNumber);
+    }
   };
 
-  const [user, setUser] = useState(null);
+  // user is now retriver from the context provider
+  const { user, setUser } = useUserContext();
+  const { openReviewModal } = UseReviewAppointmentsContext();
   const [displayPage, setDisplayPage] = useState(0);
 
-  //handle rendering of ReviewAppointments modal
-  useEffect(() => {
-    if (displayPage === 3) {
-      ReviewAppointmentsContext.openModal = true;
-      ReviewAppointmentsContext.setIsLoading = true;
-    };
-  }, [displayPage]);
+
 
 
   //handle redirect to client list if no clients
@@ -47,7 +51,7 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
-  },[user]);
+  }, [user]);
 
   // Auto login for testing. set the userId to whichever user you want to login as:
   // 1: "Nathan"
@@ -69,8 +73,6 @@ function App() {
   return (
     <>
       <TopNavBar
-        user={user}
-        setUser={setUser}
         handleLinkClick={handleLinkClick}
       />
       <section className="page-content">
@@ -78,15 +80,11 @@ function App() {
 
         {displayPage === 1 && <Page user={user} />}
         {displayPage === 2 && <ClientList user={user} />}
-        {displayPage === 3 &&
-          <ReviewAppointmentsProvider user={user}>
-            <ReviewAppointments setDisplayPage={setDisplayPage} />
-            <AlertModal context={ReviewAppointmentsContext} />
-          </ReviewAppointmentsProvider>
-        }
         {displayPage === 4 && (
           <AppointmentContainer user={user} />
         )}
+        <ReviewAppointmentsModal setDisplayPage={setDisplayPage} />
+        <AlertModal />
       </section>
       <Footer />
     </>
