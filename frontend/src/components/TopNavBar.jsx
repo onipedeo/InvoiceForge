@@ -21,7 +21,7 @@ export default function TopNavBar(props) {
   const handleLogoutClick = () => {
     setIsLoginModalOpen(false);
     setUser(null);
-    window.location.href = '/';
+    handleLinkClick(0);
   };
 
   return (
