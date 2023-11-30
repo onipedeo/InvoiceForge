@@ -3,14 +3,21 @@ import React, { createContext, useState, useContext } from 'react';
 const AlertModalContext = createContext();
 
 export const AlertModalProvider = ({ children }) => {
-  const [alert, setAlert] = useState({ open: false, message: '' });
+  const defaultAlertState = { open: false, message: '', title: 'oops!' };
+  const [alert, setAlert] = useState(defaultAlertState);
 
-  const showAlert = (message) => {
-    setAlert({ open: true, message });
+  /**
+   * Shows an alert modal with the specified title and message.
+   * @param {Object} options - The options for the alert modal.
+   * @param {string} options.title - The title of the alert modal. defaults to 'oops!'
+   * @param {string} options.message - The message of the alert modal.
+   */
+  const showAlert = ({title, message}) => {
+    setAlert({ open: true, message, title });
   };
 
   const hideAlert = () => {
-    setAlert({ open: false, message: '' });
+    setAlert(defaultAlertState);
   };
 
   return (
