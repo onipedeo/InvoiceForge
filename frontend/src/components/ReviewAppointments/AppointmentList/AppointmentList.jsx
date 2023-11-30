@@ -3,11 +3,13 @@ import "./AppointmentList.scss";
 import { ReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
 import renderAppointments from './helpers/renderAppointments';
 
-const AppointmentList = ({ mode, setDisplayPage}) => {
+const AppointmentList = ({ mode, setDisplayPage }) => {
   const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
   //get the appointments from the context based on the mode
   const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
 
+
+  //set loading to true when the component mounts
   useEffect(() => {
     const timeout = setInterval(() => {
       //if the appointments are not null or undefined, then we can set loading to false and clear the interval
@@ -28,8 +30,8 @@ const AppointmentList = ({ mode, setDisplayPage}) => {
         <thead className="thead-dark">
           <tr>
             <th>Client</th>
-            <th>Notes</th>
             <th>Date</th>
+            <th>Notes</th>
             <th>Hours</th>
             <th></th>
           </tr>
