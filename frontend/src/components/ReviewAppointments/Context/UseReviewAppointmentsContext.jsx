@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, createContext, useContext } from 'react';
 import requests from '../../../api/requests';
 import reducer from './reducer';
 import { useUserContext } from '../../../contextProviders/useUserContext';
+import { useAlertModal } from '../../../contextProviders/useAlertModalContext';
 
 /**
  * Actions for the ReviewAppointments context.
@@ -20,8 +21,6 @@ export const actions = {
   setUnreviewed: 'SET_UNREVIEWED',
   setReviewed: 'SET_REVIEWED',
   setErrMessage: 'SET_ERR_MESSAGE',
-  openAlert: 'OPEN_ALERT',
-  closeAlert: 'CLOSE_ALERT',
   openModal: 'OPEN_MODAL',
   closeModal: 'CLOSE_MODAL',
   moveToReviewed: 'MOVE_TO_REVIEWED',
@@ -40,6 +39,7 @@ const initialState = {
 
 const ReviewAppointmentsContext = createContext();
 const ReviewAppointmentsProvider = ({ children }) => {
+  const { showAlert, hideAlert } = useAlertModal();
   const {user} = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -57,8 +57,7 @@ const ReviewAppointmentsProvider = ({ children }) => {
       })
       .catch((e) => {
         // open the alert modal if there is an error
-        dispatch({ type: actions.setErrMessage, payload: "Sorry, there was an issue retrieving your appointments" });
-        dispatch({ type: actions.openAlert });
+        showAlert("Sorry, there was an issue retrieving your appointments");
       });
   }, [user]);
 
@@ -66,7 +65,7 @@ const ReviewAppointmentsProvider = ({ children }) => {
   useEffect(() => {
     if (state.unreviewed && state.reviewed) {
       dispatch({ type: actions.setIsLoading, payload: false });
-      dispatch({ type: actions.closeAlert });
+      hideAlert();
     }
   }, [state.unreviewed, state.reviewed]);
 
@@ -84,4 +83,4 @@ const ReviewAppointmentsProvider = ({ children }) => {
 const UseReviewAppointmentsContext = () => {
   return useContext(ReviewAppointmentsContext);
 }
-export { ReviewAppointmentsContext, ReviewAppointmentsProvider, UseReviewAppointmentsContext};
+export { ReviewAppointmentsProvider, UseReviewAppointmentsContext};

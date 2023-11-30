@@ -1,18 +1,23 @@
 import { useContext, useEffect } from 'react';
 import AppointmentList from './AppointmentList/AppointmentList';
-import { ReviewAppointmentsContext } from './Context/UseReviewAppointmentsContext';
-import AlertModal from './Modals/AlertModal';
+import { UseReviewAppointmentsContext } from './Context/UseReviewAppointmentsContext';
 import { Modal } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ReviewAppointments.scss';
 
+/**
+ * Renders the ReviewAppointments component.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.setDisplayPage - The function to set the display page.
+ * @returns {JSX.Element} The rendered ReviewAppointments component.
+ */
 const ReviewAppointments = ({ setDisplayPage }) => {
-  const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
-  const { unreviewed, modalIsOpen, modalAppointment, alertIsOpen, errMessage } = state;
+  const { state, dispatch, actions } = UseReviewAppointmentsContext();
+  const { modalIsOpen } = state;
 
   useEffect(() => {
-    dispatch({ type: actions.openModal, payload: true });
     dispatch({ type: actions.setIsLoading, payload: true });
   }, []);
 
@@ -27,8 +32,6 @@ const ReviewAppointments = ({ setDisplayPage }) => {
             <AppointmentList key={1} mode={'unreviewed'} setDisplayPage={setDisplayPage} />
           </article>
         </div>
-        <AlertModal />
-
       </Modal.Body >
     </Modal >
   );

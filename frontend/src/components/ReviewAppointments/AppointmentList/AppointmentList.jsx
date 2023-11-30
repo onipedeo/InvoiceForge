@@ -1,10 +1,10 @@
 import { useEffect, useState, useContext } from 'react';
 import "./AppointmentList.scss";
-import { ReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
+import { UseReviewAppointmentsContext } from '../Context/UseReviewAppointmentsContext';
 import renderAppointments from './helpers/renderAppointments';
 
 const AppointmentList = ({ mode, setDisplayPage }) => {
-  const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
+  const { state, dispatch, actions } = UseReviewAppointmentsContext();
   //get the appointments from the context based on the mode
   const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
 
@@ -13,7 +13,7 @@ const AppointmentList = ({ mode, setDisplayPage }) => {
   useEffect(() => {
     const timeout = setInterval(() => {
       //if the appointments are not null or undefined, then we can set loading to false and clear the interval
-      if (appointments !== null && appointments !== undefined) {
+      if (appointments) {
         dispatch({ type: actions.setIsLoading, payload: false });
         clearInterval(timeout);
       }

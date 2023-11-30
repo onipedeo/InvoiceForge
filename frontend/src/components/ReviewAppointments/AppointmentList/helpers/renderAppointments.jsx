@@ -1,9 +1,9 @@
-import { ReviewAppointmentsContext } from "../../Context/UseReviewAppointmentsContext";
+import { UseReviewAppointmentsContext } from "../../Context/UseReviewAppointmentsContext";
 import { useContext } from "react";
 import Appointment from "../Appointment/Appointment";
 
 export default (mode, setDisplayPage) => {
-  const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
+  const { state, dispatch, actions } = UseReviewAppointmentsContext();
   //get the appointments from the context based on the mode
   const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
 
