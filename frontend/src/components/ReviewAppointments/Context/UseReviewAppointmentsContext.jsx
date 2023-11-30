@@ -1,6 +1,8 @@
-import React, { useReducer, useEffect, createContext } from 'react';
+import React, { useReducer, useEffect, createContext, useContext } from 'react';
 import requests from '../../../api/requests';
 import reducer from './reducer';
+import { useUserContext } from '../../../contextProviders/useUserContext';
+import { useAlertModal } from '../../../contextProviders/useAlertModalContext';
 
 /**
  * Actions for the ReviewAppointments context.
@@ -19,8 +21,6 @@ export const actions = {
   setUnreviewed: 'SET_UNREVIEWED',
   setReviewed: 'SET_REVIEWED',
   setErrMessage: 'SET_ERR_MESSAGE',
-  openAlert: 'OPEN_ALERT',
-  closeAlert: 'CLOSE_ALERT',
   openModal: 'OPEN_MODAL',
   closeModal: 'CLOSE_MODAL',
   moveToReviewed: 'MOVE_TO_REVIEWED',
@@ -38,11 +38,14 @@ const initialState = {
 };
 
 const ReviewAppointmentsContext = createContext();
-const ReviewAppointmentsProvider = ({ children, user }) => {
+const ReviewAppointmentsProvider = ({ children }) => {
+  const { showAlert, hideAlert } = useAlertModal();
+  const {user} = useUserContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Fetch unreviewed and reviewed appointments
   useEffect(() => {
+    if (!user) return;
     dispatch({ type: 'SET_IS_LOADING', payload: true });
     Promise.all([
       requests.get.user(user.id).unreviewed,
@@ -53,27 +56,31 @@ const ReviewAppointmentsProvider = ({ children, user }) => {
         dispatch({ type: actions.setUnreviewed, payload: unreviewed });
       })
       .catch((e) => {
-        dispatch({ type: actions.setErrMessage, payload: "Sorry, there was an issue retrieving your appointments" });
-        dispatch({ type: actions.openAlert });
+        // open the alert modal if there is an error
+        showAlert("Sorry, there was an issue retrieving your appointments");
       });
-  }, []);
+  }, [user]);
 
   // Close any alerts and set loading to false when unreviewed and reviewed appointments are set
   useEffect(() => {
     if (state.unreviewed && state.reviewed) {
       dispatch({ type: actions.setIsLoading, payload: false });
-      dispatch({ type: actions.closeAlert });
+      hideAlert();
     }
+  }, [state.unreviewed, state.reviewed]);
+
+
+  const openReviewModal = () => {
+    dispatch({ type: actions.openModal });
   }
-    , [state.unreviewed, state.reviewed]);
-
-
-
   return (
-    <ReviewAppointmentsContext.Provider value={{ state, dispatch, actions, user }}>
+    <ReviewAppointmentsContext.Provider value={{ state, dispatch, actions, openReviewModal }}>
       {children}
     </ReviewAppointmentsContext.Provider>
   );
 };
 
-export { ReviewAppointmentsContext, ReviewAppointmentsProvider };
+const UseReviewAppointmentsContext = () => {
+  return useContext(ReviewAppointmentsContext);
+}
+export { ReviewAppointmentsProvider, UseReviewAppointmentsContext};

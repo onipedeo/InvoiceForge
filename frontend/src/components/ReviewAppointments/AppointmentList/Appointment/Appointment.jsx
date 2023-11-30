@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
-import { ReviewAppointmentsContext, actions } from '../../Context/UseReviewAppointmentsContext';
+import { UseReviewAppointmentsContext } from '../../Context/UseReviewAppointmentsContext';
 import moment from 'moment';
 import './Appointment.scss';
 import { FaCheck } from 'react-icons/fa';
 import request from '../../../../api/requests';
 
 const Appointment = ({ appointment }) => {
-  const { state, dispatch } = useContext(ReviewAppointmentsContext);
+  const { state, dispatch, actions } = UseReviewAppointmentsContext();
   const [hours, setHours] = useState(0);
   const increment = () => setHours(prevValue => ++prevValue);
   const decrement = () => setHours(prevValue => --prevValue);
