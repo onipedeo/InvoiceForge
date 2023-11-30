@@ -65,7 +65,6 @@ const ReviewAppointmentsProvider = ({ children }) => {
   useEffect(() => {
     if (state.unreviewed && state.reviewed) {
       dispatch({ type: actions.setIsLoading, payload: false });
-      hideAlert();
     }
   }, [state.unreviewed, state.reviewed]);
 
