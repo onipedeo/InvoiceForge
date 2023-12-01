@@ -54,8 +54,8 @@ const InvoiceGenerator = ({
       // Wait for the invoice creation request to complete
       await fetch("/api/invoice", invoiceDataPostRequest);
 
-      const title = "Alert";
-      const message = "INVOICE SENT!!!";
+      const title = "Woohoo !!";
+      const message = "INVOICE SENT";
       const onClose = handleCloseModal();
       showAlert({ title, message, onClose });
       // Wait for the email sending request to complete
