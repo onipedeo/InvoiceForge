@@ -3,6 +3,8 @@ import ClientSelection from "./ClientSelection";
 import AppointmentList from "./AppointmentList";
 import InvoiceGenerator from "./InvoiceGenerator";
 import requests from "../api/requests";
+import { UseReviewAppointmentsContext } from "./ReviewAppointments/Context/UseReviewAppointmentsContext";
+
 
 const AppointmentsContainer = ({ user }) => {
   const [selectedClient, setSelectedClient] = useState(null);
@@ -11,6 +13,7 @@ const AppointmentsContainer = ({ user }) => {
   const [reviewedAppointments, setReviewedAppointments] = useState([]);
   const [clientRate, setClientRate] = useState(null);
   const [clientObj, setClientObj] = useState({});
+  const { state: reviewModalState } = UseReviewAppointmentsContext();
 
   useEffect(() => {
     if (selectedClient) {
@@ -25,7 +28,7 @@ const AppointmentsContainer = ({ user }) => {
       setClientRate(null);
       setClientObj({});
     }
-  }, [selectedClient]);
+  }, [selectedClient, reviewModalState.unreviewed]);
 
   useEffect(() => {
     requests.get.user(user.id).clients.then((clients) => {
