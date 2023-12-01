@@ -18,7 +18,7 @@ import { useAlertModal } from '../contextProviders/useAlertModalContext.jsx';
  * @returns {JSX.Element} The rendered AlertModal component.
  */
 export default () => {
-  const { alert, hideAlert } = useAlertModal();
+  const { alert, hideAlert, onClose } = useAlertModal();
 
   return (
     <Modal show={alert.open} onHide={hideAlert}>
@@ -27,7 +27,7 @@ export default () => {
       </Modal.Header>
       <Modal.Body>{alert.message}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={hideAlert}>
+        <Button variant="secondary" onClick={onClose || hideAlert}>
           Close
         </Button>
       </Modal.Footer>
