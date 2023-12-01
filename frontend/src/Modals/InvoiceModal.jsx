@@ -1,6 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
-import { useContext, useEffect } from 'react';
+// import { useContext, useEffect } from 'react';
 import { useInvoiceModal } from '../contextProviders/useInvoiceModalContext';
+import '../styles/InvoiceGeneratedModal.scss';
 
 /**
  * AlertModal component displays an alert message in a modal dialog.
@@ -22,12 +23,14 @@ export default ({ generatedPDF, handleBackToAppointments, handleConfirmAndSend }
   const handleAndHide = (handler) => {
     handler();
     hideInvoice();
-  }
-  
+  };
+
 
   return (
     <Modal show={invoiceDisplay} onHide={hideInvoice}>
-      <Modal.Header closeButton />
+      <Modal.Header closeButton >
+        <Modal.Title>Forged Invoice</Modal.Title>
+      </Modal.Header >
       <Modal.Body >
         <iframe
           title="Invoice PDF"
@@ -37,13 +40,15 @@ export default ({ generatedPDF, handleBackToAppointments, handleConfirmAndSend }
         ></iframe>
 
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={()=> {handleAndHide(handleBackToAppointments)}}>
+      <Modal.Footer >
+
+        <Button variant="secondary" onClick={() => { handleAndHide(handleBackToAppointments); }}>
           Back to Appointments
-        </Button>
-        <Button variant="secondary" onClick={()=>{handleAndHide(handleConfirmAndSend)}}>
+        </Button >
+        <Button variant="primary" onClick={() => { handleAndHide(handleConfirmAndSend); }}>
           Confirm and Send
-        </Button>
+        </Button >
+
       </Modal.Footer>
     </Modal>
   );
