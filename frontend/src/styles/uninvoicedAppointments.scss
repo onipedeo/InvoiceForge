@@ -2,7 +2,6 @@
 .uninvoiced-appointment-list {
   display: flex;
   flex-direction: row;
-
   height: 70vh;
   overflow-y: scroll;
   border: 1px solid rgba(255, 255, 255, 0.458);
@@ -15,35 +14,24 @@
   max-width: 100vw;
   overflow-x: none;
   gap: 2vw;
-  padding: 3vw ;
+  padding: 3vw;
 }
 
 /* styles for each appointment item */
 .uninvoiced-appointment-list-item {
-  
   border-radius: 8px 8px 8px 8px;
   user-select: none;
   width: 300px;
   height: 200px;
-  // margin: 5vw;
-
-  // object-fit: cover;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-
   cursor: pointer;
-  // cursor: pointer;
-  // width: 40vw;
-  // display: flex;
-  // border: 1px solid #ddd;
-  // margin: 1vw 0;
   background-color: white;
-  // border-radius: 5px;
-  font-family: "-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"";
+  font-size: large;
+  font-family: "Georgia, 'Times New Roman', Times, serif";
 }
-
 
 .uninvoiced-appointment-list-item:hover {
   background-color: rgb(211, 211, 211);
