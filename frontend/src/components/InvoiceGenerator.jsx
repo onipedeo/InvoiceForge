@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GeneratePDF from "./GeneratePDF";
-import InvoiceSentModal from "./InvoiceSentModal";
+import InvoiceModal from "../Modals/InvoiceModal";
+import { useAlertModal } from "../contextProviders/useAlertModalContext";
 
 const InvoiceGenerator = ({
   reviewedAppointments,
@@ -11,11 +12,11 @@ const InvoiceGenerator = ({
   setSelectedClient,
   setCheckedAppointments,
 }) => {
+
   const [generatedPDF, setGeneratedPDF] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
   const [generatedAttachment, setGeneratedAttachment] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [grandTotal, setGrandTotal] = useState(0);
+  const { showAlert, hideAlert } = useAlertModal();
 
   const handleConfirmAndSend = async () => {
     try {
@@ -53,7 +54,10 @@ const InvoiceGenerator = ({
       // Wait for the invoice creation request to complete
       await fetch("/api/invoice", invoiceDataPostRequest);
 
-      setIsModalOpen(true);
+      const title = "Alert";
+      const message = "INVOICE SENT!!!";
+      const onClose = handleCloseModal();
+      showAlert({ title, message, onClose });
       // Wait for the email sending request to complete
       await fetch("/api/send_email/invoice", requestOptions);
     } catch (error) {
@@ -62,10 +66,10 @@ const InvoiceGenerator = ({
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     setGeneratedPDF(null);
     setSelectedClient(null);
     setCheckedAppointments([]);
+    hideAlert();
   };
 
   const handleBackToAppointments = () => {
@@ -82,31 +86,9 @@ const InvoiceGenerator = ({
         user={user}
         setGeneratedPDF={setGeneratedPDF}
         setGeneratedAttachment={setGeneratedAttachment}
-        setErrorMessage={setErrorMessage}
         setGrandTotal={setGrandTotal}
       />
-      {errorMessage && (
-        <p class="alert alert-dark" role="alert">
-          {errorMessage}
-        </p>
-      )}
-      {generatedPDF && (
-        <div className="pdf">
-          <iframe
-            title="Invoice PDF"
-            src={generatedPDF}
-            width="60%"
-            height="500px"
-          ></iframe>
-          <div className="confirm-and-send">
-            <button onClick={handleBackToAppointments}>
-              Back to Appointments
-            </button>
-            <button onClick={handleConfirmAndSend}>Confirm and Send</button>
-          </div>
-        </div>
-      )}
-      {isModalOpen && <InvoiceSentModal onClick={handleCloseModal} />}
+      <InvoiceModal generatedPDF={generatedPDF} handleConfirmAndSend={handleConfirmAndSend} handleBackToAppointments={handleBackToAppointments} />
     </div>
   );
 };
