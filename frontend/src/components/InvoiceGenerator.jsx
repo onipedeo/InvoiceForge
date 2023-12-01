@@ -87,7 +87,7 @@ const InvoiceGenerator = ({
         setErrorMessage={setErrorMessage}
         setGrandTotal={setGrandTotal}
       />
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {errorMessage && <p class="alert alert-dark" role="alert">{errorMessage}</p>}
       {generatedPDF && (
         <div className="pdf">
           <iframe

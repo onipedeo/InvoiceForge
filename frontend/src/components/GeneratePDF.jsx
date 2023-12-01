@@ -166,7 +166,7 @@ const GeneratePDF = ({
     setErrorMessage("");
   };
 
-  return <button className="btn btn-primary" onClick={generateInvoice}>Generate Invoice</button>;
+  return <>{checkedAppointments.length > 0 && (<button className="generate-invoice-button" onClick={generateInvoice}>Generate Invoice</button>)}</>;
 };
 
 export default GeneratePDF;
