@@ -1,15 +1,15 @@
-import { ReviewAppointmentsContext } from "../../Context/UseReviewAppointmentsContext";
+import { UseReviewAppointmentsContext } from "../../Context/UseReviewAppointmentsContext";
 import { useContext } from "react";
 import Appointment from "../Appointment/Appointment";
 
 export default (mode, setDisplayPage) => {
-  const { state, dispatch, actions } = useContext(ReviewAppointmentsContext);
+  const { state, dispatch, actions } = UseReviewAppointmentsContext();
   //get the appointments from the context based on the mode
   const appointments = mode === 'unreviewed' ? state.unreviewed : state.reviewed;
 
 
   // Make sure the appointments are not null or undefined
-  if (appointments !== null && appointments !== undefined && appointments.length > 0) {
+  if (appointments && appointments.length > 0) {
     //map the appointments to the Appointment component
     return appointments.map((appointment) => (
       <Appointment
@@ -17,6 +17,11 @@ export default (mode, setDisplayPage) => {
         appointment={appointment}
       />
     ));
+  }
+
+  const handleOnClick = (pageNumber) => {
+    setDisplayPage(pageNumber);
+    dispatch({ type: actions.closeModal });
   }
 
   // if empty array, display a message
@@ -27,14 +32,14 @@ export default (mode, setDisplayPage) => {
           <h3>You have no {mode} appointments.</h3>
           <p> What next?</p>
           <span
-            onClick={() => setDisplayPage(4)}
+            onClick={() => {handleOnClick(4)}}
             className="btn btn-primary"
           >
             Generate Invoice
           </span>
           <p>Or</p>
           <span
-            onClick={() => setDisplayPage(0)}
+            onClick={() => handleOnClick(1)}
             className="btn btn-primary"
           >
             Schedule more appointments

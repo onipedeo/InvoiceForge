@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import "../styles/top-navbar.scss";
 import LoginModal from "./LoginModal";
+import { useUserContext } from "../contextProviders/useUserContext";
 
 
 
 export default function TopNavBar(props) {
-  const { user, setUser, handleLinkClick } = props;
+  const { handleLinkClick } = props;
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { user, setUser } = useUserContext();
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true);
@@ -19,7 +21,7 @@ export default function TopNavBar(props) {
   const handleLogoutClick = () => {
     setIsLoginModalOpen(false);
     setUser(null);
-    window.location.href = '/';
+    handleLinkClick(0);
   };
 
   return (

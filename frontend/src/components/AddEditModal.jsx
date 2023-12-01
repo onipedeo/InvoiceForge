@@ -3,21 +3,33 @@ import "../styles/addEditModal.scss";
 import requests from "../api/requests";
 
 const AddEditModal = (props) => {
-	const { formData, setFormData, selectedEvent, user } = props;
+	const defaultFormData = {
+		appointmentRateCents: 0,
+		date: "",
+		endTime: "",
+		notes: "",
+		startTime: "",
+		clientId: "",
+		clientName: "",
+	};
+	const { selectedEvent, user } = props;
+	const [formData, setFormData] = useState(defaultFormData);
 
 	useEffect(() => {
 		console.log("selectedEvent", selectedEvent);
 		if (selectedEvent) {
 			console.log("selectedEvent", selectedEvent);
 			const eventData = selectedEvent.appointment;
+			const { appointmentRateCents, date, endTime, notes, startTime } = eventData;
+			const { id: clientId, name: clientName } = eventData.client;
 			const newFormData = {
-				appointmentRateCents: eventData.appointmentRateCents,
-				date: eventData.date,
-				endTime: eventData.endTime,
-				notes: eventData.notes,
-				startTime: eventData.startTime,
-				clientId: eventData.client.id,
-				clientName: eventData.client.name,
+				appointmentRateCents,
+				date,
+				endTime,
+				notes,
+				startTime,
+				clientId,
+				clientName
 			};
 			console.log("newFormData", newFormData);
 			setFormData(newFormData);
@@ -36,6 +48,8 @@ const AddEditModal = (props) => {
 
 		console.log("clients", clients);
 		console.log("event.taget.value", event.target.value);
+
+
 		if (event.target.name === "clientName") {
 			const selectedClient = clients.find(
 				(client) => client.id === parseInt(event.target.value)
@@ -158,20 +172,14 @@ const AddEditModal = (props) => {
 						onChange={handleChange}
 						type="text"
 					>
-						{selectedEvent ? (
-							// ? clients.map((client) =>
-							// 		client.name === formData.clientName ? (
-							<option
-								// key={client.id}
-								// name="clientId"
-								// value={client.id}
-								disabled
-							>
-								{formData.clientName}
+						{!formData.clientName && (
+							<option value="" disabled selected>
+								Pick a client
 							</option>
+						)}
+						{selectedEvent ? (
+							<option disabled>{formData.clientName}</option>
 						) : (
-							// ) : null
-
 							clients.map((client) => (
 								<option
 									key={client.id}

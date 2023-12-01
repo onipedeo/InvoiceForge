@@ -3,12 +3,13 @@ import "./App.scss";
 import { useState, useEffect, useContext } from "react";
 
 // import contexts and providers
-import { ReviewAppointmentsProvider, ReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
-
+import { UseReviewAppointmentsContext } from "./components/ReviewAppointments/Context/UseReviewAppointmentsContext";
+import { useUserContext } from "./contextProviders/useUserContext";
+import { useAlertModal } from "./contextProviders/useAlertModalContext";
 // import components
-import ReviewAppointments from "./components/ReviewAppointments/ReviewAppointments";
+import ReviewAppointmentsModal from "./components/ReviewAppointments/ReviewAppointments";
 import AppointmentContainer from "./components/AppointmentContainer";
-import AlertModal from "./components/ReviewAppointments/Modals/AlertModal";
+import AlertModal from "./Modals/AlertModal";
 import ClientList from "./components/ClientList";
 import TopNavBar from "./components/TopNavBar";
 import LandingPage from "./components/Landingpage";
@@ -16,19 +17,65 @@ import Footer from "./components/footer";
 import Page from "./components/Page";
 
 function App() {
+
   const handleLinkClick = (pageNumber) => {
-    setDisplayPage(pageNumber);
+    // adjust so that modal doesn't redirect to blank background
+    if (pageNumber === 3) {
+      openReviewModal();
+    }
+    else {
+      setDisplayPage(pageNumber);
+    }
   };
 
-  const [user, setUser] = useState(null);
+  // user is now retriver from the context provider
+  const { user, setUser } = useUserContext();
+  const { openReviewModal } = UseReviewAppointmentsContext();
   const [displayPage, setDisplayPage] = useState(0);
 
+
+  // example of how to open the alert modal
+  const { showAlert } = useAlertModal(); // retrieves the show alert method from the modal's context. Import useAlertModal into your file, see line 8.
+  useEffect(() => { // ignore this useEffect, it's just so that the alert modal opens on page load
+    // configure the desired alert message and title
+    const myAlert = {
+      message: 'This is an alert message. Checkout App.jsx lines 37 - 44 for an example of how to open the alert modal',
+      title: 'This is an alert title',
+    }
+  // call showAlert to open the alert modal
+  showAlert(myAlert);
+  },[]);
+
+  //handle redirect to client list if no clients
   useEffect(() => {
-    if (displayPage === 3) {
-      ReviewAppointmentsContext.openModal = true;
-      ReviewAppointmentsContext.setIsLoading = true;
-    };
-  }, [displayPage]);
+    if (user) {
+      fetch(`/api/user/${user.id}/clients`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.length === 0) {
+            setDisplayPage(2);
+          } else {
+            setDisplayPage(1); //change 1 to your page numbet to redirect on login for debugging
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  // Auto login for testing. set the userId to whichever user you want to login as:
+  // 1: "Nathan"
+  // 2: "Andrew"
+  // 3: "Tobi"
+  // 4: "Caroline"
+  useEffect(() => {
+    const id = 1;
+    fetch(`/api/user/${id}/object`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+      });
+  }, []);
 
 
 
@@ -36,26 +83,18 @@ function App() {
   return (
     <>
       <TopNavBar
-        user={user}
-        setUser={setUser}
         handleLinkClick={handleLinkClick}
       />
       <section className="page-content">
         {displayPage === 0 && <LandingPage />}
 
-        {displayPage === 1 && <Page user={user}/>}
-      {displayPage === 2 && <ClientList user={user}  />}
-        {displayPage === 3 &&
-
-            <ReviewAppointmentsProvider user={user}>
-              <ReviewAppointments setDisplayPage={setDisplayPage} />
-              <AlertModal context={ReviewAppointmentsContext} />
-            </ReviewAppointmentsProvider>
-
-        }
+        {displayPage === 1 && <Page user={user} />}
+        {displayPage === 2 && <ClientList user={user} />}
         {displayPage === 4 && (
           <AppointmentContainer user={user} />
         )}
+        <ReviewAppointmentsModal setDisplayPage={setDisplayPage} />
+        <AlertModal />
       </section>
       <Footer />
     </>

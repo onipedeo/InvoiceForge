@@ -6,17 +6,6 @@ import Day from "./Day";
 const Page = (props) => {
 	const [isModalOpen, setModalOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
-	
-
-	const [formData, setFormData] = useState({
-		appointmentRateCents: "",
-		date: "",
-		endTime: "",
-		notes: "",
-		startTime: "",
-		clientId: "",
-		clientName: "",
-	});
 
 	useEffect(() => {
 		console.log(selectedEvent);
@@ -25,13 +14,11 @@ const Page = (props) => {
 	}, [selectedEvent]);
 
 	const openModal = () => {
-    setFormData({});
     setSelectedEvent(null);
 		setModalOpen(true);
 	};
 
 	const closeModal = () => {
-		setFormData({});
     setSelectedEvent(null);
 		setModalOpen(false);
 	};
@@ -41,8 +28,6 @@ const Page = (props) => {
 			{isModalOpen ? (
 				<>
 					<AddEditModal
-						formData={formData}
-						setFormData={setFormData}
 						selectedEvent={selectedEvent}
 						user={props.user}
 						isOpen={isModalOpen}

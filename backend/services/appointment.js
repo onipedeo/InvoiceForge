@@ -10,9 +10,9 @@ class AppointmentService {
     return appointmentDao.getById(appointmentId);
   }
 
-  edit(appointmentId, appointmentDto) {
+  edit(id, appointmentDto) {
     const { date, startTime, confirmedHours, endTime, clientId, appointmentRateCents, notes } = appointmentDto;
-    return appointmentDao.edit({appointmentId, date, startTime, confirmedHours, endTime, clientId, appointmentRateCents, notes});
+    return appointmentDao.edit({id, date, startTime, confirmedHours, endTime, clientId, appointmentRateCents, notes});
   }
 
   delete(appointmentId) {
