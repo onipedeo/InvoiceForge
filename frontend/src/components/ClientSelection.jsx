@@ -14,10 +14,11 @@ const ClientSelection = ({ selectedClient, handleClientSelect, clients }) => {
       <select
       className="client-option"
         ref={selectRef}
+        value={selectedClient || ""}
          onChange={(e) => handleClientSelect(parseInt(e.target.value))}
       >
-        <option disabled selected value="">
-          select a client
+        <option disabled value="">
+          Select a client
         </option>
 
         {clients.map((client) => (
