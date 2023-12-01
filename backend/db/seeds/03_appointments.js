@@ -25,7 +25,7 @@ exports.seed = async function(knex) {
   const start_time = ["06:00:00", "07:00:00", "08:00:00", "09:00:00"];
   const end_time_morning = ["12:00:00", "13:00:00", "14:00:00", "15:00:00"];
   const end_time_afternoon = ["17:00:00", "18:00:00", "19:00:00", "20:00:00"];
-  const notes = ["sand and prep", 'install vanity', 'demo wall', 'paint', "mud & tape", "demo bathroom"];
+  const notes = ["Sand and Prep", 'Install Vanity', 'Demo Wall', 'Paint', "Mud & Tape", "Demo Bathroom"];
 
 
   //creates 2 reviewed appointments per day for 20 day
