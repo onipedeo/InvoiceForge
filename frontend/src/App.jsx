@@ -52,7 +52,6 @@ function App() {
       fetch(`/api/user/${user.id}/clients`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.length === 0) {
             setDisplayPage(2);
           } else {
