@@ -1,0 +1,64 @@
+/* styles for the appointment list */
+.uninvoiced-appointment-list {
+  display: flex;
+  flex-direction: column;
+
+  height: 70vh;
+  overflow-y: scroll;
+  border: 1px solid rgba(255, 255, 255, 0.458);
+  border-radius: 10px;
+  align-items: center;
+  background-color: whitesmoke;
+ 
+}
+
+/* styles for each appointment item */
+.uninvoiced-appointment-list-item {
+  cursor: pointer;
+  width: 40vw;
+  display: flex;
+  border: 1px solid #ddd;
+  margin: 1vw 0;
+  background-color: white;
+  border-radius: 5px;
+  font-family: "-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"";
+// align-items: flex-start;
+}
+
+
+.uninvoiced-appointment-list-item:hover {
+  background-color: rgb(211, 211, 211);
+}
+
+/* styles for the selected item */
+.uninvoiced-appointment-list-item.selected {
+  background-color: darkgray;
+  color: #fff;
+}
+
+/* styles for the appointment info */
+.uninvoiced-appointment-info {
+  flex-grow: 1;
+}
+// .uninvoiced-appointment-info {
+//   display: flex;
+//   align-items: center; /* Align items vertically in the center */
+//   justify-content: center; /* Center the content horizontally */
+//   text-align: start; /* Align text to the start */
+  
+// }
+
+// .uninvoiced-appointment-info p {
+//   margin-right: 10px; /* Add some space between each icon and text */
+// }
+
+
+
+// .uninvoiced-appointment-info {
+//   display: flex;
+//   align-items: center;
+// }
+// /* styles for the checkbox */
+// .appointment-list-item input[type="checkbox"] {
+//   margin-left: 10px;
+// }
