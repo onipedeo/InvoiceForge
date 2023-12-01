@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ClientSelection from "./ClientSelection";
-import AppointmentList from "./AppointmentList";
+import UninvoicedAppointments from "./UninvoicedAppointments";
 import InvoiceGenerator from "./InvoiceGenerator";
 import requests from "../api/requests";
 
@@ -53,7 +53,7 @@ const AppointmentsContainer = ({ user }) => {
         clients={clients}
       />
       {selectedClient && (
-        <AppointmentList
+        <UninvoicedAppointments
           reviewedAppointments={reviewedAppointments}
           handleAppointmentCheck={handleAppointmentCheck}
           checkedAppointments={checkedAppointments}
