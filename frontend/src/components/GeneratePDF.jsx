@@ -2,6 +2,7 @@ import React from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../styles/InvoiceGeneratedModal.scss";
+import { useInvoiceModal } from "../contextProviders/useInvoiceModalContext";
 
 const GeneratePDF = ({
   reviewedAppointments,
@@ -11,15 +12,13 @@ const GeneratePDF = ({
   user,
   setGeneratedPDF,
   setGeneratedAttachment,
-  setErrorMessage,
   setGrandTotal
 }) => {
 
+  const { showInvoice } = useInvoiceModal();
+
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
-      setErrorMessage(
-        "Please select at least one appointment to generate an invoice."
-      );
       return;
     }
 
@@ -68,8 +67,7 @@ const GeneratePDF = ({
       BILL TO:
       ${clientObj.name}
       ${clientDetails.line1}
-      ${clientDetails.city} ${clientDetails.city ? "," : ""} ${
-        clientDetails.province
+      ${clientDetails.city} ${clientDetails.city ? "," : ""} ${clientDetails.province
       } ${clientDetails.postalCode}
       `,
       20,
@@ -90,8 +88,8 @@ const GeneratePDF = ({
           const rate = appointment.appointmentRateCents
             ? appointment.appointmentRateCents
             : clientRate
-            ? clientRate
-            : user.standardRateCents;
+              ? clientRate
+              : user.standardRateCents;
           const total = (rate * appointment.confirmedHours) / 100;
 
           return [
@@ -115,8 +113,8 @@ const GeneratePDF = ({
         const rate = appointmentRateCents
           ? appointmentRateCents
           : clientRate
-          ? clientRate
-          : user.standardRateCents;
+            ? clientRate
+            : user.standardRateCents;
         return total + (appointment.confirmedHours * rate) / 100;
       }, 0);
 
@@ -162,8 +160,7 @@ const GeneratePDF = ({
     setGeneratedAttachment(
       new File([generatedPDFData], "invoice.pdf", { type: "application/pdf" })
     );
-
-    setErrorMessage("");
+    showInvoice();
   };
 
   return <>{checkedAppointments.length > 0 && (<button className="generate-invoice-button" onClick={generateInvoice}>Generate Invoice</button>)}</>;
