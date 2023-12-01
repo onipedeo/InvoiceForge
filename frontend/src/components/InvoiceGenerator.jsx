@@ -11,13 +11,11 @@ const InvoiceGenerator = ({
   setSelectedClient,
   setCheckedAppointments,
 }) => {
-
   const [generatedPDF, setGeneratedPDF] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [generatedAttachment, setGeneratedAttachment] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [grandTotal, setGrandTotal] = useState(0);
- 
 
   const handleConfirmAndSend = async () => {
     try {
@@ -87,7 +85,11 @@ const InvoiceGenerator = ({
         setErrorMessage={setErrorMessage}
         setGrandTotal={setGrandTotal}
       />
-      {errorMessage && <p class="alert alert-dark" role="alert">{errorMessage}</p>}
+      {errorMessage && (
+        <p class="alert alert-dark" role="alert">
+          {errorMessage}
+        </p>
+      )}
       {generatedPDF && (
         <div className="pdf">
           <iframe
@@ -96,7 +98,7 @@ const InvoiceGenerator = ({
             width="60%"
             height="500px"
           ></iframe>
-          <div>
+          <div className="confirm-and-send">
             <button onClick={handleBackToAppointments}>
               Back to Appointments
             </button>
