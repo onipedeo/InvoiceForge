@@ -27,12 +27,12 @@ const GeneratePDF = ({
 
     pdf.setLineWidth(0.5);
     pdf.setDrawColor("black");
-    const overlineY = 25;
-    pdf.line(20, overlineY, 66, overlineY); // Draw the line
+    const overlineY = 23;
+    pdf.line(20, overlineY, 78, overlineY); // Draw the line
 
     // styled text
-    pdf.setFont("sans-serif");
-    pdf.setFontSize(24);
+    pdf.setFont("Times");
+    pdf.setFontSize(30);
     pdf.setTextColor(0, 0, 0);
 
     pdf.text(20, 32, "InvoiceForge");
@@ -40,7 +40,7 @@ const GeneratePDF = ({
     // user details
     const userDetails = user.address;
     pdf.setFontSize(12);
-    pdf.setFont("sans-serif");
+    pdf.setFont("Times");
     pdf.text(
       `
       ${user.firstName} ${user.lastName}
@@ -77,7 +77,7 @@ const GeneratePDF = ({
     // styles for the table
     pdf.setFillColor(200, 220, 255);
     pdf.setTextColor(0, 0, 0);
-    pdf.setFont("sans-serif", "bold");
+    pdf.setFont("Times", "bold");
 
     pdf.autoTable({
       head: [["Description", "Date", "Rate ($)", "Hours", "Total ($)"]],
@@ -144,7 +144,7 @@ const GeneratePDF = ({
     );
 
     pdf.setFillColor(255, 255, 255);
-    pdf.setFont("sans-serif", "bold");
+    pdf.setFont("Times", "bold");
     pdf.setFontSize(14);
 
     pdf.text(`Grand Total`, 140, pdf.autoTable.previous.finalY + 35);

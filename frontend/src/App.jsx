@@ -68,7 +68,7 @@ function App() {
   // 3: "Tobi"
   // 4: "Caroline"
   useEffect(() => {
-    const id = 1;
+    const id = 4;
     fetch(`/api/user/${id}/object`)
       .then((res) => res.json())
       .then((data) => {
