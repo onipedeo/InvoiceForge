@@ -163,7 +163,7 @@ const GeneratePDF = ({
     showInvoice();
   };
 
-  return <>{checkedAppointments.length > 0 && (<button className="generate-invoice-button" onClick={generateInvoice}>Generate Invoice</button>)}</>;
+  return <>{checkedAppointments.length > 0 && (<button className="forge-invoice-button" onClick={generateInvoice}>Forge Invoice</button>)}</>;
 };
 
 export default GeneratePDF;
