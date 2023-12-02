@@ -8,7 +8,7 @@ const Page = (props) => {
 	const [selectedEvent, setSelectedEvent] = useState(null);
 
 	useEffect(() => {
-		console.log(selectedEvent);
+		
 		if (selectedEvent) {
 		}
 	}, [selectedEvent]);

@@ -52,7 +52,6 @@ function App() {
       fetch(`/api/user/${user.id}/clients`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.length === 0) {
             setDisplayPage(2);
           } else {
@@ -69,7 +68,7 @@ function App() {
   // 3: "Tobi"
   // 4: "Caroline"
   useEffect(() => {
-    const id = 1;
+    const id = 4;
     fetch(`/api/user/${id}/object`)
       .then((res) => res.json())
       .then((data) => {

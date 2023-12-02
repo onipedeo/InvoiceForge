@@ -2,6 +2,7 @@ import React from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "../styles/InvoiceGeneratedModal.scss";
+import { useInvoiceModal } from "../contextProviders/useInvoiceModalContext";
 
 const GeneratePDF = ({
   reviewedAppointments,
@@ -11,15 +12,13 @@ const GeneratePDF = ({
   user,
   setGeneratedPDF,
   setGeneratedAttachment,
-  setErrorMessage,
   setGrandTotal
 }) => {
 
+  const { showInvoice } = useInvoiceModal();
+
   const generateInvoice = () => {
     if (checkedAppointments.length === 0) {
-      setErrorMessage(
-        "Please select at least one appointment to generate an invoice."
-      );
       return;
     }
 
@@ -28,12 +27,12 @@ const GeneratePDF = ({
 
     pdf.setLineWidth(0.5);
     pdf.setDrawColor("black");
-    const overlineY = 25;
-    pdf.line(20, overlineY, 66, overlineY); // Draw the line
+    const overlineY = 23;
+    pdf.line(20, overlineY, 78, overlineY); // Draw the line
 
     // styled text
-    pdf.setFont("sans-serif");
-    pdf.setFontSize(24);
+    pdf.setFont("Times");
+    pdf.setFontSize(30);
     pdf.setTextColor(0, 0, 0);
 
     pdf.text(20, 32, "InvoiceForge");
@@ -41,7 +40,7 @@ const GeneratePDF = ({
     // user details
     const userDetails = user.address;
     pdf.setFontSize(12);
-    pdf.setFont("sans-serif");
+    pdf.setFont("Times");
     pdf.text(
       `
       ${user.firstName} ${user.lastName}
@@ -68,8 +67,7 @@ const GeneratePDF = ({
       BILL TO:
       ${clientObj.name}
       ${clientDetails.line1}
-      ${clientDetails.city} ${clientDetails.city ? "," : ""} ${
-        clientDetails.province
+      ${clientDetails.city} ${clientDetails.city ? "," : ""} ${clientDetails.province
       } ${clientDetails.postalCode}
       `,
       20,
@@ -79,7 +77,7 @@ const GeneratePDF = ({
     // styles for the table
     pdf.setFillColor(200, 220, 255);
     pdf.setTextColor(0, 0, 0);
-    pdf.setFont("sans-serif", "bold");
+    pdf.setFont("Times", "bold");
 
     pdf.autoTable({
       head: [["Description", "Date", "Rate ($)", "Hours", "Total ($)"]],
@@ -90,8 +88,8 @@ const GeneratePDF = ({
           const rate = appointment.appointmentRateCents
             ? appointment.appointmentRateCents
             : clientRate
-            ? clientRate
-            : user.standardRateCents;
+              ? clientRate
+              : user.standardRateCents;
           const total = (rate * appointment.confirmedHours) / 100;
 
           return [
@@ -115,8 +113,8 @@ const GeneratePDF = ({
         const rate = appointmentRateCents
           ? appointmentRateCents
           : clientRate
-          ? clientRate
-          : user.standardRateCents;
+            ? clientRate
+            : user.standardRateCents;
         return total + (appointment.confirmedHours * rate) / 100;
       }, 0);
 
@@ -146,7 +144,7 @@ const GeneratePDF = ({
     );
 
     pdf.setFillColor(255, 255, 255);
-    pdf.setFont("sans-serif", "bold");
+    pdf.setFont("Times", "bold");
     pdf.setFontSize(14);
 
     pdf.text(`Grand Total`, 140, pdf.autoTable.previous.finalY + 35);
@@ -162,11 +160,10 @@ const GeneratePDF = ({
     setGeneratedAttachment(
       new File([generatedPDFData], "invoice.pdf", { type: "application/pdf" })
     );
-
-    setErrorMessage("");
+    showInvoice();
   };
 
-  return <div onClick={generateInvoice}>Generate Invoice</div>;
+  return <>{checkedAppointments.length > 0 && (<button className="forge-invoice-button" onClick={generateInvoice}>Forge Invoice</button>)}</>;
 };
 
 export default GeneratePDF;
