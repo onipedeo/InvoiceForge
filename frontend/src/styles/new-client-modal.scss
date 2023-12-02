@@ -22,6 +22,15 @@
     margin-top:1vw;
     width:20vw;
   }
+<<<<<<< HEAD
+
+  h3{
+    padding-top: 1vw;
+    }
+
+}
+=======
+>>>>>>> ef611b8 (minor adjustment for better UI)
 
   h3{
     padding-top: 1vw;
@@ -45,7 +54,6 @@
   justify-content: space-around;
   margin-bottom: 10px;
   margin-left: 0.8vw;
-  margin-left: -1vw;
 
 
   label {
@@ -63,7 +71,7 @@
     @include main-colours;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-left: -3vw;
+    margin-left: -2vw;
   }
 }
 
