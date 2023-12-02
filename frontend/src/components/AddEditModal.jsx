@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../styles/addEditModal.scss";
 import requests from "../api/requests";
+import { Modal, Button } from "react-bootstrap";
 
-const AddEditModal = (props) => {
+
+function AddEditModal(props) {
+
+	const { show, handleClose } = props;
 	const defaultFormData = {
 		appointmentRateCents: 0,
 		date: "",
@@ -16,9 +20,7 @@ const AddEditModal = (props) => {
 	const [formData, setFormData] = useState(defaultFormData);
 
 	useEffect(() => {
-		console.log("selectedEvent", selectedEvent);
 		if (selectedEvent) {
-			console.log("selectedEvent", selectedEvent);
 			const eventData = selectedEvent.appointment;
 			const { appointmentRateCents, date, endTime, notes, startTime } = eventData;
 			const { id: clientId, name: clientName } = eventData.client;
@@ -31,11 +33,9 @@ const AddEditModal = (props) => {
 				clientId,
 				clientName
 			};
-			console.log("newFormData", newFormData);
 			setFormData(newFormData);
 		}
 	}, [selectedEvent]);
-	console.log(formData);
 
 	const [clients, setClients] = useState([]);
 
@@ -45,9 +45,6 @@ const AddEditModal = (props) => {
 
 		const value =
 			type === "checkbox" ? event.target.checked : event.target.value;
-
-		console.log("clients", clients);
-		console.log("event.taget.value", event.target.value);
 
 
 		if (event.target.name === "clientName") {
@@ -71,16 +68,13 @@ const AddEditModal = (props) => {
 	useEffect(() => {
 		requests.get.user(props.user.id).clients.then((clients) => {
 			setClients(clients);
-			console.log("clients", clients);
 		});
 	}, [props.user]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log(formData);
 		try {
 			const response = await requests.create.appointment(formData);
-			console.log("response", response);
 
 			// Close the modal
 			props.onClose();
@@ -91,7 +85,6 @@ const AddEditModal = (props) => {
 
 	const handleEdit = async (event) => {
 		event.preventDefault();
-		console.log("selected event insde the handleedit fn", selectedEvent);
 		const edittedappointment = {
 			appointmentId: selectedEvent.appointment.id,
 			date: formData.date,
@@ -103,11 +96,6 @@ const AddEditModal = (props) => {
 			notes: formData.notes,
 		};
 		try {
-			console.log("formData before api call for edit", formData);
-			console.log(
-				"eddittedappointment before api call for edit",
-				edittedappointment
-			);
 			const url = `/api/appointment/${edittedappointment.appointmentId}`;
 			const reqOptions = {
 				method: "PUT",
@@ -116,10 +104,7 @@ const AddEditModal = (props) => {
 			};
 			fetch(url, reqOptions);
 			alert("updated successfully");
-			// requests.update.appointment(
-			// 	edittedappointment.id,
-			// 	edittedappointment
-			// );
+
 		} catch (error) {
 			console.error("Error sending data", error);
 		}
@@ -130,17 +115,12 @@ const AddEditModal = (props) => {
 		event.preventDefault();
 		try {
 			const appointmentId = selectedEvent.appointment.id;
-			console.log(
-				"selectedEvent before sending delete request",
-				selectedEvent.appointment.id
-			);
 			const url = `/api/appointment/${appointmentId}`;
 			fetch(url, {
 				method: "DELETE",
 				headers: { "content-type": "application/json" },
 			});
 			alert("appointment deleted");
-			// requests.delete.appointment(appointmentId);
 		} catch (error) {
 			console.error("appointment not deleted", error);
 		}
@@ -148,105 +128,108 @@ const AddEditModal = (props) => {
 	};
 
 	return (
-		props.isOpen && (
-			<div className="addEditModal">
-				{selectedEvent ? (
-					<h2>Edit an appointment</h2>
-				) : (
-					<h2>Book an Appointment</h2>
-				)}
+		<>
+			<Modal
+				show={show}
+				onHide={props.onClose}
+				backdrop="static"
+				keyboard={false}
+			>
+				<Modal.Header closeButton>
+					<Modal.Title>{selectedEvent ? (
+						<h2>Edit an appointment</h2>
+					) : (
+						<h2>Book an Appointment</h2>
+					)}
+					</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<div className="addEditModal">
+						<form className="form">
+							<label>Client Name:</label>
+							<select
+								name="clientName"
+								value={formData.clientName}
+								onChange={handleChange}
+								type="text"
+							>
+								{!formData.clientName && (
+									<option value="" disabled selected>
+										Pick a client
+									</option>
+								)}
+								{selectedEvent ? (
+									<option disabled>{formData.clientName}</option>
+								) : (
+									clients.map((client) => (
+										<option
+											key={client.id}
+											name="clientId"
+											value={client.id}
+										>
+											{client.name}
+										</option>
+									))
+								)}
+							</select>
 
-				<form>
-					<button
-						className="close-modal"
-						type=""
-						onClick={props.onClose}
-					>
-						❌
-					</button>
-					<label>Client Name:</label>
-					{console.log("formData clientname", formData.clientName)}
-					<select
-						name="clientName"
-						value={formData.clientName}
-						onChange={handleChange}
-						type="text"
-					>
-						{!formData.clientName && (
-							<option value="" disabled selected>
-								Pick a client
-							</option>
-						)}
-						{selectedEvent ? (
-							<option disabled>{formData.clientName}</option>
-						) : (
-							clients.map((client) => (
-								<option
-									key={client.id}
-									name="clientId"
-									value={client.id}
-								>
-									{client.name}
-								</option>
-							))
-						)}
-					</select>
-
-					<label>Date:</label>
-					<input
-						type="date"
-						name="date"
-						value={formData.date}
-						onChange={handleChange}
-					/>
-					<label>Start Time:</label>
-					<input
-						type="time"
-						name="startTime"
-						value={formData.startTime}
-						onChange={handleChange}
-					/>
-					<label>End Time:</label>
-					<input
-						type="time"
-						name="endTime"
-						value={formData.endTime}
-						onChange={handleChange}
-					/>
-					<label>Appointment Rate (cents) :</label>
-					<input
-						type="number"
-						step={100}
-						name="appointmentRateCents"
-						value={formData.appointmentRateCents}
-						onChange={handleChange}
-					/>
-					<label>Notes:</label>
-					<textarea
-						name="notes"
-						value={formData.notes}
-						onChange={handleChange}
-					/>
-					<br />
-					<button
-						className="addEditModalBtn"
+							<label>Date:</label>
+							<input
+								type="date"
+								name="date"
+								value={formData.date}
+								onChange={handleChange}
+							/>
+							<label>Start Time:</label>
+							<input
+								type="time"
+								name="startTime"
+								value={formData.startTime}
+								onChange={handleChange}
+							/>
+							<label>End Time:</label>
+							<input
+								type="time"
+								name="endTime"
+								value={formData.endTime}
+								onChange={handleChange}
+							/>
+							<label>Appointment Rate (cents) :</label>
+							<input
+								type="number"
+								step={100}
+								name="appointmentRateCents"
+								value={formData.appointmentRateCents}
+								onChange={handleChange}
+							/>
+							<label>Notes:</label>
+							<textarea
+								name="notes"
+								value={formData.notes}
+								onChange={handleChange}
+							/>
+							<br />
+						</form>
+					</div>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button
 						type="submit"
 						onClick={selectedEvent ? handleEdit : handleSubmit}
 					>
 						Save Appointment
-					</button>
+					</Button>
 					{selectedEvent && (
-						<button
+						<Button variant="danger"
 							onClick={handleDeleteAppointment}
-							className="addEditModalBtn"
 						>
 							Delete Appointment
-						</button>
+						</Button>
 					)}
-				</form>
-			</div>
-		)
+				</Modal.Footer>
+			</Modal>
+		</>
 	);
-};
+}
 
 export default AddEditModal;
