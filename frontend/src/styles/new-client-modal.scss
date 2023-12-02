@@ -22,8 +22,13 @@
     margin-top:1vw;
     width:20vw;
   }
-}
 
+  h3{
+    padding-top: 1vw;
+    }
+ 
+}
+  
 .new-client-close {
   position: absolute;
   top:0.1rem;
@@ -38,7 +43,7 @@
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 10px;
-  margin-left: -1vw;
+  margin-left: 0.8vw;
 
 
   label {
@@ -55,7 +60,7 @@
     @include main-colours;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-left: -3vw;
+    margin-left: -2vw;
   }
 }
 

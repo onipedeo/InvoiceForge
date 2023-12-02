@@ -250,7 +250,7 @@ export default function EditClientModal(props) {
               />
               <input className="address-input-edit"
                 type="text"
-                placeholder="Postal Code (required)"
+                placeholder="Postal Code (required). No space."
                 name="postalCode"
                 value={addressEditData.postalCode}
                 onChange={handleAddressEditInputChange}
