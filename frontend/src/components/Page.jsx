@@ -4,46 +4,46 @@ import AddEditModal from "./AddEditModal";
 import Day from "./Day";
 
 const Page = (props) => {
-	const [isModalOpen, setModalOpen] = useState(false);
+	const [show, setShow] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState(null);
 
 	useEffect(() => {
-		
 		if (selectedEvent) {
 		}
 	}, [selectedEvent]);
 
-	const openModal = () => {
-    setSelectedEvent(null);
-		setModalOpen(true);
+
+	const handleShow = () => {
+		setSelectedEvent(null);
+		setShow(true);
 	};
 
-	const closeModal = () => {
-    setSelectedEvent(null);
-		setModalOpen(false);
+	const handleClose = () => {
+		setSelectedEvent(null);
+		setShow(false);
 	};
 
 	return (
 		<div className="fullPage">
-			{isModalOpen ? (
+			{show ? (
 				<>
 					<AddEditModal
 						selectedEvent={selectedEvent}
 						user={props.user}
-						isOpen={isModalOpen}
-						onClose={closeModal}
+						show={show}
+						onClose={handleClose}
 					/>
 				</>
 			) : (
 				<>
 					<Day
 						setSelectedEvent={setSelectedEvent}
-						setModalOpen={setModalOpen}
+						setShow={setShow}
 						user={props.user}
 					/>
 				</>
 			)}
-			<button id="floating-add-button" onClick={openModal}>
+			<button id="floating-add-button" onClick={handleShow}>
 				➕
 			</button>
 		</div>
