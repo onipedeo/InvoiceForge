@@ -75,14 +75,15 @@
 
     .client-delete-container {
       top: 0;
-
+      padding-bottom: 0.5vw;
       position: relative; /* Needed for absolute positioning of pseudo-element */
       -webkit-box-shadow: 0 4px 6px -6px #222;
       -moz-box-shadow: 0 4px 6px -6px #222;
       box-shadow: 0 4px 6px -6px #222;
 
+
       .delete-msg {
-        margin-bottom: 0vw;
+        margin-bottom: 0.2vw;
       }
 
       .delete-confirm {
