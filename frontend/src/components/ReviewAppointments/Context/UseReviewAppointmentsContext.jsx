@@ -45,7 +45,7 @@ const ReviewAppointmentsProvider = ({ children }) => {
 
   // Fetch unreviewed and reviewed appointments
   useEffect(() => {
-    if (!user) return;
+    if (!user && !state.modalIsOpen) return;
     dispatch({ type: 'SET_IS_LOADING', payload: true });
     Promise.all([
       requests.get.user(user.id).unreviewed,
@@ -59,7 +59,7 @@ const ReviewAppointmentsProvider = ({ children }) => {
         // open the alert modal if there is an error
         showAlert("Sorry, there was an issue retrieving your appointments");
       });
-  }, [user]);
+  }, [user, state.modalIsOpen]);
 
   // Close any alerts and set loading to false when unreviewed and reviewed appointments are set
   useEffect(() => {
