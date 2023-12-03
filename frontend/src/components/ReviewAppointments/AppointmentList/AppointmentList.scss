@@ -22,10 +22,5 @@
 
 }
 button.btn.check-btn {
-    @include on-theme-button
+    @include button-colours;
   }
-
-button.btn.check-btn:hover {
-  @include on-theme-button-hover
-}
-
