@@ -11,3 +11,12 @@ input.number-input {
 button.check-btn {
   @include button-colours;
 }
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  .btn.nav-btn {
+    @include button-colours;
+    margin: 8px;
+  }
+}

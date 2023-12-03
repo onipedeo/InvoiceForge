@@ -28,19 +28,18 @@ export default (mode, setDisplayPage) => {
   if (Array.isArray(appointments) && appointments.length === 0) {
     return (
       <tr>
-        <td className="text-center align-middle" colSpan="5">
+        <td className="text-center align-middle empty-list" colSpan="5">
           <h3>You have no {mode} appointments.</h3>
           <p> What next?</p>
           <span
             onClick={() => {handleOnClick(4)}}
-            className="btn btn-primary"
+            className="btn nav-btn"
           >
             Generate Invoice
           </span>
-          <p>Or</p>
           <span
             onClick={() => handleOnClick(1)}
-            className="btn btn-primary"
+            className="btn nav-btn"
           >
             Schedule more appointments
           </span>
