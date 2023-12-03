@@ -1,4 +1,5 @@
 @import "./mixins";
+
 .top-nav-bar {
   position: fixed;
   top: 0;
@@ -20,61 +21,145 @@
 .top-nav-bar__logo {
   text-decoration: overline;
   font-weight: 500;
-  font-size: 24px;
-  color: #111;
+  font-size: 1rem;
+  color: #fff;
   text-underline-position: auto;
-  margin-left: 24px;
-  font-family: 'YourLogoFont', sans-serif;
+  margin: 0 36px;
+  font-family: sans-serif;
   letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    &:after {
+      animation: slide .5s linear forwards;
+    }
+  }
 }
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 
 .top-nav-bar__list {
   display: flex;
   justify-content: space-between;
-  width: 45%;
+  width: 50vw;
   align-items: center;
-  margin: 120px;
-  font-size: 18px;
+  font-size: 1rem;
   text-decoration: none;
   font-weight: 500;
 
   span {
-    display: inline-block;
-    padding: 0.3px;
+    display: flex;
+    border-radius: 12px;
+    padding: 12px;
     transition: text-shadow 0.3s ease;
+    height: 10vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    @include link-styles;
+    font-size: 1rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      border: inset;
+      border-width: thin;
+      border-color: goldenrod;
+      transform: translate(1px, 1px);
+
+      text-shadow: 2px 2px 5px rgba(4, 4, 4, 0.5);
+      cursor: pointer;
+    }
   }
 
-  span:hover {
+
+}
+
+.dropdown-menu.show {
+  inset: 0 0 auto;
+}
+
+
+
+.user-greeting.dropdown-toggle {
+  border: none;
+  margin: 0 24px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    color: lightgray;
+  }
+
+  &:active {
+    border: inset;
+    border-width: thin;
+    border-radius: 12px;
+
+    border-color: goldenrod;
+    transform: translate(1px, 1px);
+
     text-shadow: 2px 2px 5px rgba(4, 4, 4, 0.5);
     cursor: pointer;
   }
+
+  &:after {
+    display: none;
+  }
 }
+
+
 
 .top-nav-bar__authentication {
   display: flex;
+  justify-content: center;
   font-size: 18px;
   text-decoration: none;
   font-weight: 500;
+  gap: 24px;
 
   .afterlogin {
     font-size: medium;
   }
 
+
+
   span {
-    padding: 2px;
+    display: flex;
+    border-radius: 12px;
+    padding: 12px;
     transition: text-shadow 0.3s ease;
+    height: 10vh;
+    max-width: 11vw;
+    flex-direction: column;
+    justify-content: space-evenly;
 
-
-
-    &:not(:last-child) {
-      padding-right: 8px;
-      margin-right: 8px;
-      border-right: 1px solid #111;;
-    }
-
-    &:hover {
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
-    }
   }
 }
