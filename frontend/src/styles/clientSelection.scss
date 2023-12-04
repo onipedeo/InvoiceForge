@@ -1,9 +1,24 @@
 .client-option {
-  width: 50vw ;
+  width: 50vw;
   padding: 8px;
   font-size: 14px;
   font-family: "Georgia, 'Times New Roman', Times, serif";
   font-size: large;
   background-color: darkgray;
   border-radius: 4px;
+}
+
+
+.select-client-msg {
+  max-height: 65vh;
+  width: 29vw;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
