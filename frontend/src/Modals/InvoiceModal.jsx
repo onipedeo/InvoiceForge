@@ -27,7 +27,7 @@ export default ({ generatedPDF, handleBackToAppointments, handleConfirmAndSend }
 
 
   return (
-    <Modal show={invoiceDisplay} onHide={hideInvoice}>
+    <Modal show={invoiceDisplay} onHide={hideInvoice} className='modal-lg'>
       <Modal.Header closeButton >
         <Modal.Title>Forged Invoice</Modal.Title>
       </Modal.Header >
@@ -45,7 +45,7 @@ export default ({ generatedPDF, handleBackToAppointments, handleConfirmAndSend }
         <Button variant="secondary" onClick={() => { handleAndHide(handleBackToAppointments); }}>
           Back to Appointments
         </Button >
-        <Button variant="primary" onClick={() => { handleAndHide(handleConfirmAndSend); }}>
+        <Button className='invoice-confirm-button' onClick={() => { handleAndHide(handleConfirmAndSend); }}>
           Confirm and Send
         </Button >
 

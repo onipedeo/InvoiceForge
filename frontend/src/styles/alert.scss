@@ -1,0 +1,5 @@
+@import "./mixins";
+
+.alert-button {
+  @include  button-colours;
+}
