@@ -6,10 +6,9 @@ import { FaCheck } from 'react-icons/fa';
 import request from '../../../../api/requests';
 
 const Appointment = ({ appointment }) => {
-  const { state, dispatch, actions } = UseReviewAppointmentsContext();
+  const { dispatch, actions } = UseReviewAppointmentsContext();
   const [hours, setHours] = useState(0);
-  const increment = () => setHours(prevValue => ++prevValue);
-  const decrement = () => setHours(prevValue => --prevValue);
+
 
   // Extract values from the appointment prop
   const { confirmedHours, date, client, notes, startTime, endTime, id } = appointment;
@@ -74,7 +73,7 @@ const Appointment = ({ appointment }) => {
       <td>{notes}</td>
       <td className='col-auto'>{
         confirmedHours ||
-        <input type="number" className='number-input' name="confirmedHours" min="0.25" step="0.25" value={hours} onChange={(e) => {
+        <input type="number" className='number-input' name="confirmedHours" min="1" step="1" value={hours} onChange={(e) => {
           setHours(e.target.value);
         }} />
       }</td>

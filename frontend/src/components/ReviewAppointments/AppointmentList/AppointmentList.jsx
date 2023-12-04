@@ -28,13 +28,15 @@ const AppointmentList = ({ mode, setDisplayPage }) => {
     <>
       <table className="table table-striped">
         <thead className="thead-dark">
-          <tr>
+         {!!appointments && !!appointments.length &&
+         <tr>
             <th>Client</th>
             <th>Date</th>
             <th>Notes</th>
             <th>Hours</th>
             <th></th>
           </tr>
+          }
         </thead>
         <tbody>
           {componentAppointments}

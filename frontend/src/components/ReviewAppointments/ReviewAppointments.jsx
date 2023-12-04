@@ -28,7 +28,7 @@ const ReviewAppointments = ({ setDisplayPage }) => {
       </Modal.Header>
       <Modal.Body>
         <div className='col'>
-          <article className='row card'>
+          <article className='row card table-container'>
             <AppointmentList key={1} mode={'unreviewed'} setDisplayPage={setDisplayPage} />
           </article>
         </div>

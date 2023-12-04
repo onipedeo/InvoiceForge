@@ -8,6 +8,11 @@ input.number-input {
   background-color: rgba(43, 40, 40, 0.208);
 }
 
-button.check-btn {
-  @include button-colours;
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  .btn.nav-btn {
+    @include button-colours;
+    margin: 8px;
+  }
 }

@@ -13,6 +13,7 @@ const Page = (props) => {
 	}, [selectedEvent]);
 
 
+
 	useEffect(() => {
 		if (show === false) {
 			setSelectedEvent(null);
@@ -27,6 +28,7 @@ const Page = (props) => {
 	const handleClose = () => {
 		setShow(false);
 		setSelectedEvent(null);
+
 	};
 
 	return (

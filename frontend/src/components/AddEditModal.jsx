@@ -5,8 +5,8 @@ import { Modal, Button } from "react-bootstrap";
 import { useAlertModal } from "../contextProviders/useAlertModalContext";
 
 
-function AddEditModal(props) {
 
+function AddEditModal(props) {
 	const { showAlert } = useAlertModal();
 	const { show, onClose } = props;
 	const defaultFormData = {
@@ -49,6 +49,7 @@ function AddEditModal(props) {
 
 		const value =
 			type === "checkbox" ? event.target.checked : event.target.value;
+
 
 		if (name === "clientId") {
 			const selectedClient = clients.find(

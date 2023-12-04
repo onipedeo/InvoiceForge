@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.scss";
+
 .table-container {
   max-height: 70vh;
   overflow-y: auto;
@@ -5,7 +7,7 @@
 }
 
 .table-container {
-
+  margin: 0
   thead th,
   thead-dark th {
     position: sticky;
@@ -13,22 +15,12 @@
     background: white;
     z-index: 10;
   }
-}
-
-.container {
-  display: flex;
-  justify-content: space-evenly;
-
-  @media screen and (max-width: 1400px) {
-    flex-direction: column;
-    max-height: 100vh;
-    overflow-y: auto;
+  .table.table-striped {
+    margin:0;
   }
-}
 
-.custom-input::-webkit-inner-spin-button,
-.custom-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
+
 }
+button.btn.check-btn {
+    @include button-colours;
+  }
