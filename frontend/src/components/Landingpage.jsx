@@ -3,21 +3,21 @@ import "../styles/landing-page.scss";
 export default function LandingPage(props) {
   return (
     <div className="landing-container">
-      <div className="landing-text-box">
-        <h3>Master your schedule with:</h3>
-        <span className="langing-page__logo">Invoice Forge</span>
-        <ul>
-          <li>
+      <div className="landing-text-box card">
+        <h3>Master your schedule with</h3>
+        <div className="langing-page__logo">InvoiceForge</div>
+        <article className="landing-text">
+          <section>
             Create an account, add clients, and navigate your schedule intuitively!
-          </li>
-          <li>
+          </section>
+          <section>
             Edit, review, and bill appointments with ease!
-          </li>
-          <li>
+          </section>
+          <section>
             Generate accurate invoices with a few clicks!
-          </li>
+          </section>
 
-        </ul>
+        </article>
         <p>Join today for a simplified approach to time management and billing!</p>
 
       </div>
