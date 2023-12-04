@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../styles/addEditModal.scss";
 import requests from "../api/requests";
 import { Modal, Button } from "react-bootstrap";
+import { useAlertModal } from "../contextProviders/useAlertModalContext";
+
 
 
 function AddEditModal(props) {
-
-	const { show, handleClose } = props;
+	const { showAlert } = useAlertModal();
+	const { show, onClose } = props;
 	const defaultFormData = {
 		appointmentRateCents: 0,
 		date: "",
@@ -34,8 +36,10 @@ function AddEditModal(props) {
 				clientName
 			};
 			setFormData(newFormData);
+		} else {
+			setFormData(defaultFormData);
 		}
-	}, [selectedEvent]);
+	}, [selectedEvent, show]);
 
 	const [clients, setClients] = useState([]);
 
@@ -47,15 +51,14 @@ function AddEditModal(props) {
 			type === "checkbox" ? event.target.checked : event.target.value;
 
 
-		if (event.target.name === "clientName") {
+		if (name === "clientId") {
 			const selectedClient = clients.find(
-				(client) => client.id === parseInt(event.target.value)
+				(client) => client.id === parseInt(value)
 			);
 			setFormData((formData) => ({
 				...formData,
-				clientId: selectedClient
-					? selectedClient.id
-					: event.target.value,
+				clientId: selectedClient ? selectedClient.id : '',
+				clientName: selectedClient ? selectedClient.name : '',
 			}));
 		} else {
 			setFormData((formData) => ({
@@ -78,6 +81,7 @@ function AddEditModal(props) {
 
 			// Close the modal
 			props.onClose();
+			showAlert({ title: "Success", message: "Appointment created" });
 		} catch (error) {
 			console.error("Error sending data", error);
 		}
@@ -103,7 +107,7 @@ function AddEditModal(props) {
 				body: JSON.stringify(edittedappointment),
 			};
 			fetch(url, reqOptions);
-			alert("updated successfully");
+			showAlert({ title: "Success", message: "Updated successfully" });
 
 		} catch (error) {
 			console.error("Error sending data", error);
@@ -120,7 +124,7 @@ function AddEditModal(props) {
 				method: "DELETE",
 				headers: { "content-type": "application/json" },
 			});
-			alert("appointment deleted");
+			showAlert({ title: "Success", message: "Appointment deleted" });
 		} catch (error) {
 			console.error("appointment not deleted", error);
 		}
@@ -131,7 +135,7 @@ function AddEditModal(props) {
 		<>
 			<Modal
 				show={show}
-				onHide={props.onClose}
+				onHide={() => onClose()}
 				backdrop="static"
 				keyboard={false}
 			>
@@ -148,29 +152,24 @@ function AddEditModal(props) {
 						<form className="form">
 							<label>Client Name:</label>
 							<select
-								name="clientName"
-								value={formData.clientName}
+								name="clientId"
+								value={formData.clientId}
 								onChange={handleChange}
 								type="text"
 							>
-								{!formData.clientName && (
-									<option value="" disabled selected>
+								{!formData.clientId && (
+									<option value="" disabled defaultValue>
 										Pick a client
 									</option>
 								)}
-								{selectedEvent ? (
-									<option disabled>{formData.clientName}</option>
-								) : (
-									clients.map((client) => (
-										<option
-											key={client.id}
-											name="clientId"
-											value={client.id}
-										>
-											{client.name}
-										</option>
-									))
-								)}
+								{clients.map((client) => (
+									<option
+										key={client.id}
+										value={client.id}
+									>
+										{client.name}
+									</option>
+								))}
 							</select>
 
 							<label>Date:</label>
