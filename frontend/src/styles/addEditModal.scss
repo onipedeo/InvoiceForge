@@ -1,3 +1,5 @@
+@import "./mixins";
+
 .form {
   display: inline-flex;
   height: auto;
@@ -24,5 +26,11 @@
   display: flex;
   align-self: flex-end;
   cursor: pointer;
+}
+
+#edit-appointment-button {
+  @include button-colours; 
+  padding: 6.5px;
+  font-size: medium;
 }
 

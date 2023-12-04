@@ -215,6 +215,7 @@ function AddEditModal(props) {
 					<Button
 						type="submit"
 						onClick={selectedEvent ? handleEdit : handleSubmit}
+						id="edit-appointment-button"
 					>
 						Save Appointment
 					</Button>
