@@ -8,7 +8,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 const Day = (props) => {
-	const { setShow } = props
+	const { setShow, show } = props
 	const setSelectedEvent = props.setSelectedEvent;
 
 	const [events, setevents] = useState([]);
@@ -19,7 +19,7 @@ const Day = (props) => {
 				const appointments = await requests.get.user(props.user.id)
 					.appointments;
 				const sortedEvents = [];
-				const clients = await requests.get.user(props.user.id).clients;
+				// const clients = await requests.get.user(props.user.id).clients;
 
 
 				const appointmentEvents = appointments.map((app) => {
@@ -39,7 +39,7 @@ const Day = (props) => {
 		};
 
 		fetchData();
-	}, []);
+	}, [show]);
 
 	//function to handle edit
 	const handleSelectedEvent = (event) => {
