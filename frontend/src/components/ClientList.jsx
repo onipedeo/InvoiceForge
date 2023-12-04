@@ -91,12 +91,12 @@ export default function ClientList(props) {
 
   return (
     <>
-    {/* modals first for styling */}
-    {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
-      setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
+      {/* modals first for styling */}
+      {isClientModalOpen && <NewClientModal setClientModelOpen={setClientModelOpen} user={user}
+        setClientId={setClientId} setAddressId={setAddressId} clientId={clientId} addressId={addressId} />}
 
-    {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} setEdited={setEdited}
-      selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen} />}
+      {isClientEditModalOpen && <EditClientModal selectedClientIdtoEdit={selectedClientIdtoEdit} setEdited={setEdited}
+        selectedAddressIdtoEdit={selectedAddressIdtoEdit} user={user} setClientEditModelOpen={setClientEditModelOpen} />}
       <h3>{clients.length > 0 ? `You have ${clients.length} Clients` : 'No Clients Yet'}</h3>
       <button className="add-new-client-button btn btn-block" onClick={handleNewClientModalClick}>Add New Client</button>
 
@@ -112,7 +112,7 @@ export default function ClientList(props) {
                 </nav>
                 {/*Delete confirmation div*/}
                 {deleteMsgShow && client.id === selectedClientIdtoDelete && <div className='client-delete-container'>
-                  <p className='delete-msg'>You are about to <span style={{ fontWeight: 'bold' }}>delete</span> this client from your client list.</p>
+                  <p className='delete-msg'>You are about to <span style={{ fontWeight: 'bold', color: 'red' }}>delete</span> this client from your client list.</p>
                   <div className='delete-confirm'>
                     <button className='delete-button' onClick={() => deleteClient(selectedClientIdtoDelete)}>Confirm</button>
                     <button className='delete-button' onClick={handleDeleteConfirmPageClose}>Cancel</button>
@@ -124,7 +124,7 @@ export default function ClientList(props) {
                   {!client.companyName && <span>{client.name}</span>}
                   <span>{client.email}</span>
                   {client.address && <span>{client.address.line1} {client.address.postalCode}</span>}
-    
+
                   {client.phone && <span>{client.phone}</span>}
                   {client.clientRateCents && <span>Rate:${client.clientRateCents / 100} / hour</span>}
                 </div>
