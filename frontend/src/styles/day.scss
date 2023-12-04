@@ -1,8 +1,35 @@
 .day-housing {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.myCustomHeight {
+	margin: 25px;
+	padding: 25px;
+	background-color: lightgray;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+}
+
+.rbc-event-content {
+  background-color: grey;
+  padding: 8px;
+  &:hover{
+    background-color: #208afccc;
+  }
+}
+
+.rbc-event {
+  padding: 0px !important;
+  background-color: darkgoldenrod !important;
+  border: none !important;
+}
+
+.rbc-event-label {
+  padding: 4px;
 }
