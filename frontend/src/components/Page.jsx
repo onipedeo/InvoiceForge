@@ -46,7 +46,7 @@ const Page = (props) => {
 				user={props.user}
 			/>
 			<button id="floating-add-button" onClick={handleShow}>
-				➕
+				Add Appoinment
 			</button>
 		</div>
 	);

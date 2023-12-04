@@ -1,6 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useContext, useEffect } from 'react';
 import { useAlertModal } from '../contextProviders/useAlertModalContext.jsx';
+import "../styles/alert.scss";
 
 /**
  * AlertModal component displays an alert message in a modal dialog.
@@ -27,7 +28,7 @@ export default () => {
       </Modal.Header>
       <Modal.Body>{alert.message}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose || hideAlert}>
+        <Button className='alert-button' variant="secondary" onClick={onClose || hideAlert}>
           Close
         </Button>
       </Modal.Footer>

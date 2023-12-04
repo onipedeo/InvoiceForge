@@ -1,13 +1,23 @@
+@import "./mixins";
+
+
 .forge-invoice-button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
   background-color: darkgoldenrod;
   color: white;
-  margin-top: 2vw;
+  margin: 1vw;
   padding: 10px 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 20px;
+}
+
+.invoice-confirm-button {
+  @include  button-colours;
+  padding: 7px;
+  font-size: medium;
+  
 }
 
 .forge-invoice-button:hover {
